@@ -23,7 +23,7 @@ Este comando ejecuta el archivo build/index.js el cual levanta los servicios del
 
 ## URL's
 
-### ../atleta/
+### atleta/
 [GET] devulve un json con todos los atletas y couch asociados a la base de datos
 ```json
 {
@@ -45,7 +45,7 @@ estructura:
 * iduser_couch= codigo identificador couch
 * email=cadena de caracteres, 20 max
 
-### ../atleta/update
+### atleta/update
 
 [POST] actualiza los datos de los atletas o usuarios segun el email 
 
@@ -72,7 +72,7 @@ respuesta
     "respuesta": "el usuario se modifico con exito"
 }
 ```
-### ../atleta/add
+### atleta/add
 [POST] agregar un usuario a la base de datos, un atleta por defecto no tiene couch, solo se le pude asignar 1 couch
 enviar
 ```json
@@ -97,7 +97,7 @@ respuesta
 }
 ```
 
-### ../atleta/checkEmail
+### atleta/checkEmail
 [POST] revisa si un correo electronico ya existe en el sistema, esto es al momento de registrarse y asi evitar que los email's se repitan
 ```json
 {
@@ -124,7 +124,7 @@ respuesta cuando no encuentra el correo
 ```
 
 
-### ../atleta/checkCredential
+### atleta/checkCredential
 [POST] verifica si el correo y contraseña son correctas, LOGIN
 ```json
 {
@@ -158,7 +158,7 @@ respuesta cuando las credenciales son incorrectas
 }
 ```
 
-### ../atleta/drop
+### atleta/drop
 [POST] eliminar la cuenta del usuario (atleta o couch)
 enviar
 ```json
@@ -177,3 +177,204 @@ respuesta
 
 ```
 
+### couch/
+[post] se asigna couch a atleta, enviar nombre y apellido del atleta , asi como tambien el iduser_couch
+```json
+{
+	"iduser_couch":"...",
+	"nombre":"...",
+	"apellido":"..."
+}
+```
+respuesta
+```json
+{
+    "status": "c:",
+    "mensaje": "se asigno couch al usuario ..."
+}
+```
+### couch/quitar
+[post] se le quita couch al atleta, solo se necesita el nombre y apellido del usuario 
+```json
+{
+	"nombre":"...",
+	"apellido":"..."
+}
+```
+respuesta
+```json
+{
+    "status": "c:",
+    "mensaje": "se quito couch a este "
+}
+```
+### couch/listaAtleta
+[post] devuelve una lista de atletas que estan asignadas a un couch
+```json
+{
+	"iduser_couch": ...
+}
+```
+respuesta
+```json
+{
+    "respuesta": [
+        {
+            "iduser": ...,
+            "nombre": "...",
+            "apellido": "...",
+            "edad": ...,
+            "genero": "...",
+            "peso_lb": ...,
+            "estatura_cm": ...,
+            "contrasena": "...",
+            "iduser_couch": ...,
+            "email": "..."
+        },
+        {
+            "iduser": ...,
+            "nombre": "...",
+            "apellido": "...",
+            "edad": ...,
+            "genero": "...",
+            "peso_lb": ...,
+            "estatura_cm": ...,
+            "contrasena": "...",
+            "iduser_couch": ...,
+            "email": "..."
+        }, ...
+    ]
+}
+```
+
+
+### lectura/
+[POST] inserta una lectura a la base de datos
+estructura:
+- id_user=codigo del usuario 
+- tipo= Oxigenacion(O) o temperatura (T) o ritmo cardiaco(R)  
+- fecha= año/mes/dia
+- dato=lectura a ingesar
+
+
+envia
+```json
+{
+	"id_user":1,
+	"tipo":"...",
+	"fecha":"20/01/21",
+	"dato": 79
+}
+```
+respuesta
+
+```json
+{
+    "status": "c:",
+    "mensaje": "se ingreso la lectura"
+}
+```
+### lectura/historial
+[POST] retorna un array de 10 lecturas mas recientes de un atleta , para ello se necesita enviar el id del atleta y el tipo= "O" (oxigenamcion) | "T" (temperatura) | "R" (ritmo)
+
+
+```json
+{
+	"iduser": 2,
+	"tipo": "T"
+}
+```
+respuesta del atleta 2 de sus lecturas mas recientes de temperatura:
+```json
+{
+    "respuesta": [
+        {
+            "fecha": "2020-01-01T06:00:00.000Z",
+            "dato": ...
+        },
+        {
+          ...
+        },
+        {
+          ...
+        },
+        ...
+    ]
+}
+```
+### lectura/historialMax
+[POST] muestra la lectura maxima de oxigenacion "O" o temperatura"T" o ritmo cardiaco "R"  de un atleta
+enviar
+```json
+{
+	"iduser": ...,
+	"tipo": "..."
+}
+```
+respuesta
+```json
+{
+    "respuesta": [
+        {
+            "fecha": "2020-01-01T06:00:00.000Z",
+            "max(dato)": ...
+        }
+    ]
+}
+```
+### lectura/historialMin
+[POST]muestra la lectura minima de oxigenacion "O" o temperatura"T" o ritmo cardiaco "R" de un atleta
+```json
+{
+	"iduser": ...,
+	"tipo": "..."
+}
+```
+respuesta
+```json
+{
+    "respuesta": [
+        {
+            "fecha": "2020-01-01T06:00:00.000Z",
+            "min(dato)": ...
+        }
+    ]
+}
+```
+### lectura/historialProm
+[POST]muestra la lectura promedio de oxigenacion "O" o temperatura "T" o ritmo cardiaco "R" de un atleta
+```json
+{
+	"iduser": ...,
+	"tipo": "..."
+}
+```
+respuesta 
+```json
+{
+    "respuesta": [
+        {
+            "avg(dato)": ...
+        }
+    ]
+}
+```
+### lectura/now
+[POST]muestra la lectura mas reciente de un atleta, para ello se necesita el tipo de lectura que se requiere(t,o,r)
+```json
+{
+	"iduser": ...,
+	"tipo": "T"
+}
+```
+respuesta
+```json
+{
+    "respuesta": [
+        {
+            "fecha": "2020-01-11T06:00:00.000Z",
+            "dato": ...
+        }
+    ]
+}
+```
