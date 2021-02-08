@@ -1,11 +1,7 @@
-.fondo{
+.navbar-fixed-top{
     transition: 500ms ease;
-    background: transparent !important;
+    background: transparent;
   }
-  .fondo.scrolled{
-    background: #4dc47d;;
-  }
-
 /* -----------------------------
 MENU 
 -------------------------------*/

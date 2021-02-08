@@ -14,7 +14,19 @@ export class NavigationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const changeBackground = () => {
+      let element = document.querySelector<HTMLElement>(".navbar-fixed-top");
+      var myNav = document.getElementsByClassName('navbar-fixed-top');
+      if (window.scrollY >= 50 && element != null) {
+        element.style.background = "#4dc47d";
+      }else if(window.scrollY < 50 && element != null){
+        element.style.background = "transparent";
+      }
+      
+    }
+    window.addEventListener('scroll',changeBackground);
   }
+  
   
 
 }
