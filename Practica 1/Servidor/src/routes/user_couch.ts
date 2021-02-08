@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { apiController_lectura_ } from '../controllers/lectura';
 import { apiController_user_couch_ } from '../controllers/userCouch'
 
 class ApiRoutes_userCouch {
@@ -10,8 +11,10 @@ class ApiRoutes_userCouch {
     }
 
     config(): void {
-        this.router.get('/', apiController_user_couch_.index);
-        this.router.get('/usuario/getAll', apiController_user_couch_.consulta1);
+        this.router.post('/', apiController_user_couch_.asignar);
+        this.router.post('/quitar', apiController_user_couch_.quitarCouch);
+        this.router.post('/listaAtleta', apiController_user_couch_.traerListaAtleta)
+
     }
 }
 

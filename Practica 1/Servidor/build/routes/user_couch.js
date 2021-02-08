@@ -8,8 +8,9 @@ var ApiRoutes_userCouch = /** @class */ (function () {
         this.config();
     }
     ApiRoutes_userCouch.prototype.config = function () {
-        this.router.get('/', userCouch_1.apiController_user_couch_.index);
-        this.router.get('/usuario/getAll', userCouch_1.apiController_user_couch_.consulta1);
+        this.router.post('/', userCouch_1.apiController_user_couch_.asignar);
+        this.router.post('/quitar', userCouch_1.apiController_user_couch_.quitarCouch);
+        this.router.post('/listaAtleta', userCouch_1.apiController_user_couch_.traerListaAtleta);
     };
     return ApiRoutes_userCouch;
 }());

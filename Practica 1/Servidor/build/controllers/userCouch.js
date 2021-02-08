@@ -42,33 +42,72 @@ var database_1 = __importDefault(require("../database"));
 var apiController_userCouch = /** @class */ (function () {
     function apiController_userCouch() {
     }
-    apiController_userCouch.prototype.index = function (req, res) {
+    apiController_userCouch.prototype.asignar = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1;
+            var accion1, accion2, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
                     case 1:
                         accion1 = _a.sent();
-                        res.json({ text: 'Bienvenido a la base de datos MYSQL remoto' });
-                        return [2 /*return*/];
+                        return [4 /*yield*/, database_1.default.query("update usuario set iduser_couch=\"" + req.body.iduser_couch + "\" where nombre=\"" + req.body.nombre + "\" and apellido=\"" + req.body.apellido + "\"")];
+                    case 2:
+                        accion2 = _a.sent();
+                        res.json({ status: "c:", mensaje: "se asigno couch al usuario " + req.body.nombre + " " + req.body.apellido });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        res.json({ status: ":c", mensaje: "no se pudo asignar al couch" });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    apiController_userCouch.prototype.consulta1 = function (req, res) {
+    apiController_userCouch.prototype.quitarCouch = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion1, accion2, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
                     case 1:
                         accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select * from usuario")];
+                        return [4 /*yield*/, database_1.default.query("update usuario set iduser_couch= null where nombre=\"" + req.body.nombre + "\" and apellido=\"" + req.body.apellido + "\"")];
                     case 2:
                         accion2 = _a.sent();
-                        res.json({ text: accion2 });
-                        return [2 /*return*/];
+                        res.json({ status: "c:", mensaje: "se quito couch a este " });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    apiController_userCouch.prototype.traerListaAtleta = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accion1, accion2, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 1:
+                        accion1 = _a.sent();
+                        return [4 /*yield*/, database_1.default.query("select * from usuario where iduser_couch = " + req.body.iduser_couch)];
+                    case 2:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_3 = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

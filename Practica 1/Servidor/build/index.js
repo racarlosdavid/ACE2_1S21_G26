@@ -8,6 +8,7 @@ var morgan_1 = __importDefault(require("morgan"));
 var cors_1 = __importDefault(require("cors"));
 var user_simple_1 = __importDefault(require("./routes/user_simple"));
 var user_couch_1 = __importDefault(require("./routes/user_couch"));
+var lectura_1 = __importDefault(require("./routes/lectura"));
 var Server = /** @class */ (function () {
     function Server() {
         this.app = express_1.default();
@@ -22,8 +23,9 @@ var Server = /** @class */ (function () {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     };
     Server.prototype.routes = function () {
-        this.app.use('/usuario', user_simple_1.default);
+        this.app.use('/atleta', user_simple_1.default);
         this.app.use('/couch', user_couch_1.default);
+        this.app.use('/lectura', lectura_1.default);
     };
     Server.prototype.start = function () {
         var _this = this;
