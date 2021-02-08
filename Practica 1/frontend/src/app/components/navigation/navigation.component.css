@@ -1,0 +1,47 @@
+.fondo{
+    transition: 500ms ease;
+    background: transparent !important;
+  }
+  .fondo.scrolled{
+    background: #4dc47d;;
+  }
+
+/* -----------------------------
+MENU 
+-------------------------------*/
+.navbar .navbar-brand{
+    font-weight: normal;
+    font-size: 25px;
+    color: #fff;
+}
+
+.navbar .navbar-nav .nav-link{
+    
+    font-weight: normal;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 0;
+    text-transform: uppercase;
+    transition: all-ease-in 0.4s;
+    color: #fff;
+}
+
+.navbar .navbar-nav .nav-link:hover{
+    background : transparent;
+    color: #fff;
+}
+
+.navbar .navbar-nav .nav-link::after{
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: transparent;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+.navbar .navbar-nav .nav-link:hover::after{
+    width: 100%;
+    background: #fff;
+    color: #fff;
+}
+
