@@ -7,6 +7,10 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { HomeComponent } from './components/home/home.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AtletaService } from './services/atleta-services/atleta.service';
+import { CouchService } from './services/couch-services/couch.service';
+import { LecturaService } from './services/lectura-services/lectura.service';
 
 @NgModule({
   declarations: [
@@ -18,9 +22,14 @@ import { SigninComponent } from './components/signin/signin.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AtletaService,
+    CouchService,
+    LecturaService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
