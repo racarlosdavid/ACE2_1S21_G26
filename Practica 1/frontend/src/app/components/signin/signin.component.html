@@ -10,16 +10,16 @@
                 <div class="form-row row">
                     <!--Nombre-->
                     <div class="form-group">
-                        <input type="email" name="" class="form-control" placeholder="Email">
+                        <input [(ngModel)]="email" name="email" type="email" class="form-control" id="txtEmail" placeholder="Email" >
                     </div>
                     <!--Apellido-->
                     <div class="form-group ">
-                        <input type="password" name="" class="form-control" placeholder="Contraseña">
+                        <input [(ngModel)]="password" name="password" type="password" class="form-control"  id="txtPassword" placeholder="Contraseña" >
                     </div>
                 </div>
             </form>
             <ul class="section-btn text-center">
-                <a><span data-hover="Log In">Log In</span></a>
+                <a (click)='iniciarSesion()'><span data-hover="Log In">Log In</span></a>
             </ul>
         </div>
     </div>

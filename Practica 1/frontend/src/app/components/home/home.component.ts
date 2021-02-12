@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 
   };
   
-  constructor(private historial:LecturaService) { 
-    
-    historial.getHistorial(2,"T").subscribe(
+  constructor(private couchService:CouchService) { 
+    /*
+    couchService.quitarCouch("maria@gmail.com").subscribe(
       res=>{
         console.log(res);
       }, 
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
         console.log(err);
       }
     );
+    */
   }
 
   ngOnInit(): void {

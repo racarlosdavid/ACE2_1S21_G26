@@ -11,6 +11,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AtletaService } from './services/atleta-services/atleta.service';
 import { CouchService } from './services/couch-services/couch.service';
 import { LecturaService } from './services/lectura-services/lectura.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { LecturaService } from './services/lectura-services/lectura.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    CommonModule
   ],
   providers: [
     AtletaService,

@@ -2,11 +2,11 @@ export interface Atleta{
     iduser?:number;  
     nombre?:string;
     apellido?:string;
-    edad?:number;
+    edad?:number|string;
     genero?: string;
-    peso_lb?: number;
-    estatura_cm?: number;
+    peso_lb?: number|string;
+    estatura_cm?: number|string;
     contrasena?:string;
     iduser_couch?: number|null;
-    email?:string;
+    email?:string|undefined;
 }

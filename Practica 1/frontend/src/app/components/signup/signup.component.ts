@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { createPublicKey } from 'crypto';
 import { $ } from 'protractor';
+import { Atleta } from 'src/app/models/Atleta';
+import { Respuesta } from 'src/app/models/Respuesta';
+import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,8 +13,30 @@ import { $ } from 'protractor';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private atletaService:AtletaService, private router:Router) {
+    let usuarioActivo = localStorage.getItem('usuarioActivo');
+    //TODO quitar cuando ya este hecho el dashboard principal
+    /*
+    if(!(usuarioActivo == null  || usuarioActivo == undefined)){
+      router.navigate(['/principal']);
+    }
+    */
+   }
 
+  atleta:Atleta={
+    nombre:'',
+    apellido:'',
+    genero:'',
+    email:'',
+    contrasena:'',
+    edad:'',
+    peso_lb:'',
+    estatura_cm:'',
+    iduser_couch:null
+
+  }
+  lista:string[] = ['M', 'F'];
+  
   ngOnInit(): void {
     this.desplegarMenu()
   }
@@ -31,4 +57,53 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  comprobarCampos():boolean{
+    if(this.atleta.apellido==''  ||   this.atleta.edad==''  ||  this.atleta.contrasena==''
+      ||this.atleta.email==''    ||   this.atleta.estatura_cm==''   ||   this.atleta.genero==''
+      ||this.atleta.nombre==''   ||   this.atleta.peso_lb==''){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  async verificarEmail():Promise<any>{
+    if(this.atleta.email == undefined){
+      return false;
+    }
+    await this.atletaService.checkEmail(this.atleta.email).subscribe(
+      res=>{
+        let objResCheck = <Respuesta>res
+        if(objResCheck.respuesta.length ==0){
+          return true;
+        }else{
+          alert('El email ingresado ya esta asociado a una cuenta en el sistema.');
+          return false;
+        }
+      },err=>{
+        console.log('Error inesperado en la consulta al servidor');
+        return false;
+      }
+      
+    );
+    return false;
+  }
+
+  registrarse(){
+    if(!this.comprobarCampos()){
+      alert('Por favor llene todos los campos');
+      return;
+    }else if(this.verificarEmail()){
+      this.atletaService.addAtleta(this.atleta).subscribe(
+        res=>{
+          let objRes = <Respuesta>res;
+          alert(objRes.mensaje)
+        },err=>{
+          console.log('Error inesperado en la consulta con el servidor');
+        }
+      ) 
+    }else{
+      console.log('Error en la verificacion de Email');
+    }
+  }
 }

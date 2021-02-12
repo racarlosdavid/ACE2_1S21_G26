@@ -10,23 +10,33 @@
                 <div class="form-row row">
                     <!--Nombre-->
                     <div class="form-group col-md-6">
-                        <input type="text" name="" class="form-control" placeholder="Nombre">
+                        <input [(ngModel)]='atleta.nombre' type="text" name="nombre" class="form-control" placeholder="Nombre">
                     </div>
                     <!--Apellido-->
                     <div class="form-group col-md-6">
-                        <input type="text" name="" class="form-control" placeholder="Apellido">
+                        <input [(ngModel)]='atleta.apellido' type="text" name="apellido" class="form-control" placeholder="Apellido">
                     </div>
                 </div>
 
                 <div class="form-row row">
                     <!--Edad-->
                     <div class="form-group col-md-3">
-                        <input type="number" name="" class="form-control" placeholder="Edad">
+                        <input [(ngModel)]='atleta.edad' type="number" name="edad" class="form-control" placeholder="Edad">
                     </div>
-                    <!--Genero-->
+
                     <div class="form-group col-md-3">
                         <div class="btn-group dropend">
-                            <button
+                        <br/>
+                            <label for="selectorGenero" style="color: white;">Genero:</label>
+                            <select name="selectorGenero" id="selectorGenero" [(ngModel)]="atleta.genero" >
+                                <option class="form-select form-select-lg mb-"  [value]="valor" *ngFor="let valor of lista">{{valor}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Genero
+                    <div class="form-group col-md-3">
+                        <div class="btn-group dropend">
+                            <button 
                             class="btn btn-secondary dropdown-toggle"
                             type="button"
                             id="dropdownMenuButton"
@@ -41,28 +51,29 @@
                             </ul>
                         </div>
                     </div>
+                    -->
                     <!--Peso en libras-->
                     <div class="form-group col-md-3">
-                        <input type="text" name="" class="form-control" placeholder="Peso en libras">
+                        <input [(ngModel)]='atleta.peso_lb' type="number" name="peso_lb" class="form-control" placeholder="Peso en libras">
                     </div>
                     <!--Estaturea en cm-->
                     <div class="form-group col-md-3">
-                        <input type="text" name="" class="form-control" placeholder="Estatura en centimetros">
+                        <input [(ngModel)]='atleta.estatura_cm' type="number" name="estatura_cm" class="form-control" placeholder="Estatura en centimetros">
                     </div>
                 </div>
                 <div class="form-row row">
                     <!--Correo-->
                     <div class="form-group col-md-6">
-                        <input type="email" name="" class="form-control" placeholder="Email">
+                        <input [(ngModel)]='atleta.email' type="email" name="email" class="form-control" placeholder="Email">
                     </div>
                     <!--Contraseña-->
                     <div class="form-group col-md-6">
-                        <input type="password" name="" class="form-control" placeholder="Contraseña">
+                        <input [(ngModel)]='atleta.contrasena' type="password" name="contrasena" class="form-control" placeholder="Contraseña">
                     </div>
             </div>
             </form>
             <ul class="section-btn text-center">
-                <a><span data-hover="Crear Cuenta">Crear Cuenta</span></a>
+                <a><span data-hover="Crear Cuenta" (click)="registrarse()">Crear Cuenta</span></a>
             </ul>
         </div>
     </div>
