@@ -15,12 +15,10 @@ export class SignupComponent implements OnInit {
 
   constructor(private atletaService:AtletaService, private router:Router) {
     let usuarioActivo = localStorage.getItem('usuarioActivo');
-    //TODO quitar cuando ya este hecho el dashboard principal
-    /*
-    if(!(usuarioActivo == null  || usuarioActivo == undefined)){
-      router.navigate(['/principal']);
+     
+    if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
+      router.navigate(['/user/profile']);
     }
-    */
    }
 
   atleta:Atleta={

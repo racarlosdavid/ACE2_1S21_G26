@@ -15,12 +15,11 @@ export class SigninComponent implements OnInit {
 
   constructor(private atletaService:AtletaService, private router:Router) { 
     let usuarioActivo = localStorage.getItem('usuarioActivo');
-    //TODO quitar el comentario cuando ya este hecho el componente del dashboard principal
-    /*  
+     
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
-      router.navigate(['/principal']);
+      router.navigate(['/user/profile']);
     }
-    */
+    
   }
 
   public iniciarSesion() {
@@ -28,11 +27,11 @@ export class SigninComponent implements OnInit {
     if (this.comprobarCampos(this.email, this.password)) {
       this.atletaService.checkCredential(this.email, this.password).subscribe(
         res => {
-          //TODO agregar modelo de respuesta, estandarizar respuestas del servidor
           let objRes = <Respuesta>res;
           if(objRes.respuesta.length !=0){
             alert('Ingreso Exitoso');
-            localStorage.setItem('usuarioActivo', objRes.respuesta[0].email);
+            localStorage.setItem('usuarioActivo', JSON.stringify(objRes.respuesta[0]))  ;
+            this.router.navigate(['/user/profile']);
           }else{
             alert('Error al ingresar credenciales');
           }

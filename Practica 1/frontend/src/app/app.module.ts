@@ -13,6 +13,9 @@ import { CouchService } from './services/couch-services/couch.service';
 import { LecturaService } from './services/lectura-services/lectura.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavigationLoggedInComponent } from './components/navigation-logged-in/navigation-logged-in.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { CommonModule } from '@angular/common';
     NavigationComponent,
     HomeComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    NavigationLoggedInComponent,
+    ProfileComponent,
+    OxigenoComponent
   ],
   imports: [
     BrowserModule,

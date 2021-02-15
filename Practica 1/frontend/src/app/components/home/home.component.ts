@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Atleta } from 'src/app/models/Atleta';
 import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
 import { CouchService } from 'src/app/services/couch-services/couch.service';
@@ -19,17 +20,12 @@ export class HomeComponent implements OnInit {
 
   };
   
-  constructor(private couchService:CouchService) { 
-    /*
-    couchService.quitarCouch("maria@gmail.com").subscribe(
-      res=>{
-        console.log(res);
-      }, 
-      err=>{
-        console.log(err);
-      }
-    );
-    */
+  constructor(private couchService:CouchService, private router:Router) { 
+    let usuarioActivo = localStorage.getItem('usuarioActivo');
+     
+    if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
+      router.navigate(['/user/profile']);
+    }
   }
 
   ngOnInit(): void {
