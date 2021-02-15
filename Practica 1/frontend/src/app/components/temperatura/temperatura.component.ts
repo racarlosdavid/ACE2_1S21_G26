@@ -1,20 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart } from 'chart.js';
-import { Observable } from 'rxjs';
-import { Atleta } from 'src/app/models/Atleta';
-import { Lectura } from 'src/app/models/Lectura';
-import { Respuesta } from 'src/app/models/Respuesta';
 import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
 import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
-
+import { Chart } from 'chart.js';
+import { Atleta } from 'src/app/models/Atleta';
+import { Respuesta } from 'src/app/models/Respuesta';
+import { Lectura } from 'src/app/models/Lectura';
 @Component({
-  selector: 'app-oxigeno',
-  templateUrl: './oxigeno.component.html',
-  styleUrls: ['./oxigeno.component.css']
+  selector: 'app-temperatura',
+  templateUrl: './temperatura.component.html',
+  styleUrls: ['./temperatura.component.css']
 })
-export class OxigenoComponent implements OnInit {
+export class TemperaturaComponent implements OnInit {
 
   public fechaAnterior:string = '';
 
@@ -46,11 +43,11 @@ export class OxigenoComponent implements OnInit {
        labels: [],
        datasets: [
          {
-        label: 'Concentracion de Oxigeno en la sangre',
+        label: 'Temperatura Corporal',
         fill: false,
         data: [],
-        backgroundColor: '#168ede',
-        borderColor: '#168ede'
+        backgroundColor: '#ECEF16',
+        borderColor: '#ECEF16'
          }
        ]
         },
@@ -81,7 +78,7 @@ export class OxigenoComponent implements OnInit {
         }
      });
 
-    this.intervalUpdate = setInterval(function(this: OxigenoComponent){
+    this.intervalUpdate = setInterval(function(this: TemperaturaComponent){
       this.showData();
     }.bind(this), 1000);
   }
@@ -109,7 +106,7 @@ export class OxigenoComponent implements OnInit {
     if(atleta.iduser == null){
       return;
     }
-    this.lecturaService.getLecturaNow(atleta.iduser,'O').subscribe(
+    this.lecturaService.getLecturaNow(atleta.iduser,'T').subscribe(
       res=>{
         let objRes = <Respuesta> res;
         let lecturaActual = <Lectura>objRes.respuesta[0];
@@ -147,5 +144,4 @@ export class OxigenoComponent implements OnInit {
       }
     );
   }
-
 }

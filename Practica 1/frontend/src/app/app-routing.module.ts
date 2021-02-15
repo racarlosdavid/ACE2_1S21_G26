@@ -5,6 +5,8 @@ import { SignupComponent } from './components/signup/signup.component'
 import { SigninComponent } from './components/signin/signin.component'
 import { ProfileComponent } from './components/profile/profile.component';
 import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
+import { RitmoComponent } from './components/ritmo/ritmo.component';
+import { TemperaturaComponent } from './components/temperatura/temperatura.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,16 @@ const routes: Routes = [
   {
     path:'oxigeno',
     component: OxigenoComponent
+  }
+  ,
+  {
+    path:'ritmo',
+    component: RitmoComponent
+  }
+  ,
+  {
+    path:'temperatura',
+    component: TemperaturaComponent
   }
 
 ];

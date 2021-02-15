@@ -16,6 +16,8 @@ import { CommonModule } from '@angular/common';
 import { NavigationLoggedInComponent } from './components/navigation-logged-in/navigation-logged-in.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
+import { RitmoComponent } from './components/ritmo/ritmo.component';
+import { TemperaturaComponent } from './components/temperatura/temperatura.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
     SigninComponent,
     NavigationLoggedInComponent,
     ProfileComponent,
-    OxigenoComponent
+    OxigenoComponent,
+    RitmoComponent,
+    TemperaturaComponent
   ],
   imports: [
     BrowserModule,
