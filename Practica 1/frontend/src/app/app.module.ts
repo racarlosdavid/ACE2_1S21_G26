@@ -18,6 +18,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
 import { RitmoComponent } from './components/ritmo/ritmo.component';
 import { TemperaturaComponent } from './components/temperatura/temperatura.component';
+import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TemperaturaComponent } from './components/temperatura/temperatura.compo
     ProfileComponent,
     OxigenoComponent,
     RitmoComponent,
-    TemperaturaComponent
+    TemperaturaComponent,
+    DashboardPrincipalComponent
   ],
   imports: [
     BrowserModule,

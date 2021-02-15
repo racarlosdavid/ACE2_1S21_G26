@@ -86,6 +86,7 @@ Boton
     transition: transform 0.3s;
     transform-origin: 50% 0;
     transform-style: preserve-3d;
+    border-radius: 5px;
 }
 
 .section-btn a span::before{
@@ -102,6 +103,7 @@ Boton
     transform: rotateX(-90deg);
     content: attr(data-hover);
     transform-origin: 50% 0;
+    border-radius: 5px;
 }
 
 .section-btn a:hover span,
