@@ -7,7 +7,7 @@
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 MAX30105 particleSensor;
 
-SoftwareSerial bluetooth(9,10);   //Crea conexion al bluetooth - PIN 9 a TX y PIN 10 a RX
+SoftwareSerial bluetooth(11,10);   //Crea conexion al bluetooth - PIN 11 a TX y PIN 10 a RX
 
 const byte RATE_SIZE = 10; //Increase this for more averaging. 4 is good.
 byte rates[RATE_SIZE]; //Array of heart rates
@@ -21,9 +21,10 @@ int contador = 0;
 long previousMillis = 0;        // almacena la ultima vez de captura de la temperatura y envio de datos
 long interval = 2000;           // Intervalo de captura de la temperatura y envio de datos
 
-double T;     //Valor de la temperatura a enviar a la app
-int R;        //Valor del ritmo cardiaco a enviar a la app
+double T; //Valor de la temperatura a enviar a la app
+int R;    //Valor del ritmo cardiaco a enviar a la app
 int O;    //Valor del oxigeno a enviar a la app
+
 
 void setup()
 {
@@ -57,18 +58,16 @@ void loop(){
   unsigned long currentMillis = millis();
   if(currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;   
+    T = mlx.readObjectTempC();
+    enviarDataBluetooth();
+    limpiarVariables();
  
     //Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempC()); 
     //Serial.print("*C\tObject = "); Serial.print(mlx.readObjectTempC()); Serial.println("*C");
-    T = mlx.readObjectTempC();
     //Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempF()); 
     //Serial.print("*F\tObject = "); Serial.print(mlx.readObjectTempF()); Serial.println("*F");
-  
     //Serial.println();
     //delay(500);
-
-    enviarDataBluetooth();
-    limpiarVariables();
   }
   
   long irValue = particleSensor.getIR();
@@ -102,8 +101,10 @@ void loop(){
   //Serial.print(beatAvg);
   R = beatAvg;
 
-  if (irValue < 50000)
-    Serial.print(" No finger?");
+  if (irValue < 50000){
+    R = 0;
+    //Serial.print("Aproxime su dedo al sensor");
+  }
 
   Serial.println();
   
@@ -111,13 +112,9 @@ void loop(){
 }
 
 void enviarDataBluetooth(){
-  bluetooth.print("Temp: ");
-  bluetooth.print(T);
-  bluetooth.print(" Ritmo: ");
-  bluetooth.print(R); 
-  bluetooth.print(" SpO2 = ");
-  bluetooth.print(O); 
-  bluetooth.print("\n"); 
+  String datos = (String)T + ", " + R + ", " + O;
+  bluetooth.println(datos);
+  Serial.println(datos);
 }
 
 void limpiarVariables(){
