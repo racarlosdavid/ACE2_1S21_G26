@@ -3,7 +3,6 @@
     height: 100vh;
     width: 100vw;
     position: relative;
-
 }
 
 #crearCuenta img{
@@ -32,6 +31,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.75);
+    overflow:scroll;
 }
 
 #crearCuenta h1{
@@ -85,9 +85,14 @@ Boton
     content: attr(data-hover);
     transform-origin: 50% 0;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .section-btn a:hover span,
 .section-btn a:focus span{
     transform: rotateX(90deg) translateY(-22px);
+}
+
+.alinear{
+    display: inline-block;
 }

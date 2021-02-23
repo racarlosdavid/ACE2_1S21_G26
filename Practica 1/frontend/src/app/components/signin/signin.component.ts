@@ -10,7 +10,7 @@ import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
 })
 export class SigninComponent implements OnInit {
 
-  public email:string='bmoisesg@gmail.com';
+  public email:string='correo@gmail.com';
   public password:string='admin';
 
   constructor(private atletaService:AtletaService, private router:Router) { 

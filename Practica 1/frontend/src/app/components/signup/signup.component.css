@@ -85,6 +85,7 @@ Boton
     content: attr(data-hover);
     transform-origin: 50% 0;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .section-btn a:hover span,

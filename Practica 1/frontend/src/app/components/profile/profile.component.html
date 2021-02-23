@@ -58,17 +58,16 @@
                     <div class="form-group col-md-6">
                         <input [(ngModel)]='atleta.iduser_couch' type="number" name="iduser_couch" class="form-control" placeholder="Id del couch">
                     </div>
-                
-                    <div class="form-group col-md-6">
-                        <ul class="section-btn text-center" style="margin-top: 1%;">
-                            <a><span data-hover="Actualizar Couch" (click)="actualizarCouch()">Actualizar Couch</span></a>
-                        </ul>    
-                    </div>
                 </div>
             </form>
-            <ul class="section-btn text-center">
-                <a><span data-hover="Actualizar" (click)="actualizar()">Actualizar Datos</span></a>
-            </ul>
+            <div class="text-center">
+                <ul class="section-btn alinear" style="margin-top: 1%;">
+                    <a><span data-hover="Actualizar Couch" (click)="actualizarCouch()">Actualizar Couch</span></a>
+                </ul>  
+                <ul class="section-btn alinear">
+                    <a><span data-hover="Actualizar Datos" (click)="actualizar()">Actualizar Datos</span></a>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
