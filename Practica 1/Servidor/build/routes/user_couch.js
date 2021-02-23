@@ -11,6 +11,7 @@ var ApiRoutes_userCouch = /** @class */ (function () {
         this.router.post('/', userCouch_1.apiController_user_couch_.asignar);
         this.router.post('/quitar', userCouch_1.apiController_user_couch_.quitarCouch);
         this.router.post('/listaAtleta', userCouch_1.apiController_user_couch_.traerListaAtleta);
+        this.router.post('/preguntarCouch', userCouch_1.apiController_user_couch_.preguntar_si_es_couch);
     };
     return ApiRoutes_userCouch;
 }());

@@ -52,10 +52,10 @@ var apiController_userCouch = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
                     case 1:
                         accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("update usuario set iduser_couch=\"" + req.body.iduser_couch + "\" where nombre=\"" + req.body.nombre + "\" and apellido=\"" + req.body.apellido + "\"")];
+                        return [4 /*yield*/, database_1.default.query("\n            update usuario set \n            iduser_couch=\"" + req.body.iduser_couch + "\" \n            where email=\"" + req.body.emailAtleta + "\"")];
                     case 2:
                         accion2 = _a.sent();
-                        res.json({ status: "c:", mensaje: "se asigno couch al usuario " + req.body.nombre + " " + req.body.apellido });
+                        res.json({ status: "c:", mensaje: "se logro asignar couch al usuario" });
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _a.sent();
@@ -76,7 +76,7 @@ var apiController_userCouch = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
                     case 1:
                         accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("update usuario set iduser_couch= null where nombre=\"" + req.body.nombre + "\" and apellido=\"" + req.body.apellido + "\"")];
+                        return [4 /*yield*/, database_1.default.query("update usuario set iduser_couch= null where email =\"" + req.body.emailAtleta + "\"")];
                     case 2:
                         accion2 = _a.sent();
                         res.json({ status: "c:", mensaje: "se quito couch a este " });
@@ -108,6 +108,26 @@ var apiController_userCouch = /** @class */ (function () {
                         error_3 = _a.sent();
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    apiController_userCouch.prototype.preguntar_si_es_couch = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var comando, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("select couch from usuario where email= \"" + req.body.email + "\" ")];
+                    case 1:
+                        comando = _a.sent();
+                        res.json({ respuesta: comando });
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_4 = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });

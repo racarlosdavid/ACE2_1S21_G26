@@ -9,6 +9,7 @@ var ApiRoutes_userSimple = /** @class */ (function () {
     }
     ApiRoutes_userSimple.prototype.config = function () {
         this.router.get('/', userSimple_1.apiController_user_simple_.traerTodos);
+        this.router.post('/cerrarSesion', userSimple_1.apiController_user_simple_.cerrarSesion);
         this.router.post('/update', userSimple_1.apiController_user_simple_.actualizar_usuario);
         this.router.post('/add', userSimple_1.apiController_user_simple_.ingresar_usuario);
         this.router.post('/checkEmail', userSimple_1.apiController_user_simple_.verificarEmail);

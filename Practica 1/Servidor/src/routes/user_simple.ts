@@ -11,6 +11,7 @@ class ApiRoutes_userSimple {
 
     config(): void {
         this.router.get('/', apiController_user_simple_.traerTodos)
+        this.router.post('/cerrarSesion', apiController_user_simple_.cerrarSesion)
         this.router.post('/update', apiController_user_simple_.actualizar_usuario)
         this.router.post('/add', apiController_user_simple_.ingresar_usuario)
         this.router.post('/checkEmail', apiController_user_simple_.verificarEmail)

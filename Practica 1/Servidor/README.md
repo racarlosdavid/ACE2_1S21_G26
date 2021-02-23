@@ -7,28 +7,45 @@ sudo npm run i
 ```
 automaticamente creara una carpeta llamada "node_modules"
 
-## Construir Proyecto
+## Construir proyecto local
 
 ```
 npm run build
 ```
 Creara una carpeta llamada "build" que contiene los archivos [*.js]
 
-## Levantar servidor
+## Levantar servidor local
 
 ```
 npm run dev
 ```
 Este comando ejecuta el archivo build/index.js el cual levanta los servicios del servidor, por el momento es local asi que se tiene que consultar localhost:3000/
 
+## Servidor Heroku
+https://arqui2-g26-pve.herokuapp.com/
+
+
 ## URL's
 
 ### atleta/
-[GET] devulve un json con todos los atletas y couch asociados a la base de datos
+[GET] devulve un json con todos los usuarios asociados a la base de datos
 ```json
 {
     "usuarios": [
-        {...},{...},{...},{...},...
+        {
+            "iduser": x,
+            "nombre": "...",
+            "apellido": "...",
+            "edad": x,
+            "genero": "...",
+            "peso_lb": x,
+            "estatura_cm": x,
+            "contrasena": "...",
+            "iduser_couch": null,
+            "email": "...",
+            "sesion": "...",
+            "couch": "..."
+        },{...},{...},{...},...
     ]
 }
 ```
@@ -42,8 +59,10 @@ estructura:
 * peso_lb= decimal (2decimales)
 * estatura_cm= decimal (2 decimales)
 * contrasena= cadena de caracteres, max 8
-* iduser_couch= codigo identificador couch
+* iduser_couch= codigo identificador del couch
 * email=cadena de caracteres, 20 max
+* sesion= bandera ded sesion: "0" inactivo, "1" activo
+* couch= "0" no es couch, "1" es couch
 
 ### atleta/update
 
@@ -85,7 +104,8 @@ enviar
     "estatura_cm": ...,
     "contrasena": "...",
     "iduser_couch": null,
-    "email": "..."
+    "email": "...",
+    "couch": "..."
 }
 ```
 respuesta
@@ -125,7 +145,7 @@ respuesta cuando no encuentra el correo
 
 
 ### atleta/checkCredential
-[POST] verifica si el correo y contraseña son correctas, LOGIN
+[POST] verifica si el correo y contraseña son correctas, LOGIN, activa bandera de sesion
 ```json
 {
 	"email":"...",
@@ -146,7 +166,9 @@ respuesta cuando las credenciales son correctas; retorna toda la informacion de 
             "estatura_cm": ...,
             "contrasena": "...",
             "iduser_couch": ...,
-            "email": "..."
+            "email": "...",
+            "sesion": "...",
+            "couch": "..."
         }
     ]
 }
@@ -176,6 +198,19 @@ respuesta
 }
 
 ```
+
+### atleta/cerrarSesion
+[Post] Cuando el usuario cierra sesion, desactiva la bandera de sesion
+
+
+enviar 
+ 
+```json
+{
+    "email": "..."
+}
+```
+
 
 ### couch/
 [post] se asigna couch a atleta, enviar nombre y apellido del atleta , asi como tambien el iduser_couch
@@ -246,24 +281,45 @@ respuesta
     ]
 }
 ```
+### couch/preguntarCouch
+[POST] responde "1" cuando el usuario es couch y "0" cuando el usuario no es couch
+
+```json
+{
+    "email":"..."
+}
+```
+
+respuesta 
+```json
+{
+    "respuesta": [
+        {
+            "couch": "0"
+        }
+    ]
+}
+```
 
 
 ### lectura/
 [POST] inserta una lectura a la base de datos
 estructura:
 - id_user=codigo del usuario 
-- tipo= Oxigenacion(O) o temperatura (T) o ritmo cardiaco(R)  
+- Oxigenacion ( o ) 
+- temperatura ( t ) puede ser decimal 
+- ritmo cardiaco ( r )  
 - fecha= año/mes/dia
-- dato=lectura a ingesar
 
 
 envia
 ```json
 {
-	"id_user":1,
-	"tipo":"...",
-	"fecha":"20/01/21",
-	"dato": 79
+	"id_user": ... ,
+	"fecha":"...",
+	"t":...,
+	"o":1,
+	"r":4
 }
 ```
 respuesta

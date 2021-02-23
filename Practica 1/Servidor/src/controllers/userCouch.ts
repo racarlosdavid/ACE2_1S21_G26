@@ -7,8 +7,11 @@ class apiController_userCouch {
 
         try {
             const accion1 = await pool.query(`use bmaxrefxhz3hp4r9drdu`);
-            const accion2 = await pool.query(`update usuario set iduser_couch="${req.body.iduser_couch}" where nombre="${req.body.nombre}" and apellido="${req.body.apellido}"`);
-            res.json({ status: "c:", mensaje: "se asigno couch al usuario " + req.body.nombre + " " + req.body.apellido })
+            const accion2 = await pool.query(`
+            update usuario set 
+            iduser_couch="${req.body.iduser_couch}" 
+            where email="${req.body.emailAtleta}"`);
+            res.json({ status: "c:", mensaje: "se logro asignar couch al usuario" })
         } catch (error) {
             res.json({ status: ":c", mensaje: "no se pudo asignar al couch" })
         }
@@ -17,7 +20,7 @@ class apiController_userCouch {
     public async quitarCouch(req: Request, res: Response) {
         try {
             const accion1 = await pool.query(`use bmaxrefxhz3hp4r9drdu`);
-            const accion2 = await pool.query(`update usuario set iduser_couch= null where nombre="${req.body.nombre}" and apellido="${req.body.apellido}"`);
+            const accion2 = await pool.query(`update usuario set iduser_couch= null where email ="${req.body.emailAtleta}"`);
             res.json({ status: "c:", mensaje: "se quito couch a este " })
 
         } catch (error) {
@@ -29,6 +32,16 @@ class apiController_userCouch {
             const accion1 = await pool.query(`use bmaxrefxhz3hp4r9drdu`)
             const accion2 = await pool.query(`select * from usuario where iduser_couch = ${req.body.iduser_couch}`)
             res.json({ respuesta: accion2 })
+
+        } catch (error) {
+
+        }
+    }
+    public async preguntar_si_es_couch(req: Request, res: Response) {
+        try {
+            const comando = await pool.query(`select couch from usuario where email= "${req.body.email}" `)
+            res.json({ respuesta: comando })
+
 
         } catch (error) {
 

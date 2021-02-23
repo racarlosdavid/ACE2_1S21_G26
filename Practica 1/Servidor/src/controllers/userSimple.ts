@@ -21,8 +21,8 @@ class apiController_userSimple {
         try {
             const accion1 = await pool.query(`use bmaxrefxhz3hp4r9drdu`);
             const accion2 = await pool.query(`
-            insert into usuario(nombre, apellido, edad, genero, peso_lb, estatura_cm, contrasena,iduser_couch,email)
-            values ("${req.body.nombre}", "${req.body.apellido}", ${req.body.edad}, "${req.body.genero}", ${req.body.peso_lb}, ${req.body.estatura_cm}, "${req.body.contrasena}", ${req.body.iduser_couch}, "${req.body.email}")
+            insert into usuario(nombre, apellido, edad, genero, peso_lb, estatura_cm, contrasena,iduser_couch,email,sesion,couch)
+            values ("${req.body.nombre}", "${req.body.apellido}", ${req.body.edad}, "${req.body.genero}", ${req.body.peso_lb}, ${req.body.estatura_cm}, "${req.body.contrasena}", ${req.body.iduser_couch}, "${req.body.email}",0,"${req.body.couch}")
             `);
             res.json({ status: "c:", mensaje: "usuario agregado exitosamente" })
         } catch (error) {
@@ -39,10 +39,20 @@ class apiController_userSimple {
 
     }
 
+    public async cerrarSesion(req: Request, res: Response) {
+
+        const accion = await pool.query(`update usuario set sesion = '0' where email="${req.body.email}"`);
+        res.json({ respuesta: accion })
+
+    }
+
     public async verificarCredenciales(req: Request, res: Response) {
 
-        const accion1 = await pool.query(`use bmaxrefxhz3hp4r9drdu`);
         const accion2 = await pool.query(`select * from usuario where email="${req.body.email}" and contrasena="${req.body.contrasena}"`);
+        //cuando las credenciales son correctas se modifica el atributo "sesion" en tabla usuario a "1" que significa que esta activo, 0 significa que esta desactivado
+        if (accion2!="[]") {
+            const accion = await pool.query(`update usuario set sesion = '1' where email="${req.body.email}" and contrasena="${req.body.contrasena}" `)
+        }
         res.json({ respuesta: accion2 })
     }
 

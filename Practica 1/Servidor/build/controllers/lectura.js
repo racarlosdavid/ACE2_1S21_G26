@@ -44,109 +44,176 @@ var apiController_lectura = /** @class */ (function () {
     }
     apiController_lectura.prototype.agregar = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2, error_1;
+            var accion2, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("insert into lectura \n            (id_user,fecha,t,o,r)\n            values (\n                " + req.body.id_user + ",\n                \"" + req.body.fecha + "\", \n                " + req.body.t + ",\n                " + req.body.o + ",\n                " + req.body.r + "\n                )\n            ")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("insert into lectura (id_user,tipo,fecha,dato)\n            values (" + req.body.id_user + ", \"" + req.body.tipo + "\",\"" + req.body.fecha + "\", " + req.body.dato + ")\n            ")];
-                    case 2:
                         accion2 = _a.sent();
                         res.json({ status: "c:", mensaje: "se ingreso la lectura" });
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 3];
+                    case 2:
                         error_1 = _a.sent();
-                        res.json({ status: ":c", mensaje: "problemas para ingresar la lectura" });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        res.json({ status: ":c", mensaje: "problemas para ingresar la lectura", otromensaje: error_1 });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
     apiController_lectura.prototype.historial = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion2, accion2, accion2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        if (!(req.body.tipo == "T")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, database_1.default.query("select fecha,t as dato from lectura where id_user = " + req.body.iduser + " order by idlectura desc limit 10")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select fecha,dato from lectura where id_user = " + req.body.iduser + " and tipo=\"" + req.body.tipo + "\" limit 10")];
-                    case 2:
                         accion2 = _a.sent();
                         res.json({ respuesta: accion2 });
-                        return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 2:
+                        if (!(req.body.tipo == "O")) return [3 /*break*/, 4];
+                        return [4 /*yield*/, database_1.default.query("select fecha,o as dato from lectura where id_user = " + req.body.iduser + " order by idlectura desc limit 10")];
+                    case 3:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        return [3 /*break*/, 6];
+                    case 4:
+                        if (!(req.body.tipo == "R")) return [3 /*break*/, 6];
+                        return [4 /*yield*/, database_1.default.query("select fecha,r as dato from lectura where id_user = " + req.body.iduser + " order by idlectura desc limit 10")];
+                    case 5:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
     apiController_lectura.prototype.historialMaximo = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion2, accion2, accion2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        if (!(req.body.tipo == "T")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, database_1.default.query("select fecha,max(t) as 'max(dato)' from lectura where id_user = " + req.body.iduser + " ")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select fecha,max(dato) from lectura where id_user = " + req.body.iduser + " and tipo=\"" + req.body.tipo + "\" ")];
-                    case 2:
                         accion2 = _a.sent();
                         res.json({ respuesta: accion2 });
-                        return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 2:
+                        if (!(req.body.tipo == "O")) return [3 /*break*/, 4];
+                        return [4 /*yield*/, database_1.default.query("select fecha,max(o) as 'max(dato)' from lectura where id_user = " + req.body.iduser + " ")];
+                    case 3:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        return [3 /*break*/, 6];
+                    case 4:
+                        if (!(req.body.tipo == "R")) return [3 /*break*/, 6];
+                        return [4 /*yield*/, database_1.default.query("select fecha,max(r) as 'max(dato)' from lectura where id_user = " + req.body.iduser + " ")];
+                    case 5:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
     apiController_lectura.prototype.historialMinimo = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion2, accion2, accion2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        if (!(req.body.tipo == "T")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, database_1.default.query("select fecha,min(t) as 'min(dato)' from lectura where id_user = " + req.body.iduser + " ")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select fecha,min(dato) from lectura where id_user = " + req.body.iduser + " and tipo=\"" + req.body.tipo + "\" ")];
-                    case 2:
                         accion2 = _a.sent();
                         res.json({ respuesta: accion2 });
-                        return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 2:
+                        if (!(req.body.tipo == "O")) return [3 /*break*/, 4];
+                        return [4 /*yield*/, database_1.default.query("select fecha,min(o) as 'min(dato)' from lectura where id_user = " + req.body.iduser + " ")];
+                    case 3:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        return [3 /*break*/, 6];
+                    case 4:
+                        if (!(req.body.tipo == "R")) return [3 /*break*/, 6];
+                        return [4 /*yield*/, database_1.default.query("select fecha,min(r) as 'min(dato)' from lectura where id_user = " + req.body.iduser + " ")];
+                    case 5:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
     apiController_lectura.prototype.historialPromedio = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion2, accion2, accion2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        if (!(req.body.tipo == "T")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, database_1.default.query("select avg(t) as 'avg(dato)' from lectura where id_user = " + req.body.iduser + " ")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select avg(dato) from lectura where id_user = " + req.body.iduser + " and tipo=\"" + req.body.tipo + "\" ")];
-                    case 2:
                         accion2 = _a.sent();
                         res.json({ respuesta: accion2 });
-                        return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 2:
+                        if (!(req.body.tipo == "O")) return [3 /*break*/, 4];
+                        return [4 /*yield*/, database_1.default.query("select avg(o) as 'avg(dato)' from lectura where id_user = " + req.body.iduser + " ")];
+                    case 3:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        return [3 /*break*/, 6];
+                    case 4:
+                        if (!(req.body.tipo == "R")) return [3 /*break*/, 6];
+                        return [4 /*yield*/, database_1.default.query("select avg(r) as 'avg(dato)' from lectura where id_user = " + req.body.iduser + " ")];
+                    case 5:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
     apiController_lectura.prototype.tiempoReal = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion2, accion2, accion2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0:
+                        if (!(req.body.tipo == "T")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, database_1.default.query("select fecha,t as 'dato' from lectura where id_user = " + req.body.iduser + " order by idlectura desc limit 1")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select fecha,dato from lectura where id_user = " + req.body.iduser + " and tipo=\"" + req.body.tipo + "\" order by idlectura desc limit 1 ")];
-                    case 2:
                         accion2 = _a.sent();
                         res.json({ respuesta: accion2 });
-                        return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 2:
+                        if (!(req.body.tipo == "O")) return [3 /*break*/, 4];
+                        return [4 /*yield*/, database_1.default.query("select fecha,o as 'dato' from lectura where id_user = " + req.body.iduser + " order by idlectura desc limit 1")];
+                    case 3:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        return [3 /*break*/, 6];
+                    case 4:
+                        if (!(req.body.tipo == "R")) return [3 /*break*/, 6];
+                        return [4 /*yield*/, database_1.default.query("select fecha,r as 'dato' from lectura where id_user = " + req.body.iduser + " order by idlectura desc limit 1")];
+                    case 5:
+                        accion2 = _a.sent();
+                        res.json({ respuesta: accion2 });
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });

@@ -83,7 +83,7 @@ var apiController_userSimple = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
                     case 1:
                         accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("\n            insert into usuario(nombre, apellido, edad, genero, peso_lb, estatura_cm, contrasena,iduser_couch,email)\n            values (\"" + req.body.nombre + "\", \"" + req.body.apellido + "\", " + req.body.edad + ", \"" + req.body.genero + "\", " + req.body.peso_lb + ", " + req.body.estatura_cm + ", \"" + req.body.contrasena + "\", " + req.body.iduser_couch + ", \"" + req.body.email + "\")\n            ")];
+                        return [4 /*yield*/, database_1.default.query("\n            insert into usuario(nombre, apellido, edad, genero, peso_lb, estatura_cm, contrasena,iduser_couch,email,sesion,couch)\n            values (\"" + req.body.nombre + "\", \"" + req.body.apellido + "\", " + req.body.edad + ", \"" + req.body.genero + "\", " + req.body.peso_lb + ", " + req.body.estatura_cm + ", \"" + req.body.contrasena + "\", " + req.body.iduser_couch + ", \"" + req.body.email + "\",0,\"" + req.body.couch + "\")\n            ")];
                     case 2:
                         accion2 = _a.sent();
                         res.json({ status: "c:", mensaje: "usuario agregado exitosamente" });
@@ -114,17 +114,34 @@ var apiController_userSimple = /** @class */ (function () {
             });
         });
     };
-    apiController_userSimple.prototype.verificarCredenciales = function (req, res) {
+    apiController_userSimple.prototype.cerrarSesion = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1, accion2;
+            var accion;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use bmaxrefxhz3hp4r9drdu")];
+                    case 0: return [4 /*yield*/, database_1.default.query("update usuario set sesion = '0' where email=\"" + req.body.email + "\"")];
                     case 1:
-                        accion1 = _a.sent();
-                        return [4 /*yield*/, database_1.default.query("select * from usuario where email=\"" + req.body.email + "\" and contrasena=\"" + req.body.contrasena + "\"")];
-                    case 2:
+                        accion = _a.sent();
+                        res.json({ respuesta: accion });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    apiController_userSimple.prototype.verificarCredenciales = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accion2, accion;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, database_1.default.query("select * from usuario where email=\"" + req.body.email + "\" and contrasena=\"" + req.body.contrasena + "\"")];
+                    case 1:
                         accion2 = _a.sent();
+                        if (!(accion2 != "[]")) return [3 /*break*/, 3];
+                        return [4 /*yield*/, database_1.default.query("update usuario set sesion = '1' where email=\"" + req.body.email + "\" and contrasena=\"" + req.body.contrasena + "\" ")];
+                    case 2:
+                        accion = _a.sent();
+                        _a.label = 3;
+                    case 3:
                         res.json({ respuesta: accion2 });
                         return [2 /*return*/];
                 }
