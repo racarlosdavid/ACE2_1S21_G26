@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void registrarse(View view){
-        Uri uri = Uri.parse("https://facebook.com");
+        Uri uri = Uri.parse("http://34.122.170.16:4200/user/signup");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
