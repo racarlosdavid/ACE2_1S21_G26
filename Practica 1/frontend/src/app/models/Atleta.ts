@@ -9,4 +9,6 @@ export interface Atleta{
     contrasena?:string;
     iduser_couch?: number|null;
     email?:string|undefined;
+    couch?:number|string;
+    sesion?:number|string;
 }

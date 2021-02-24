@@ -17,7 +17,8 @@ import { LecturaService } from 'src/app/services/lectura-services/lectura.servic
 export class OxigenoComponent implements OnInit {
 
   public fechaAnterior:string = '';
-
+  public dateDay;
+  public nombreAtletaGrafica;
   /**
   * Interval to update the chart
   * @var {any} intervalUpdate
@@ -30,8 +31,11 @@ export class OxigenoComponent implements OnInit {
   */
   public chart: any = null;
 
-
-  constructor(private router:Router, private atletaService:AtletaService, private lecturaService:LecturaService) { }
+  
+  constructor(private router:Router, private atletaService:AtletaService, private lecturaService:LecturaService) { 
+    this.dateDay = new Date().toString().substring(16,25);
+    this.nombreAtletaGrafica = localStorage.getItem('nombreAtletaGrafica');
+  }
 
   /**
   * On component initialization
@@ -83,6 +87,7 @@ export class OxigenoComponent implements OnInit {
 
     this.intervalUpdate = setInterval(function(this: OxigenoComponent){
       this.showData();
+      this.dateDay = new Date().toString().substring(16,25);
     }.bind(this), 1000);
   }
   /**
@@ -109,7 +114,19 @@ export class OxigenoComponent implements OnInit {
     if(atleta.iduser == null){
       return;
     }
-    this.lecturaService.getLecturaNow(atleta.iduser,'O').subscribe(
+    //--------
+    let idAtletaGrafica = localStorage.getItem('idAtletaGrafica');
+    if((idAtletaGrafica == null  ||  idAtletaGrafica==undefined)){
+      this.router.navigate(['']);
+      return;
+    }
+    let idAtletaGraficaN:number = <number>JSON.parse(idAtletaGrafica);
+    if(idAtletaGraficaN == null){
+      return;
+    }
+    //--------
+    //this.lecturaService.getLecturaNow(atleta.iduser,'O').subscribe(
+    this.lecturaService.getLecturaNow(idAtletaGraficaN,'O').subscribe(
       res=>{
         let objRes = <Respuesta> res;
         let lecturaActual = <Lectura>objRes.respuesta[0];
@@ -124,8 +141,9 @@ export class OxigenoComponent implements OnInit {
           this.chart.data.datasets[0].data.shift();
         }
         if(this.fechaAnterior != lecturaActual.fecha){
-          this.chart.data.labels.push(lecturaActual.fecha);
-				  this.chart.data.datasets[0].data.push(lecturaActual.dato);
+          this.chart.data.labels.push(lecturaActual.fecha?.substring(0,10)+'\n'+this.dateDay);
+				  //this.chart.data.labels.push(this.dateDay);
+          this.chart.data.datasets[0].data.push(lecturaActual.dato);
 				  this.chart.update();
           //this.fechaAnterior = lecturaActual.fecha!=undefined?lecturaActual.fecha:'';
         }

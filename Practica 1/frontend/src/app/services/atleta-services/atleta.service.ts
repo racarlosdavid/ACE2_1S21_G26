@@ -35,5 +35,8 @@ export class AtletaService {
   public dropUser(email:string){
     return this.http.post(`${this.URL}drop`, {email});
   }
+  public cerrarSesion(email:string){
+    return this.http.post(`${this.URL}cerrarSesion`,{email});
+  }
 
 }

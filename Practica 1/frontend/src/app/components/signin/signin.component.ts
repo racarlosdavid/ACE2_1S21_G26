@@ -30,7 +30,9 @@ export class SigninComponent implements OnInit {
           let objRes = <Respuesta>res;
           if(objRes.respuesta.length !=0){
             alert('Ingreso Exitoso');
-            localStorage.setItem('usuarioActivo', JSON.stringify(objRes.respuesta[0]))  ;
+            localStorage.setItem('usuarioActivo', JSON.stringify(objRes.respuesta[0]));
+            localStorage.setItem('idAtletaGrafica', JSON.stringify(objRes.respuesta[0].iduser));
+            localStorage.setItem('nombreAtletaGrafica', JSON.stringify(objRes.respuesta[0].nombre+' '+objRes.respuesta[0].apellido));
             this.router.navigate(['/user/profile']);
           }else{
             alert('Error al ingresar credenciales');
