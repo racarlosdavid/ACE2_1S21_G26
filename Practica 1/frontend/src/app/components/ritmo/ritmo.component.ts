@@ -15,7 +15,7 @@ import { Chart } from 'chart.js';
 export class RitmoComponent implements OnInit {
 
   public fechaAnterior:string = '';
-
+  public nombreAtletaGrafica;
   /**
   * Interval to update the chart
   * @var {any} intervalUpdate
@@ -28,8 +28,11 @@ export class RitmoComponent implements OnInit {
   */
   public chart: any = null;
 
-
-  constructor(private router:Router, private atletaService:AtletaService, private lecturaService:LecturaService) { }
+  public dateDay;
+  constructor(private router:Router, private atletaService:AtletaService, private lecturaService:LecturaService) {
+    this.dateDay = new Date().toString().substring(16,25);
+    this.nombreAtletaGrafica = localStorage.getItem('nombreAtletaGrafica');
+   }
 
 
     /**
@@ -82,6 +85,7 @@ export class RitmoComponent implements OnInit {
 
     this.intervalUpdate = setInterval(function(this: RitmoComponent){
       this.showData();
+      this.dateDay = new Date().toString().substring(16,25);
     }.bind(this), 1000);
 
   }
@@ -109,7 +113,20 @@ export class RitmoComponent implements OnInit {
     if(atleta.iduser == null){
       return;
     }
-    this.lecturaService.getLecturaNow(atleta.iduser,'R').subscribe(
+    
+    //--------
+    let idAtletaGrafica = localStorage.getItem('idAtletaGrafica');
+    if((idAtletaGrafica == null  ||  idAtletaGrafica==undefined)){
+      this.router.navigate(['']);
+      return;
+    }
+    let idAtletaGraficaN:number = <number>JSON.parse(idAtletaGrafica);
+    if(idAtletaGraficaN == null){
+      return;
+    }
+    //--------
+    //this.lecturaService.getLecturaNow(atleta.iduser,'R').subscribe(
+    this.lecturaService.getLecturaNow(idAtletaGraficaN,'R').subscribe(
       res=>{
         let objRes = <Respuesta> res;
         let lecturaActual = <Lectura>objRes.respuesta[0];
@@ -122,7 +139,8 @@ export class RitmoComponent implements OnInit {
           this.chart.data.datasets[0].data.shift();
         }
         if(this.fechaAnterior != lecturaActual.fecha){
-          this.chart.data.labels.push(lecturaActual.fecha);
+          this.chart.data.labels.push(lecturaActual.fecha?.substring(0,10)+'\n'+this.dateDay);
+          //this.chart.data.labels.push(lecturaActual.fecha);
           this.chart.data.datasets[0].data.push(lecturaActual.dato);
           this.chart.update();
           //this.fechaAnterior = lecturaActual.fecha!=undefined?lecturaActual.fecha:'';
