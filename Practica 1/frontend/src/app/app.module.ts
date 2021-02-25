@@ -19,6 +19,8 @@ import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
 import { RitmoComponent } from './components/ritmo/ritmo.component';
 import { TemperaturaComponent } from './components/temperatura/temperatura.component';
 import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component';
+import { HistorialComponent } from './components/historial/historial.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { DashboardPrincipalComponent } from './components/dashboard-principal/da
     OxigenoComponent,
     RitmoComponent,
     TemperaturaComponent,
-    DashboardPrincipalComponent
+    DashboardPrincipalComponent,
+    HistorialComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,8 @@ import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
 import { RitmoComponent } from './components/ritmo/ritmo.component';
 import { TemperaturaComponent } from './components/temperatura/temperatura.component';
 import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component'
+import { HistorialComponent } from './components/historial/historial.component'
+import { ReportesComponent } from './components/reportes/reportes.component'
 
 const routes: Routes = [
   {
@@ -43,6 +45,14 @@ const routes: Routes = [
   {
     path:'principal',
     component: DashboardPrincipalComponent
+  },
+  {
+    path:'historial',
+    component:HistorialComponent
+  },
+  {
+    path:'reportes',
+    component:ReportesComponent
   }
 
 ];
