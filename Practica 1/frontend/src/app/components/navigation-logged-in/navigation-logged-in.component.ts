@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Atleta } from 'src/app/models/Atleta';
+import { Respuesta } from 'src/app/models/Respuesta';
 import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
+import { CouchService } from 'src/app/services/couch-services/couch.service';
 
 @Component({
   selector: 'app-navigation-logged-in',
@@ -16,12 +18,31 @@ export class NavigationLoggedInComponent implements OnInit {
   * @var {any} intervalUpdate
   */
  private intervalUpdate: any = null;
- constructor(private router:Router, private atletaService:AtletaService) { 
+ public isCouchVar:boolean=false;
+ constructor(private router:Router, private atletaService:AtletaService, private couchServices:CouchService) { 
   this.dateDay = new Date().toString().substring(16,25);
+  let usuarioActivo = localStorage.getItem('usuarioActivo');
+    if((usuarioActivo == null  ||  usuarioActivo==undefined)){
+      this.router.navigate(['']);
+      return;
+    }
+    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
+    if(atleta.email == null){
+      return;
+    }
+
+    if(atleta.couch == 0){
+      this.isCouchVar =false;
+    }else{
+      this.isCouchVar = true;
+    }
+    
+  console.log(this.isCouchVar);
 }
   ngOnInit(): void {
     this.intervalUpdate = setInterval(function(this: NavigationLoggedInComponent){
       this.dateDay = new Date().toString().substring(16,25);
+      //this.isCouchVar = this.isCouch();
     }.bind(this), 1000);
 
     const changeBackground = () => {
@@ -63,5 +84,13 @@ export class NavigationLoggedInComponent implements OnInit {
     localStorage.removeItem('idAtletaGrafica');
     localStorage.removeItem('nombreAtletaGrafica');
     this.router.navigate(['']);
+  }
+    /**
+  * On component destroy
+  * @function ngOnDestroy
+  * @return {void}
+  */
+ private ngOnDestroy(): void {
+  clearInterval(this.intervalUpdate);
   }
 }
