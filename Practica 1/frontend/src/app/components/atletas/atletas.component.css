@@ -1,5 +1,8 @@
-h2{
+h2,h3{
     color: #fff;
+}
+#idSelected{
+    visibility: hidden;
 }
 #crearCuenta{
     align-items: center;
@@ -149,5 +152,8 @@ Boton
 }
 
 .list-menu .list-new-item:hover{
+    background: gray;
+}
+.list-menu .list-new-item.is-active{
     background: gray;
 }

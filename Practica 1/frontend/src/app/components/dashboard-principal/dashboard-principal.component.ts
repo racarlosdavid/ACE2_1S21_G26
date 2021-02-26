@@ -10,6 +10,8 @@ import { Atleta } from 'src/app/models/Atleta';
 })
 export class DashboardPrincipalComponent implements OnInit {
 
+  selectednombre:any
+
   constructor(private router:Router) { }
 
   ngOnInit(): void {
@@ -21,6 +23,11 @@ export class DashboardPrincipalComponent implements OnInit {
     let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
     if(atleta.iduser == null){
       return;
+    }
+    this.selectednombre = localStorage.getItem('nombreAtletaGrafica')
+    let elemento = document.querySelector<HTMLElement>('#titulo')
+    if(elemento != undefined){
+      elemento.innerHTML = "Rendimiento personal de " + this.selectednombre
     }
   }
 

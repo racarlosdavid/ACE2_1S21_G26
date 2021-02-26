@@ -13,10 +13,12 @@ export class HistorialComponent implements OnInit {
 
   objRes: any;
   dato: string = ""
+  selectednombre:any
 
   constructor(private router:Router, private lecturaService:LecturaService) { }
 
   ngOnInit(): void {
+    this.selectednombre = localStorage.getItem('nombreAtletaGrafica')
     if(localStorage.getItem('tipoDato') == 'O'){
       this.dato = 'Historial de Oxigeno'
     }else if(localStorage.getItem('tipoDato') == 'R'){
@@ -29,7 +31,7 @@ export class HistorialComponent implements OnInit {
     let elemento = document.querySelector<HTMLElement>('h1');
     if (elemento != undefined  && elemento != null){
       console.log(elemento.innerHTML)
-      elemento.innerHTML = this.dato
+      elemento.innerHTML = this.dato + " de " + this.selectednombre
     }
     this.showHistorial()
   }
@@ -48,11 +50,15 @@ export class HistorialComponent implements OnInit {
     if(tipo == null){
       return;
     }
-    console.log(atleta.iduser)
-    this.lecturaService.getHistorial(atleta.iduser,tipo).subscribe((res) => {
-      this.objRes = <Respuesta>res;
-     // console.log(this.objRes.respuesta[0])
-    })
+    //console.log(atleta.iduser)
+    let idSelected = localStorage.getItem('idAtletaGrafica')
+    if(idSelected != null){
+      this.lecturaService.getHistorial(Number(idSelected),tipo).subscribe((res) => {
+        this.objRes = <Respuesta>res;
+       // console.log(this.objRes.respuesta[0])
+      })
+    }
+    
   }
 
 }

@@ -18,6 +18,8 @@ export class ReportesComponent implements OnInit {
   tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
   mostrarDato = document.querySelector<HTMLElement>('#dato')
   reporte: boolean = false;
+  idselected = localStorage.getItem('idAtletaGrafica')
+  selectednombre = localStorage.getItem('nombreAtletaGrafica')
 
   constructor(private router:Router, private lecturaService:LecturaService) { }
 
@@ -46,7 +48,7 @@ export class ReportesComponent implements OnInit {
     let elemento = document.querySelector<HTMLElement>('h1');
     if (elemento != undefined && elemento != null){
       //console.log(elemento.innerHTML)
-      elemento.innerHTML = 'Reportes de '+ this.dato
+      elemento.innerHTML = 'Reportes de '+ this.dato + " de " + this.selectednombre
     }
   }
 
@@ -54,10 +56,10 @@ export class ReportesComponent implements OnInit {
     this.reporte = true;
     this.tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
     this.mostrarDato = document.querySelector<HTMLElement>('#dato')
-    if (this.tipoReporte != undefined && this.tipoReporte != null && this.atleta != undefined && this.atleta.iduser != undefined){
+    if (this.tipoReporte != undefined && this.tipoReporte != null && this.idselected != undefined){
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
-        this.lecturaService.getHistorialMin(this.atleta.iduser,this.tipoDato).subscribe((res) =>{
+        this.lecturaService.getHistorialMin(Number(this.idselected),this.tipoDato).subscribe((res) =>{
           this.objRes = <Respuesta>res;
           if(this.mostrarDato != undefined && this.mostrarDato != null){
             this.mostrarDato.innerHTML = this.objRes.respuesta[0].min
@@ -78,10 +80,10 @@ export class ReportesComponent implements OnInit {
   public showMaximo(){
     this.tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
     this.mostrarDato = document.querySelector<HTMLElement>('#dato')
-    if (this.tipoReporte != undefined && this.tipoReporte != null && this.atleta != undefined && this.atleta.iduser != undefined){
+    if (this.tipoReporte != undefined && this.tipoReporte != null && this.idselected != undefined){
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
-        this.lecturaService.getHistorialMax(this.atleta.iduser,this.tipoDato).subscribe((res) =>{
+        this.lecturaService.getHistorialMax(Number(this.idselected),this.tipoDato).subscribe((res) =>{
           this.objRes = <Respuesta>res;
           if(this.mostrarDato != undefined && this.mostrarDato != null){
             this.mostrarDato.innerHTML = this.objRes.respuesta[0].max
@@ -102,10 +104,10 @@ export class ReportesComponent implements OnInit {
   public showPromedio(){
     this.tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
     this.mostrarDato = document.querySelector<HTMLElement>('#dato')
-    if (this.tipoReporte != undefined && this.tipoReporte != null && this.atleta != undefined && this.atleta.iduser != undefined){
+    if (this.tipoReporte != undefined && this.tipoReporte != null && this.idselected != undefined){
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
-        this.lecturaService.getHistorialProm(this.atleta.iduser,this.tipoDato).subscribe((res) =>{
+        this.lecturaService.getHistorialProm(Number(this.idselected),this.tipoDato).subscribe((res) =>{
           this.objRes = <Respuesta>res;
           if(this.mostrarDato != undefined && this.mostrarDato != null){
             this.mostrarDato.innerHTML = this.objRes.respuesta[0].avg

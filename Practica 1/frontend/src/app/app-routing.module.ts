@@ -15,7 +15,7 @@ import { AtletasComponent } from './components/atletas/atletas.component'
 const routes: Routes = [
   {
     path:'',
-    component: HomeComponent
+    component: HomeComponent, pathMatch: 'full'
   },
   {
     path:'user/signup',
@@ -57,6 +57,10 @@ const routes: Routes = [
   },
   {
     path:'atletas',
+    component:AtletasComponent
+  },
+  {
+    path:'atletas/:idUser',
     component:AtletasComponent
   }
 
