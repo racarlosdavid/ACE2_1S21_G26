@@ -32,6 +32,13 @@
                                 <option class="form-select form-select-lg mb-"  [value]="valor" *ngFor="let valor of lista">{{valor}}</option>
                             </select>
                         </div>
+                        <div class="btn-group dropend">
+                            <br/>
+                                <label for="selectorCouch" style="color: white;">Tipo:</label>
+                                <select name="selectorCouch" id="selectorCouch" [(ngModel)]="atleta.couch" >
+                                    <option class="form-select form-select-lg mb-"  [value]="valor" *ngFor="let valor of listaCouch">{{valor}}</option>
+                                </select>
+                            </div>
                     </div>
                     <!--Genero
                     <div class="form-group col-md-3">
