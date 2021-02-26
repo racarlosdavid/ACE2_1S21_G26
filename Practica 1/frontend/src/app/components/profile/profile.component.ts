@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UV_UDP_REUSEADDR } from 'constants';
 import { Atleta } from 'src/app/models/Atleta';
+import { Couch } from 'src/app/models/Couch';
 import { Respuesta } from 'src/app/models/Respuesta';
 import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
 import { CouchService } from 'src/app/services/couch-services/couch.service';
@@ -21,12 +22,16 @@ export class ProfileComponent implements OnInit {
     edad:'',
     peso_lb:'',
     estatura_cm:'',
-    iduser_couch:null
+    iduser_couch:null,
+    couch:''
 
   }
   lista:string[] = ['M', 'F'];
+  listaCouch:string[] = ['Couch', 'Atleta'];
+  listaDeCouchs:Couch[] = [];
 
   constructor(private router:Router, private atletaService:AtletaService, private couchService:CouchService) {
+    this.listarCouchs();
     let usuarioActivo = localStorage.getItem('usuarioActivo');
     if((usuarioActivo==null  ||  usuarioActivo==undefined)){
       router.navigate(['']);
@@ -35,6 +40,11 @@ export class ProfileComponent implements OnInit {
     }
     let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
     this.atleta = atleta;
+    if(this.atleta.couch == 1){
+      this.atleta.couch = 'Couch';
+    }else{
+      this.atleta.couch ='Atleta';
+    }
   }
 
   ngOnInit(): void {
@@ -51,18 +61,21 @@ export class ProfileComponent implements OnInit {
   }
 
   actualizar(){
+    
     if(!this.comprobarCampos()){
       alert('Por favor llene todos los campos');
       return;
     }else {
-      console.log(this.atleta)
+      if(this.atleta.iduser_couch == undefined){
+        this.atleta.iduser_couch =null;
+      }
       this.atletaService.updateAtleta(this.atleta).subscribe(
         res=>{
           let objRes = <Respuesta>res;
           alert(objRes.respuesta)
           if(objRes.status == 'c:'){
             localStorage.removeItem('usuarioActivo');
-            localStorage.setItem('usuarioActivo',JSON.stringify(this.atleta))
+            localStorage.setItem('usuarioActivo',JSON.stringify(this.atleta));
           }
           //this.actualizarCouch();
         },err=>{
@@ -70,7 +83,9 @@ export class ProfileComponent implements OnInit {
         }
       ) 
     }
+    
   }
+/*
   actualizarCouch(){
     
     if (this.atleta.email ==''  || this.atleta.email == undefined){
@@ -99,6 +114,18 @@ export class ProfileComponent implements OnInit {
       },
       err=>{
         console.log('Error inesperado en la consulta con el servidor para añadir al couch');
+      }
+    );
+  }
+*/
+  listarCouchs(){
+    this.couchService.listarCouchs().subscribe(
+      res=>{
+        let objRes:Respuesta = <Respuesta>res;
+        this.listaDeCouchs = objRes.respuesta;
+      },
+      err=>{
+        console.log('Error inesperado del servidor');
       }
     );
   }

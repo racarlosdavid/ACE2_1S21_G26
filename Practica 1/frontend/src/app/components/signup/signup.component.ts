@@ -37,6 +37,8 @@ export class SignupComponent implements OnInit {
   lista:string[] = ['M', 'F'];
   listaCouch:string[] = ['Couch', 'Atleta'];
 
+  listaDeCouchs:string[]=[];
+
   ngOnInit(): void {
     this.desplegarMenu()
   }
@@ -88,6 +90,7 @@ export class SignupComponent implements OnInit {
     );
     return false;
   }
+
 
   registrarse(){
     if(!this.comprobarCampos()){
