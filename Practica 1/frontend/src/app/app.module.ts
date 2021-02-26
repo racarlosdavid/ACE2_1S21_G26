@@ -21,6 +21,7 @@ import { TemperaturaComponent } from './components/temperatura/temperatura.compo
 import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { AtletasComponent } from './components/atletas/atletas.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     TemperaturaComponent,
     DashboardPrincipalComponent,
     HistorialComponent,
-    ReportesComponent
+    ReportesComponent,
+    AtletasComponent
   ],
   imports: [
     BrowserModule,

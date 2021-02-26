@@ -17,6 +17,7 @@ export class ReportesComponent implements OnInit {
   atleta?:Atleta 
   tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
   mostrarDato = document.querySelector<HTMLElement>('#dato')
+  reporte: boolean = false;
 
   constructor(private router:Router, private lecturaService:LecturaService) { }
 
@@ -50,6 +51,7 @@ export class ReportesComponent implements OnInit {
   }
 
   public showMinimo(){
+    this.reporte = true;
     this.tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
     this.mostrarDato = document.querySelector<HTMLElement>('#dato')
     if (this.tipoReporte != undefined && this.tipoReporte != null && this.atleta != undefined && this.atleta.iduser != undefined){

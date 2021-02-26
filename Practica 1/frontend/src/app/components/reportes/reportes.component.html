@@ -7,9 +7,7 @@
             <div class="row">
                 <!--Columna de tipo-->
                 <div class="list-menu col">
-                    <a class="list-new-item" >
-                        <h2>Tipo</h2>
-                    </a>
+                    <h2>Tipo</h2>
                     <a class="list-new-item" (click)='showMinimo()'>
                         <h4>Mínimo</h4>
                     </a>
@@ -25,10 +23,10 @@
                 </div>
                 <!--Columna de dato-->
                 <div class="list-menu col">
-                    <a class="list-new-item">
+                    <a class="list-new-item" *ngIf='reporte'>
                         <h2 id='tipoReporte'></h2>
                     </a>
-                    <a class="list-new-item">
+                    <a class="list-new-item" *ngIf='reporte'>
                         <h4 id='dato'></h4>
                     </a>
                 </div>

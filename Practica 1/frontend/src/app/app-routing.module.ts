@@ -10,6 +10,7 @@ import { TemperaturaComponent } from './components/temperatura/temperatura.compo
 import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component'
 import { HistorialComponent } from './components/historial/historial.component'
 import { ReportesComponent } from './components/reportes/reportes.component'
+import { AtletasComponent } from './components/atletas/atletas.component'
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
   {
     path:'reportes',
     component:ReportesComponent
+  },
+  {
+    path:'atletas',
+    component:AtletasComponent
   }
 
 ];

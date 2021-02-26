@@ -1,0 +1,21 @@
+<app-navigation-logged-in></app-navigation-logged-in>
+<section id="crearCuenta" class="h-100 py-5">
+    <img class="fondo" src="assets/Imagenes/fondo1.jpg">
+    <div class="overlay py-5">
+        <h1 class="text-center mt-5">Historial</h1>
+        <div class="container">
+            <div class="row">
+                <div class="list-menu col">
+                    <h2>Atletas</h2>
+                    <a class="list-new-item" *ngFor='let list of objRes?.respuesta'>
+                        <p>{{list.nombre + ' '+ list.apellido}}</p>
+                    </a>
+                </div>
+                <div class="container col">
+                    <h2>Seleccione</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

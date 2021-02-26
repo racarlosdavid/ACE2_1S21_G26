@@ -1,3 +1,6 @@
+h2{
+    color: #fff;
+}
 #crearCuenta{
     align-items: center;
     height: 100vh;
@@ -147,8 +150,4 @@ Boton
 
 .list-menu .list-new-item:hover{
     background: gray;
-}
-
-h2{
-    color: #fff;
 }
