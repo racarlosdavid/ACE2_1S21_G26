@@ -3,7 +3,8 @@
     <img src="assets/Imagenes/fondo1.jpg">
     
     <div class="overlay py-5">
-        <h1 class="text-center py-5">Perfil</h1>
+        <h1 class="text-center py-5" style="margin-bottom: 0px;">Perfil</h1>
+        <p style="color: white; text-align: center;">{{this.atleta.couch}}</p>
     
         <div class="col-lg-7 col-md-10 col-11 mx-auto pb-5">
             <form class="formulario">
@@ -32,6 +33,13 @@
                                 <option class="form-select form-select-lg mb-"  [disabled]="true" [value]="atleta.genero" *ngFor="let valor of lista">{{valor}}</option>
                             </select>
                         </div>
+                        <div class="btn-group dropend">
+                            <br/>
+                                <label for="selectorCouch" style="color: white;">Tipo:</label>
+                                <select name="selectorCouch" id="selectorCouch" [(ngModel)]="atleta.couch" >
+                                    <option class="form-select form-select-lg mb-"  [disabled]="true" [value]="valor" *ngFor="let valor of listaCouch">{{valor}}</option>
+                                </select>
+                            </div>
                     </div>
                     
                     <!--Peso en libras-->
@@ -54,16 +62,30 @@
                     </div>
                 </div>
                 <div class="form-row row">
-                    <!--COUSH-->
+                    <!--COUCH-->
+                    <div class="form-group col-md-3">
+                        <div class="btn-group dropend">
+                        <br/>
+                            <label style="margin-left: 5px;" for="selectorListaCouch" style="color: white;">Couch:</label>
+                            <select class="dropdown-menu show" name="selectorListaCouch" id="selectorListaCouch" [(ngModel)]="atleta.iduser_couch" >
+                                <option class="form-select form-select-lg mb-" [value]="null">Sin Entrenador</option>
+                                <option class="form-select form-select-lg mb-" [value]="valor.iduser" *ngFor="let valor of listaDeCouchs">{{valor.nombre}} {{valor.apellido}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--
                     <div class="form-group col-md-6">
                         <input [(ngModel)]='atleta.iduser_couch' type="number" name="iduser_couch" class="form-control" placeholder="Id del couch">
                     </div>
+                    -->
                 </div>
             </form>
             <div class="text-center">
+                <!--
                 <ul class="section-btn alinear" style="margin-top: 1%;">
                     <a><span data-hover="Actualizar Couch" (click)="actualizarCouch()">Actualizar Couch</span></a>
-                </ul>  
+                </ul>
+                -->  
                 <ul class="section-btn alinear">
                     <a><span data-hover="Actualizar Datos" (click)="actualizar()">Actualizar Datos</span></a>
                 </ul>

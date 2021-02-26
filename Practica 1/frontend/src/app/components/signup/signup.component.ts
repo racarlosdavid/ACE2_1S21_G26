@@ -30,11 +30,15 @@ export class SignupComponent implements OnInit {
     edad:'',
     peso_lb:'',
     estatura_cm:'',
-    iduser_couch:null
+    iduser_couch:null,
+    couch:''
 
   }
   lista:string[] = ['M', 'F'];
-  
+  listaCouch:string[] = ['Couch', 'Atleta'];
+
+  listaDeCouchs:string[]=[];
+
   ngOnInit(): void {
     this.desplegarMenu()
   }
@@ -87,11 +91,19 @@ export class SignupComponent implements OnInit {
     return false;
   }
 
+
   registrarse(){
     if(!this.comprobarCampos()){
       alert('Por favor llene todos los campos');
       return;
     }else if(this.verificarEmail()){
+
+      if(this.atleta.couch =='Atleta'){
+        this.atleta.couch = '0';
+      }else{
+        this.atleta.couch = '1';
+      }
+
       this.atletaService.addAtleta(this.atleta).subscribe(
         res=>{
           let objRes = <Respuesta>res;

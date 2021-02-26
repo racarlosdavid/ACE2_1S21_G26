@@ -23,4 +23,8 @@ export class CouchService {
   public preguntarCouch(email:string){
     return this.http.post(`${this.URL}preguntarCouch`,{email});
   }
+  public listarCouchs(){
+    return this.http.get(`${this.URL}listado`);
+  }
+
 }
