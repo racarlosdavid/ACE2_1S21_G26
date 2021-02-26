@@ -29,10 +29,10 @@ export class AtletasComponent implements OnInit {
     if(atleta.iduser == null){
       return;
     }
-    let tipo = localStorage.getItem('tipoDato')
+    /*let tipo = localStorage.getItem('tipoDato')
     if(tipo == null){
       return;
-    }
+    }*/
     //console.log(atleta.iduser)
     this.couchService.listaAtleta(1).subscribe((res) => {
       this.objRes = <Respuesta>res;
