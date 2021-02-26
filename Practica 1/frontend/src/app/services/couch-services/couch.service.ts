@@ -17,8 +17,10 @@ export class CouchService {
   public quitarCouch(emailAtleta:string){
     return this.http.post(`${this.URL}quitar`,{emailAtleta});
   }
-
   public listaAtleta(iduser_couch:number){
     return this.http.post(`${this.URL}listaAtleta`,{iduser_couch});
+  }
+  public preguntarCouch(email:string){
+    return this.http.post(`${this.URL}preguntarCouch`,{email});
   }
 }
