@@ -12,9 +12,11 @@ static const int notes[] = {
 };
 
 
-Output::Output(int buzzer_pin) { 
+Output::Output(int buzzer_pin, int relay_pin) { 
   BUZZER_PASIVO_PIN = buzzer_pin;
+  RELAY_PIN = relay_pin;
   pinMode(BUZZER_PASIVO_PIN, OUTPUT);	// pin 8 como salida 
+  pinMode(RELAY_PIN, OUTPUT);	// pin 2 como salida 
 }
 
 void Output::playBuzzer() {
@@ -24,4 +26,11 @@ void Output::playBuzzer() {
     }
     delay(150);
   }
+}
+
+void Output::inflarBolsa(int tiempo) {
+  T = tiempo;
+  digitalWrite(RELAY_PIN, HIGH); // RELAY_PIN a uno logico
+  delay(T); //Tiempo que voy a dejar la bomba encendida para que se infle la membrana
+  digitalWrite(RELAY_PIN, LOW);  // RELAY_PIN a cero logico
 }

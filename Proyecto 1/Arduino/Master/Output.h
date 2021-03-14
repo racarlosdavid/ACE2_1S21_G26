@@ -12,11 +12,14 @@
 
 class Output {
   public:
-    Output(int buzzer_pin);
+    Output(int buzzer_pin,int relay_pin);
     void playBuzzer();
+    void inflarBolsa(int tiempo);
     
   private:
-    int BUZZER_PASIVO_PIN ;//Pin al que esta conectado el buzzer
+    int BUZZER_PASIVO_PIN; //Pin al que esta conectado el buzzer
+    int RELAY_PIN; //Pin al que esta conectado el relay
+    int T = 1000; //Pin al que esta conectado el relay
  
     
 };
