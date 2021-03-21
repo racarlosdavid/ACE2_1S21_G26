@@ -1,31 +1,39 @@
-----------------------------------------------------------------------------------
-[GET] 35.209.252.22:3000/user/
+
+### [GET] 35.209.252.22:3000/user/
+
+Retorna todos los usuarios
 
 respuesta
+ ```
 {
     "text": [
         {
             "iduser": 1,
-            "correo": "bmoisesg@gmail.com",
+            "correo": "...@gmail.com",
             "contrasena": "admin",
-            "nombre": "Moises",
-            "apellido": "Gonzalez",
+            "nombre": "...",
+            "apellido": "...",
             "edad": 24,
             "genero": "M",		//M o F
             "peso_lb": 160,
             "estatura_cm": 178,
-            "estado_sesion": "0",	//1 esta abierta sus sesion, 0 esta cerrada
+            "estado_sesion": "0",	//1 esta abierta sus sesion, 0 esta cerrada, al agregar dejarla como 0
             "estado_couch": "1",	//1 couch  ;  0 atleta
             "iduser_couch": null,     ///cuando es couch, enviar un null, de lo contrario enviar el id del couch
             "veces_rendido": 0,         //defecto
             "veces_fallado": 0		//defecto
         },...
 }
+ ```
 
 
-----------------------------------------------------------------------------------
-[POST]35.209.252.22:3000/user/add
-json
+
+### [POST]35.209.252.22:3000/user/add
+
+agrega un nuevo usuario, cuando un usuario se registra 
+
+json 
+```
 {
             "correo": "hsdsfdsai@gmail.com",
             "contra": "123",
@@ -38,11 +46,13 @@ json
             "estado_sesion": 0,
             "estado_couch": 0,
             "iduser_couch": 1,
-            "veces_rendido": 10,
-            "veces_fallado": 11
-}
+            "veces_rendido": 0,
+            "veces_fallado": 0
+} 
+```
 
 respuesta
+ ```
 {
     "text": {
         "fieldCount": 0,
@@ -55,44 +65,58 @@ respuesta
         "changedRows": 0
     }
 }
+ ```
 
-----------------------------------------------------------------------------------
-[POST]35.209.252.22:3000/user/checkEmail
+
+###  [POST]35.209.252.22:3000/user/checkEmail
+Consulta en la base de datos si el correo que se esta enviando, ya existe?
+
 json 
+ ```
 {
-	"correo":"mardia@gmail.com"
+	"correo":"...@gmail.com"
 }
+ ```
 
 respueta no encontro el email
+ ```
 {
     "text": [...]
 }
+ ```
 
 respuesta si encontro el email
+ ```
 {
     "text": [
         {
-            "correo": "bmoisesg@gmail.com"
+            "correo": "...@gmail.com"
         }
     ]
 }
+ ```
 
-----------------------------------------------------------------------------------
-[POST]35.209.252.22:3000/user/checkCredential
-json{ 
-	"correo":"bmoisesg@gmail.com",
+
+### [POST]35.209.252.22:3000/user/checkCredential
+Login, ingresa su correo y la contraseña
+
+json
+ ```
+{ 
+	"correo":"...@gmail.com",
 	"contrasena":"admin"
-	
 }
-respuesta correcta
+ ```
+respuesta correcta, retorna toda la informacion del usuario
+ ```
 {
     "text": [
         {
             "iduser": 1,
-            "correo": "bmoisesg@gmail.com",
+            "correo": "...@gmail.com",
             "contrasena": "admin",
-            "nombre": "Moises",
-            "apellido": "Gonzalez",
+            "nombre": "...",
+            "apellido": "...",
             "edad": 24,
             "genero": "M",
             "peso_lb": 160,
@@ -105,19 +129,26 @@ respuesta correcta
         }
     ]
 }
+ ```
 respuesta incorrecta, osea cuando las credenciales estan malas
+ ```
 {
     "text": []
 }
+ ```
 
-----------------------------------------------------------------------------------
-[POST]35.209.252.22:3000/user/cerrarSesion
+###  [POST]35.209.252.22:3000/user/cerrarSesion
+Cuando el usuario salga de la pagina, se tiene que cerrar su sesion, solo es necesario que envie su correo
+
 json
+ ```
 {
-	"correo": "bmoisesg@gmail.com"
+	"correo": "...@gmail.com"
 }
+ ```
 
 respuesta
+ ```
 {
     "text": {
         "fieldCount": 0,
@@ -130,3 +161,91 @@ respuesta
         "changedRows": 1
     }
 }
+ ```
+
+
+
+### [GET]35.209.252.22:3000/couch/
+retornar a todos los couchs que estan registrados en el sistema
+respuesta
+ ```{
+    "text": [
+        {
+            "iduser": 1,
+            "correo": "...@gmail.com",
+            "contrasena": "admin",
+            "nombre": "...",
+            "apellido": "...",
+            "edad": 24,
+            "genero": "M",
+            "peso_lb": 160,
+            "estatura_cm": 178,
+            "estado_sesion": "0",
+            "estado_couch": "1",
+            "iduser_couch": null,
+            "veces_rendido": 0,
+            "veces_fallado": 0
+        },{...}...
+    ]
+}
+
+  ```
+
+### [POST]35.209.252.22:3000/couch/
+para cuando un atleta se asigna un couch, para eso se necesita el id del atleta y el id del couch que se quiere adignar
+json
+```
+{
+	"iduser_couch":2,
+	"iduser":10
+}
+ ```
+ respuesta
+ ```
+ {
+    "text": {
+        "fieldCount": 0,
+        "affectedRows": 1,
+        "insertId": 0,
+        "serverStatus": 2,
+        "warningCount": 0,
+        "message": "(Rows matched: 1  Changed: 0  Warnings: 0",
+        "protocol41": true,
+        "changedRows": 0
+    }
+}
+ ```
+
+### [POST]35.209.252.22:3000/couch/team
+
+retorna una lista de los atletas que tiene acargo un couch, solo se necesita ingresar el id del couch
+
+json
+```
+{
+	"iduser_couch":2
+}
+```
+respuesta
+```
+{
+    "text": [
+        {
+            "iduser": 5,
+            "correo": "..@gmail",
+            "contrasena": "hola",
+            "nombre": "...",
+            "apellido": "Fuentes",
+            "edad": 30,
+            "genero": "M",
+            "peso_lb": 190,
+            "estatura_cm": 150,
+            "estado_sesion": "0",
+            "estado_couch": "0",
+            "iduser_couch": 2,
+            "veces_rendido": 0,
+            "veces_fallado": 0
+        },{},{}
+    ]
+}
+```
