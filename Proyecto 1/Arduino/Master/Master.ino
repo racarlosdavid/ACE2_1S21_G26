@@ -1,65 +1,112 @@
-#include <MPU6050_tockn.h>
+#include <SoftwareSerial.h>
 #include <Wire.h>
+#include "MAX30105.h"
+#include "heartRate.h"
+#include <Adafruit_MLX90614.h>
 #include "Output.h"
 
-unsigned long tiempo_anterior = 0;
-unsigned long tiempo_actual = 0;
-unsigned long tiempo_anterior2 = 0;
-unsigned long tiempo_actual2 = 0;
-unsigned long segundos = 0;   //Variablel que lleva conteo de los segundos
-unsigned long aux = 0;        //Variable auxiliar para llevar control de cuando pasaron 60 segundos
-unsigned repeticiones = 0;    //Almacena las repeticiones cuantas veces a sonado la alarma o cuantos minutos an pasado desde que se inicio
+Adafruit_MLX90614 mlx = Adafruit_MLX90614();
+MAX30105 particleSensor;
+Output accion = Output(8,2);  //buzzer conectado al pin 8, relay conectado al pin 2
 
-int pasos = 0;
-float zancada = 30;          //Distancia entre las piernas en cm
-float distancia;             //Distancia recorrida en m
-float velocidad;             //Velocidad a la que va el atleta m/s
-float distancias[20];        //Almaceno las posiciones, solo necesito posicion 0 y la final despues de 5 segundos.
-int cont = 0;                //Auxiliar para guardar los datos en el arreglo de distancias.
-Output accion = Output(8,2); //buzzer conectado al pin 8, relay conectado al pin 2
-MPU6050 mpu6050(Wire);
+SoftwareSerial bluetooth(9,10);   //Crea conexion al bluetooth - PIN 9 a TX y PIN 10 a RX
 
-void setup() {
-  Serial.begin(9600);
-  Wire.begin();
-  mpu6050.begin();
-  mpu6050.setGyroOffsets(71.61, 1.76, -0.09);
+const byte RATE_SIZE = 10; //Increase this for more averaging. 4 is good.
+byte rates[RATE_SIZE]; //Array of heart rates
+byte rateSpot = 0;
+long lastBeat = 0; //Time at which the last beat occurred
+
+float beatsPerMinute;
+int beatAvg;
+int contador = 0;
+
+long previousMillis = 0;        // almacena la ultima vez de captura de la temperatura y envio de datos
+long interval = 2000;           // Intervalo de captura de la temperatura y envio de datos
+
+double T;   //Valor de la temperatura a enviar a la app
+int R;      //Valor del ritmo cardiaco a enviar a la app
+/*Variable para comparar si el atleta ya hizo demasiado esfuerzo y su ritmo se eleva demasiado, 
+si se pasa de 150 se le recomiento abandonar el test inflando la bolsa tipo membrana*/
+int ritmoPeligroso = 150; 
+String dataDelMovimiento; //Valor de la distancia, velocidad y repeticiones que recibo el arduino esclavo.
+
+void setup()
+{
+  Serial.begin(115200);
+  bluetooth.begin(9600); // inicialmente la comunicacion serial a 9600 Baudios.
+  Serial.println("Initializing...");
+  
+
+  // Initialize sensor
+  if (!particleSensor.begin(Wire, I2C_SPEED_FAST)) //Use default I2C port, 400kHz speed
+  {
+    Serial.println("MAX30105 was not found. Please check wiring/power. ");
+    while (1);
+  }
+  Serial.println("Place your index finger on the sensor with steady pressure.");
+
+  particleSensor.setup(); //Configure sensor with default settings
+  particleSensor.setPulseAmplitudeRed(0x0A); //Turn Red LED to low to indicate sensor is running
+  particleSensor.setPulseAmplitudeGreen(0); //Turn off Green LED
+  mlx.begin();  
 }
 
-void loop() {
-//Temporizador 60 segundos y contador de repeticiones
-  tiempo_actual = millis();
-  if((tiempo_actual-tiempo_anterior) >= 60000){ 
-    repeticiones++;
-    tiempo_anterior = tiempo_actual;
-    accion.playBuzzer(); //Como ya se cumplio un minuto suena el buzzer
+void loop(){
+  if (Serial.available()) { //Recibo el oxigeno en la sangre desde el otro arduino
+    dataDelMovimiento = Serial.readString();
+    //Serial.println(pasos);
   }
-
-  //Contador de pasos
-  mpu6050.update();
-
-  if(mpu6050.getAccY()>1){
-      pasos++;
-      delay(350);
-   }
-   
-  float distancia_anterior = distancia;  
-  distancia = (pasos*zancada)/100; //La distancia me queda en metros
   
-  if(distancia > distancia_anterior){
-    Serial.print("Distancia : ");Serial.println(distancia);
-    distancias[cont] = distancia;
-    cont++;
+  unsigned long currentMillis = millis();
+  if(currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;   
+    T = mlx.readObjectTempC();
+    enviarDataBluetooth();
+    limpiarVariables();
+  }
+  
+  long irValue = particleSensor.getIR();
+
+  if (checkForBeat(irValue) == true)
+  {
+    //We sensed a beat!
+    long delta = millis() - lastBeat;
+    lastBeat = millis();
+
+    beatsPerMinute = 60 / (delta / 1000.0);
+
+    if (beatsPerMinute < 255 && beatsPerMinute > 20)
+    {
+      rates[rateSpot++] = (byte)beatsPerMinute; //Store this reading in the array
+      rateSpot %= RATE_SIZE; //Wrap variable
+
+      //Take average of readings
+      beatAvg = 0;
+      for (byte x = 0 ; x < RATE_SIZE ; x++)
+        beatAvg += rates[x];
+      beatAvg /= RATE_SIZE;
+    }
   }
 
-  //Cada 5 segundos calculo la velocidad a la que se mueve el atleta
-  tiempo_actual2 = millis();
-  if((tiempo_actual2-tiempo_anterior2) >= 5000){ 
-    //velocidad = ((distancia-distancias[0])*3600000)/5000000; //Para convertir a metros distancia m * 3600000 segundos / 5000 s * 1000 metros
-    velocidad = (distancia-distancias[0])*0.72; //Simplificado distancia por 0.72 y obtengo km/h
-    Serial.print("Velocidad : ");Serial.println(velocidad);
-    cont = 0;
-    tiempo_anterior2 = tiempo_actual2;
+  R = beatAvg;
+  if (R > ritmoPeligroso){
+    accion.inflarBolsa(3000); //Si el ritmo cardiaco se eleva demasiado se infla la bolsa para alertar al atleta
   }
-  delay(100);
+
+  if (irValue < 50000){
+    R = 0;
+    //Serial.print("Aproxime su dedo al sensor");
+  }
+}
+/*Se envia un string con la siguiente informacion:
+Temperatura, RitmoCardiaco, repeticiones, velocidad, distanciaPorRepeticion, distanciaRecorrida, pasos*/
+void enviarDataBluetooth(){
+  String datos = (String)T + ", " + R + ", "+dataDelMovimiento;
+  bluetooth.println(datos);
+  Serial.println(datos);
+}
+
+void limpiarVariables(){
+  T = 0.0;
+  R = 0;
 }
