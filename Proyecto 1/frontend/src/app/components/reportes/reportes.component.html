@@ -1,0 +1,36 @@
+<app-navigation-logged-in></app-navigation-logged-in>
+<section id="crearCuenta" class="h-100 py-5">
+    <img class="fondo" src="assets/Imagenes/fondo1.jpg">
+    <div class="overlay py-5">
+        <h1 class="text-center mt-5">Reportes</h1>
+        <div class="container">
+            <div class="row">
+                <!--Columna de tipo-->
+                <div class="list-menu col">
+                    <h2>Tipo</h2>
+                    <a class="list-new-item" (click)='showMinimo()'>
+                        <h4>Mínimo</h4>
+                    </a>
+                    <a class="list-new-item" (click)='showMaximo()'>
+                        <h4>Máximo</h4>
+                    </a>
+                    <a class="list-new-item" (click)='showPromedio()'>
+                        <h4>Promedio</h4>
+                    </a>
+                    <!--<a class="list-new-item" *ngFor='let list of objRes?.respuesta'>
+                        <p>{{list.fecha.split('T',1)}}</p>
+                    </a>-->
+                </div>
+                <!--Columna de dato-->
+                <div class="list-menu col">
+                    <a class="list-new-item" *ngIf='reporte'>
+                        <h2 id='tipoReporte'></h2>
+                    </a>
+                    <a class="list-new-item" *ngIf='reporte'>
+                        <h4 id='dato'></h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

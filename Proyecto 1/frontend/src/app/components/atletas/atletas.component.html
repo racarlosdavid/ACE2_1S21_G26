@@ -1,0 +1,20 @@
+<app-navigation-logged-in></app-navigation-logged-in>
+<section id="crearCuenta" class="h-100 py-5">
+    <img class="fondo" src="assets/Imagenes/fondo1.jpg">
+    <div class="overlay py-5">
+        <h1 class="text-center mt-5"></h1>
+        <div class="container">
+            <div class="row">
+                <div class="list-menu col">
+                    <h2>Atletas</h2>
+                    <a id="asd"class="list-new-item" *ngFor='let list of objRes?.respuesta' [routerLink]="['/atletas',list.iduser]"  routerLinkActive="is-active">
+                        <p id="atletaSelected">{{list.nombre + ' '+ list.apellido}}</p>
+                    </a>
+                </div>
+                <ul class="section-btn text-center">
+                    <a (click)='selectMyData()'><span data-hover="Mis datos">Mis datos</span></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
