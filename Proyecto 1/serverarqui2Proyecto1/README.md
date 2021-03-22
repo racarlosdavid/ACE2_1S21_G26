@@ -95,8 +95,13 @@ respuesta si encontro el email
     ]
 }
  ```
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 ### [POST]35.209.252.22:3000/user/checkCredential
 Login, ingresa su correo y la contraseña
 
@@ -252,7 +257,11 @@ respuesta
 
 
 
+<<<<<<< HEAD
 ### [post]35.209.252.22:3000/lectura/
+=======
+### 35.209.252.22:3000/lectura/
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 agrega una lectura 
 ```
 {
@@ -268,7 +277,11 @@ agrega una lectura
 ```
 
 
+<<<<<<< HEAD
 ### [post]35.209.252.22:3000/lectura/historial
+=======
+### 35.209.252.22:3000/lectura/historial
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 retorna un historial 
 ```
 {
@@ -293,7 +306,11 @@ respuesta
     ]
 }
 ```
+<<<<<<< HEAD
 ### [post]35.209.252.22:3000/lectura/max
+=======
+### 35.209.252.22:3000/lectura/max
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 retorna el valor max registrado en el sistema
 ```
 {
@@ -313,7 +330,11 @@ respuesta
     ]
 }
 ```
+<<<<<<< HEAD
 ### [post]35.209.252.22:3000/lectura/min
+=======
+### 35.209.252.22:3000/lectura/min
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 retorna el valor min registrado en el sistema
 ```
 {
@@ -334,7 +355,11 @@ respuesta
 }
 ```
 
+<<<<<<< HEAD
 ### [post]35.209.252.22:3000/lectura/avg
+=======
+### 35.209.252.22:3000/lectura/avg
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 retorna el valor promedio registrado en el sistema
 ```
 {
@@ -355,12 +380,20 @@ respuesta
 
 
 
+<<<<<<< HEAD
 ### [post]35.209.252.22:3000/lectura/now
+=======
+### 35.209.252.22:3000/lectura/now
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 retorna el ultimo valor registrado en el sistema, asi simula el reporte en tiempo real
 ```
 {
 	"iduser": 1,
+<<<<<<< HEAD
 	"tipo": "R"       //R= ritmo cardiaco, T= temperatura, V= velocidad , RE= repeticion, D= distancia actual, DT= distancia acumulada
+=======
+	"tipo": "R"       //R= ritmo cardiaco, T= temperatura
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
 }
 ```
 respuesta
@@ -375,6 +408,7 @@ respuesta
     ]
 }
 ```
+<<<<<<< HEAD
 
 ### [post]35.209.252.22:3000/lectura/reportVelocidad
 Reporte:retorna una lista de test con los periodos y la velocidad min,max,promedio en cada periodo. Se necesita el id del usuario 
@@ -565,3 +599,5 @@ respuesta
     ]
 }
 ```
+=======
+>>>>>>> 5c63576757aa96a2a0b34f0f73e5b25764dec938
