@@ -3,8 +3,7 @@ import pool from '../database';
 
 class ApiController {
     public async index(req: Request, res: Response) {
-        const accion1 = await pool.query(`use mydb`);
-        res.json({ text: 'Bienvenido!' })
+        res.json({ text: 'Bienvenido! Proyecto1 Arqui Grupo 26' })
     }
 
     public async c_usuario_ingresar(req: Request, res: Response) {
@@ -44,6 +43,42 @@ class ApiController {
         }
         res.json({ text: accion })
     }
+    public async incrementar(req: Request, res: Response) {
+        const accion = await pool.query(`
+        update usuario set contadorTest = contadorTest+1  where iduser=${req.body.iduser}
+        `); 
+        res.json({ text: accion })
+    }
+    public async incrementar_fallo(req: Request, res: Response) {
+        const accion = await pool.query(`
+        update usuario set veces_fallado = veces_fallado+1  where iduser=${req.body.iduser}
+        `); 
+        res.json({ text: accion })
+    }
+    public async incrementar_rendio(req: Request, res: Response) {
+        const accion = await pool.query(`
+        update usuario set veces_rendido = veces_rendido+1  where iduser=${req.body.iduser}
+        `); 
+        res.json({ text: accion })
+    }
+
+    public async reporteVecesFallo(req: Request, res: Response) {
+
+        const accion2 = await pool.query(`
+        select veces_fallado from usuario where iduser=${req.body.iduser}
+        `)
+        res.json({ respuesta: accion2 })
+
+    }
+    public async reporteVecesRendido(req: Request, res: Response) {
+
+        const accion2 = await pool.query(`
+        select veces_rendido from usuario where iduser=${req.body.iduser}
+        `)
+        res.json({ respuesta: accion2 })
+
+    }
+    
 
 }
 export const apiController = new ApiController();

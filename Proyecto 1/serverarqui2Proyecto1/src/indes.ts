@@ -2,6 +2,8 @@ import  express, {Application } from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import apiRoutes from './routes/apiRouters'
+import apiRoutes_couch from './routes/apiRouters_couch'
+import apiRoutes_lectura from './routes/apiRouters_lectura'
 
 
 class Server {
@@ -22,6 +24,8 @@ class Server {
 
     routes():void{
         this.app.use('/user',apiRoutes);
+        this.app.use('/couch',apiRoutes_couch);
+        this.app.use('/lectura',apiRoutes_lectura);
     }
     start():void{
         this.app.listen(this.app.get('port'),() =>{
