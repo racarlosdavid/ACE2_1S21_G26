@@ -249,3 +249,129 @@ respuesta
     ]
 }
 ```
+
+
+
+### 35.209.252.22:3000/lectura/
+agrega una lectura 
+```
+{
+	"id_user": 1 ,
+	"fecha":"2021/02/15",
+	"hora":"",
+	"t":8,   //double
+	"r":30,  //double
+	"v":1,   //double
+	"d":1,   //double
+	"repeticiones":1  //int
+}
+```
+
+
+### 35.209.252.22:3000/lectura/historial
+retorna un historial 
+```
+{
+	"iduser": 1,
+	"tipo": "R"    //R= ritmo cardiaco, T= temperatura
+}
+```
+respuesta
+```
+{
+    "respuesta": [
+        {
+            "fecha": "2021/02/15",
+            "hora": "",
+            "dato": 30
+        },
+        {
+            "fecha": "2021/02/15",
+            "hora": "",
+            "dato": 30
+        },{...},...
+    ]
+}
+```
+### 35.209.252.22:3000/lectura/max
+retorna el valor max registrado en el sistema
+```
+{
+	"iduser": 1,
+	"tipo": "R"       //R= ritmo cardiaco, T= temperatura
+}
+```
+respuesta
+```
+{
+    "respuesta": [
+        {
+            "fecha": "2021/02/15",
+            "hora": "",
+            "r": 10
+        }
+    ]
+}
+```
+### 35.209.252.22:3000/lectura/min
+retorna el valor min registrado en el sistema
+```
+{
+	"iduser": 1,
+	"tipo": "R"       //R= ritmo cardiaco, T= temperatura
+}
+```
+respuesta
+```
+{
+    "respuesta": [
+        {
+            "fecha": "2021/02/15",
+            "hora": "",
+            "r": 10
+        }
+    ]
+}
+```
+
+### 35.209.252.22:3000/lectura/avg
+retorna el valor promedio registrado en el sistema
+```
+{
+	"iduser": 1,
+	"tipo": "R"       //R= ritmaco,o cardi T= temperatura
+}
+```
+respuesta
+```
+{
+    "respuesta": [
+        {
+            "dato": 6.575714
+        }
+    ]
+}
+```
+
+
+
+### 35.209.252.22:3000/lectura/now
+retorna el ultimo valor registrado en el sistema, asi simula el reporte en tiempo real
+```
+{
+	"iduser": 1,
+	"tipo": "R"       //R= ritmo cardiaco, T= temperatura
+}
+```
+respuesta
+```
+{
+    "respuesta": [
+        {
+            "fecha": "2021/02/15",
+            "hora": "",
+            "dato": 30
+        }
+    ]
+}
+```
