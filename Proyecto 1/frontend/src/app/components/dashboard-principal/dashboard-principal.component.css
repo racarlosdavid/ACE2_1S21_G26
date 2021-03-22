@@ -39,7 +39,11 @@
     color: #fff;
     text-transform: uppercase;
 }
-
+#crearCuenta h4{
+    padding-top: 20px;
+    color: #fff;
+    text-transform: uppercase;
+}
 #carouselExampleControls{
     justify-content: center;
     align-items: center;

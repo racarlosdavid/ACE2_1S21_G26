@@ -4,7 +4,7 @@ import { createPublicKey } from 'crypto';
 import { $ } from 'protractor';
 import { Atleta } from 'src/app/models/Atleta';
 import { Respuesta } from 'src/app/models/Respuesta';
-import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
+import { UserService } from 'src/app/services/user-services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +13,7 @@ import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private atletaService:AtletaService, private router:Router) {
+  constructor(private userService:UserService, private router:Router) {
     let usuarioActivo = localStorage.getItem('usuarioActivo');
      
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
@@ -73,7 +73,7 @@ export class SignupComponent implements OnInit {
     if(this.atleta.email == undefined){
       return false;
     }
-    await this.atletaService.checkEmail(this.atleta.email).subscribe(
+    await this.userService.checkEmail(this.atleta.email).subscribe(
       res=>{
         let objResCheck = <Respuesta>res
         if(objResCheck.respuesta.length ==0){
@@ -104,7 +104,7 @@ export class SignupComponent implements OnInit {
         this.atleta.couch = '1';
       }
 
-      this.atletaService.addAtleta(this.atleta).subscribe(
+      this.userService.addUser(this.atleta).subscribe(
         res=>{
           let objRes = <Respuesta>res;
           alert(objRes.mensaje)

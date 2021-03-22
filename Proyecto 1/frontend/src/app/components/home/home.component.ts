@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Atleta } from 'src/app/models/Atleta';
-import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
+import { UserService } from 'src/app/services/user-services/user.service';
 import { CouchService } from 'src/app/services/couch-services/couch.service';
 import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
+import { UserService } from 'src/app/services/user-services/user.service';
 import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
 import { Chart } from 'chart.js';
 import { Atleta } from 'src/app/models/Atleta';
@@ -28,7 +28,7 @@ export class TemperaturaComponent implements OnInit {
   public chart: any = null;
 
   public dateDay;
-  constructor(private router:Router, private atletaService:AtletaService, private lecturaService:LecturaService) {
+  constructor(private router:Router, private userService:UserService, private lecturaService:LecturaService) {
     this.dateDay = new Date().toString().substring(16,25);
     this.nombreAtletaGrafica=localStorage.getItem('nombreAtletaGrafica');
    }

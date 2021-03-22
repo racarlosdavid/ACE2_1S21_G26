@@ -8,7 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AtletaService } from './services/atleta-services/atleta.service';
+import { UserService } from './services/user-services/user.service';
 import { CouchService } from './services/couch-services/couch.service';
 import { LecturaService } from './services/lectura-services/lectura.service';
 import { FormsModule } from '@angular/forms';
@@ -48,7 +48,7 @@ import { AtletasComponent } from './components/atletas/atletas.component';
     CommonModule
   ],
   providers: [
-    AtletaService,
+    UserService,
     CouchService,
     LecturaService
   ],

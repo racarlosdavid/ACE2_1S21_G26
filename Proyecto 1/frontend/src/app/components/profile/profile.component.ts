@@ -4,7 +4,7 @@ import { UV_UDP_REUSEADDR } from 'constants';
 import { Atleta } from 'src/app/models/Atleta';
 import { Couch } from 'src/app/models/Couch';
 import { Respuesta } from 'src/app/models/Respuesta';
-import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
+import { UserService } from 'src/app/services/user-services/user.service';
 import { CouchService } from 'src/app/services/couch-services/couch.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   listaCouch:string[] = ['Couch', 'Atleta'];
   listaDeCouchs:Couch[] = [];
 
-  constructor(private router:Router, private atletaService:AtletaService, private couchService:CouchService) {
+  constructor(private router:Router, private userService:UserService, private couchService:CouchService) {
     this.listarCouchs();
     let usuarioActivo = localStorage.getItem('usuarioActivo');
     if((usuarioActivo==null  ||  usuarioActivo==undefined)){
@@ -62,14 +62,14 @@ export class ProfileComponent implements OnInit {
 
   actualizar(){
     
-    if(!this.comprobarCampos()){
+    /*if(!this.comprobarCampos()){
       alert('Por favor llene todos los campos');
       return;
     }else {
       if(this.atleta.iduser_couch == undefined){
         this.atleta.iduser_couch =null;
       }
-      this.atletaService.updateAtleta(this.atleta).subscribe(
+      this.userService.updateAtleta(this.atleta).subscribe(
         res=>{
           let objRes = <Respuesta>res;
           alert(objRes.respuesta)
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
           console.log('Error inesperado en la consulta con el servidor');
         }
       ) 
-    }
+    }*/
     
   }
 /*

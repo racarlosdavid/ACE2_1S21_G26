@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Atleta } from 'src/app/models/Atleta';
 import { Lectura } from 'src/app/models/Lectura';
 import { Respuesta } from 'src/app/models/Respuesta';
-import { AtletaService } from 'src/app/services/atleta-services/atleta.service';
+import { UserService } from 'src/app/services/user-services/user.service';
 import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
 
 @Component({
@@ -32,7 +32,7 @@ export class OxigenoComponent implements OnInit {
   public chart: any = null;
 
   
-  constructor(private router:Router, private atletaService:AtletaService, private lecturaService:LecturaService) { 
+  constructor(private router:Router, private userService:UserService, private lecturaService:LecturaService) { 
     this.dateDay = new Date().toString().substring(16,25);
     this.nombreAtletaGrafica = localStorage.getItem('nombreAtletaGrafica');
   }
