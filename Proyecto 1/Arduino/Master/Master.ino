@@ -29,6 +29,13 @@ int R;      //Valor del ritmo cardiaco a enviar a la app
 si se pasa de 150 se le recomiento abandonar el test inflando la bolsa tipo membrana*/
 int ritmoPeligroso = 150; 
 String dataDelMovimiento; //Valor de la distancia, velocidad y repeticiones que recibo el arduino esclavo.
+int falloLaPrueba = 0;  //Variable que indica si el atleta se perdio la prueba o no, 1 es que se ha fallado el test y 0 es que no
+
+/*Variables para manejar la interrupcion*/
+int LED = 4; //Led para indicar que el atleta se rindio
+int BOTON = 3;  //Boton para que el atleta se rinda
+volatile int estado = LOW; //Estado del led
+volatile int seRindio = 0; //Variable que indica si el atleta se rindio o no, 1 es que se rindio y 0 es que no
 
 void setup()
 {
@@ -49,6 +56,10 @@ void setup()
   particleSensor.setPulseAmplitudeRed(0x0A); //Turn Red LED to low to indicate sensor is running
   particleSensor.setPulseAmplitudeGreen(0); //Turn off Green LED
   mlx.begin();  
+  pinMode(LED,OUTPUT);
+  pinMode(BOTON,INPUT);
+  attachInterrupt(digitalPinToInterrupt(BOTON),abandonarPrueba,RISING);
+  digitalWrite(LED,estado);
 }
 
 void loop(){
@@ -91,7 +102,10 @@ void loop(){
   R = beatAvg;
   if (R > ritmoPeligroso){
     accion.inflarBolsa(3000); //Si el ritmo cardiaco se eleva demasiado se infla la bolsa para alertar al atleta
+    falloLaPrueba = 1;
   }
+
+  
 
   if (irValue < 50000){
     R = 0;
@@ -99,9 +113,9 @@ void loop(){
   }
 }
 /*Se envia un string con la siguiente informacion:
-Temperatura, RitmoCardiaco, repeticiones, velocidad, distanciaPorRepeticion, distanciaRecorrida, pasos*/
+Temperatura, RitmoCardiaco, repeticiones, velocidad, distanciaPorRepeticion, distanciaRecorrida, pasos, falloLaPrueba, seRindio*/
 void enviarDataBluetooth(){
-  String datos = (String)T + ", " + R + ", "+dataDelMovimiento;
+  String datos = (String)T + ", " + (String)R + ", "+dataDelMovimiento+ ", "+(String)falloLaPrueba+ ", "+(String)seRindio;
   bluetooth.println(datos);
   Serial.println(datos);
 }
@@ -109,4 +123,11 @@ void enviarDataBluetooth(){
 void limpiarVariables(){
   T = 0.0;
   R = 0;
+}
+
+void abandonarPrueba(){
+  estado = !estado;
+  accion.inflarBolsa(3000); //Si el atleta presiona el boton para rendirse se infla la bolsa para alertar al atleta
+  digitalWrite(LED,estado);
+  seRindio = 1;
 }
