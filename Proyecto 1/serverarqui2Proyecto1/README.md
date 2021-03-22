@@ -115,7 +115,7 @@ json
 respuesta correcta, retorna toda la informacion del usuario
  ```
 {
-    "text": [
+    "respuesta": [
         {
             "iduser": 1,
             "correo": "...@gmail.com",
