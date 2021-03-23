@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.texto_contasenia);
         mensaje= (TextView)findViewById(R.id.mensaje);
 
-        //user.setText("");
-        //password.setText("");
-        //mensaje.setText("");
+        user.setText("");
+        password.setText("");
+        mensaje.setText("");
 
     }
 
@@ -61,11 +61,8 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(">>"+dato_usuario);
         System.out.println(">>"+dato_contrasenia);
         mensaje.setText("cargando . . . ");
-        //revisarCredenciales(dato_usuario, dato_contrasenia);
-        Intent s = new Intent(this, SegundoActivity.class);
-        //s.putExtra("nombre", data.get("nombre"));
-        //s.putExtra("id",data.get("iduser"));
-        startActivity(s);
+        revisarCredenciales(dato_usuario, dato_contrasenia);
+
     }
 
     private void revisarCredenciales(String name, String password){
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             //creando json
             JSONObject paramObject = new JSONObject();
-            paramObject.put("email", name);
+            paramObject.put("correo", name);
             paramObject.put("contrasena",password);
             System.out.println(">>Enviando JSON: "+paramObject.toString());
 

@@ -9,18 +9,31 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    String ENDPOINT= "https://arqui2-g26-pve.herokuapp.com";
+    String ENDPOINT= "http://35.209.252.22:3000";
 
-    @GET("atleta")
+    @GET("user")
     Call<Object> getPosts();
 
     @Headers("Content-Type: application/json")
-    @POST("/atleta/checkCredential")
+    @POST("/user/checkCredential")
     Call <Respuesta> verificarCredenciales(@Body String body);
 
     @Headers("Content-Type: application/json")
     @POST("/lectura")
     Call <Object> setlectura(@Body String body);
+
+
+    @Headers("Content-Type: application/json")
+    @POST("/user/increFallo")
+    Call <Object> set1(@Body String body);
+
+    @Headers("Content-Type: application/json")
+    @POST("/user/increRendido")
+    Call <Object> set2(@Body String body);
+
+    @Headers("Content-Type: application/json")
+    @POST("/user/iniciarTest")
+    Call <Object> set3(@Body String body);
 
 
 }

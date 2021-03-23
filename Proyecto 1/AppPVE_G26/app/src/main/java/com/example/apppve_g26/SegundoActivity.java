@@ -41,7 +41,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SegundoActivity extends AppCompatActivity {
 
-    TextView txt_id, txt_nombre,n1,n2,n3;
+    TextView txt_id, txt_nombre,n1,n2,n3,n4,n5,n6,n7,n8,n9;
     Switch sw_enviar;
     TextView myLabel;
     EditText myTextbox;
@@ -74,6 +74,12 @@ public class SegundoActivity extends AppCompatActivity {
         n1= (TextView)findViewById(R.id.numero1);
         n2= (TextView)findViewById(R.id.numero2);
         n3= (TextView)findViewById(R.id.numero3);
+        n4= (TextView)findViewById(R.id.numero4);
+        n5= (TextView)findViewById(R.id.numero5);
+        n6= (TextView)findViewById(R.id.numero6);
+        n7= (TextView)findViewById(R.id.numero7);
+        n8= (TextView)findViewById(R.id.numero8);
+        n9= (TextView)findViewById(R.id.numero9);
 
         Button openButton = (Button)findViewById(R.id.open);
         Button closeButton = (Button)findViewById(R.id.close);
@@ -119,6 +125,16 @@ public class SegundoActivity extends AppCompatActivity {
         startActivity(i);
         finish();
 
+    }
+
+    public void metodo_simula_boton_fisico(View view){
+        sw_enviar.setChecked(false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("P.V.E.");
+        builder.setMessage("Has seleccionado la opcion de rendirte, el test ha terminado");
+        builder.setPositiveButton("Cerrar", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
@@ -233,15 +249,49 @@ public class SegundoActivity extends AppCompatActivity {
     }
     void viewData(String data ){
         String[] lista = data.split(",");
-        n1.setText(lista[0]);
-        n3.setText(lista[2]);
-        n2.setText(lista[1]);
 
-        if (sw_enviar.isChecked()){
+        n1.setText(lista[0]);
+        n2.setText(lista[1]);
+        n3.setText(lista[2]);
+        n4.setText(lista[3]);
+        n5.setText(lista[4]);
+        n6.setText(lista[5]);
+        n7.setText(lista[6]);
+        n8.setText(lista[7]);
+        n9.setText(lista[8]);
+
+
+        if (n8.getText().equals("1") && sw_enviar.isChecked()){
+            System.out.println("Entre---------------------------------------");
+            sw_enviar.setChecked(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("P.V.E.");
+            builder.setMessage("Tu ritmo cardiaco subio mucho! el test termino");
+            builder.setPositiveButton("Cerrar", null);
+            AlertDialog dialog = builder.create();
+            endpointFallo();
+            dialog.show();
+
+        }
+
+        if(n9.getText().equals("1") && sw_enviar.isChecked()){
+            System.out.println("-------------------------------Entre---------------------------------------");
+            sw_enviar.setChecked(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("P.V.E.");
+            builder.setMessage("Has seleccionado la opcion de rendirte, el test ha terminado");
+            builder.setPositiveButton("Cerrar", null);
+            AlertDialog dialog = builder.create();
+            endpointRen();
+            dialog.show();
+        }
+        if (sw_enviar.isChecked() && !n3.getText().equals("0")){
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
             String fecha= sdf.format(new Date());
-            enviarlectura(txt_id.getText().toString(),fecha );
+            String hora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+            enviarlectura(txt_id.getText().toString(),fecha,hora );
         }
 
     }
@@ -249,6 +299,13 @@ public class SegundoActivity extends AppCompatActivity {
         n1.setText("...");
         n2.setText("...");
         n3.setText("...");
+        n4.setText("...");
+        n5.setText("...");
+        n6.setText("...");
+        n7.setText("...");
+        n8.setText("...");
+        n9.setText("...");
+
     }
 
     void sendData() throws IOException
@@ -271,7 +328,8 @@ public class SegundoActivity extends AppCompatActivity {
 
     void enviarlectura(
             String id,
-            String fecha
+            String fecha,
+            String hora
     ){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Api.ENDPOINT)
@@ -286,9 +344,13 @@ public class SegundoActivity extends AppCompatActivity {
                 JSONObject paramObject = new JSONObject();
                 paramObject.put("id_user", id);
                 paramObject.put("fecha",fecha);
+                paramObject.put("hora",hora);
                 paramObject.put("t",n1.getText().toString());
-                paramObject.put("o",n3.getText().toString());
                 paramObject.put("r",n2.getText().toString());
+                paramObject.put("v",n4.getText().toString());
+                paramObject.put("d",n5.getText().toString());
+                paramObject.put("dt",n6.getText().toString());
+                paramObject.put("repeticiones",n3.getText().toString());
 
                 System.out.println(paramObject.toString());
 
@@ -325,4 +387,149 @@ public class SegundoActivity extends AppCompatActivity {
 
 
     }
+
+    public void increTest(View view){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.ENDPOINT)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api json = retrofit.create(Api.class);
+
+        try {
+            //creando json
+            JSONObject paramObject = new JSONObject();
+            paramObject.put("iduser", getIntent().getStringExtra("id"));
+
+            System.out.println(paramObject.toString()+"----------------------------------");
+
+            Call<Object> call= json.set3(paramObject.toString());
+
+            call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+
+                    if (!response.isSuccessful()) {
+                        System.out.println("Error, codigo " + response.code());
+                        return;
+                    }
+
+                    System.out.println("RECIBI ALGO -------------");
+                    System.out.println(response.toString());
+
+                    System.out.println("-------------------------");
+
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+                    System.out.println("ERROR -------------------------");
+                    System.out.println(t.getMessage());
+                    //mensaje.setText("ERROR, revisar estado conexion internet");
+                }
+
+            });
+
+        } catch (JSONException e) {
+
+        }
+        sw_enviar.setChecked(true);
+    }
+
+    public void endpointFallo(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.ENDPOINT)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api json = retrofit.create(Api.class);
+
+        try {
+            //creando json
+            JSONObject paramObject = new JSONObject();
+            paramObject.put("iduser", getIntent().getStringExtra("id"));
+
+            System.out.println(paramObject.toString()+"----------------------------------");
+
+            Call<Object> call= json.set1(paramObject.toString());
+
+            call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+
+                    if (!response.isSuccessful()) {
+                        System.out.println("Error, codigo " + response.code());
+                        return;
+                    }
+
+                    System.out.println("RECIBI ALGO -------------");
+                    System.out.println(response.toString());
+
+                    System.out.println("-------------------------");
+
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+                    System.out.println("ERROR -------------------------");
+                    System.out.println(t.getMessage());
+                    //mensaje.setText("ERROR, revisar estado conexion internet");
+                }
+
+            });
+
+        } catch (JSONException e) {
+
+        }
+    }
+    public void endpointRen(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.ENDPOINT)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api json = retrofit.create(Api.class);
+
+        try {
+            //creando json
+            JSONObject paramObject = new JSONObject();
+            paramObject.put("iduser", getIntent().getStringExtra("id"));
+
+            System.out.println(paramObject.toString()+"----------------------------------");
+
+            Call<Object> call= json.set2(paramObject.toString());
+
+            call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+
+                    if (!response.isSuccessful()) {
+                        System.out.println("Error, codigo " + response.code());
+                        return;
+                    }
+
+                    System.out.println("RECIBI ALGO -------------");
+                    System.out.println(response.toString());
+
+                    System.out.println("-------------------------");
+
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+                    System.out.println("ERROR -------------------------");
+                    System.out.println(t.getMessage());
+                    //mensaje.setText("ERROR, revisar estado conexion internet");
+                }
+
+            });
+
+        } catch (JSONException e) {
+
+        }
+    }
+
 }
