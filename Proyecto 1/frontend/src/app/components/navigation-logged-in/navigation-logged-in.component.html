@@ -1,27 +1,39 @@
 <header>
-    <nav class="navbar navbar-expand-lg py-3 navbar-fixed-top fixed-top">
+    <nav class="navbar navbar-expand-lg py-3 navbar-fixed-top fixed-top" style="background-color: gray;">
         <div class="container">
           
-          <a class="navbar-brand" href="#">TVE APP</a>
+          <a class="navbar-brand" href="#"  style="color: white;">TVE APP</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars text-light" aria-hidden="true"></i>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto float-end text-end">
               <li class="nav-item">
-                <a class="nav-link ms-5" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+                <a class="nav-link ms-5" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" style="color: white;">
                   {{dateDay}}
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/atletas" *ngIf="isCouchVar">Atletas</a>
+                <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/atletas" *ngIf="isCouchVar" style="color: white;">Atletas</a>
               </li>
               <li class="nav-item">
-                    <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/user/profile">Perfil</a>
+                    <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/user/profile" style="color: white;">Perfil</a>
                 </li>
-              <li class="nav-item">
-                <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/principal">Dashboard Principal</a>
+              <li class="nav-item" style="margin-right: 10px;">
+                <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/principal" style="color: white;">Dashboard Principal</a>
               </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" routerLink="/repeticionesFecha">Conteo de Repeticiones por fecha</a>
+                  <a class="dropdown-item" routerLink="/reportVelocidad">Velocidad Alcanzada por repeticion</a>
+                  <a class="dropdown-item" routerLink="/reportDistancia">Distancia medida por repeticion</a>
+                  <div class="dropdown-divider">Reporte de fallas</div>
+                  <a class="dropdown-item" href="#">Reporte de Rendiciones</a>
+                  <a class="dropdown-item" href="#">Reporte de Fallas</a>
+                </div>
+              </li> 
+               
               <!--<li class="nav-item">
                 <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/ritmo">Ritmo cardiaco</a>
               </li>
@@ -32,10 +44,10 @@
                 <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink = "/oxigeno">Oxigeno en la sangre</a>
               </li>-->
               <li class="nav-item">
-                <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)='cerrarSesion()'>Cerrar Sesion</a>
-              </li>              
+                <a class="nav-link ms-5" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)='cerrarSesion()' style="color: white;">Cerrar Sesion</a>
+              </li>            
             </ul>
-
+            
           </div>
         </div>
     </nav>

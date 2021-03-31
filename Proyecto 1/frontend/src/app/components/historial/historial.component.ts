@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
-import { Atleta } from 'src/app/models/Atleta';
-import { Respuesta } from 'src/app/models/Respuesta';
- 
+import { Usuario } from 'src/app/models/Usuario';
+import { LecturaService } from 'src/app/services/lecturaServices/lectura.service';
+
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.component.html',
@@ -42,7 +41,7 @@ export class HistorialComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
+    let atleta:Usuario = <Usuario>JSON.parse(usuarioActivo);
     if(atleta.iduser == null){
       return;
     }
@@ -54,9 +53,13 @@ export class HistorialComponent implements OnInit {
     let idSelected = localStorage.getItem('idAtletaGrafica')
     if(idSelected != null){
       this.lecturaService.getHistorial(Number(idSelected),tipo).subscribe((res) => {
-        this.objRes = <Respuesta>res;
+        this.objRes = res;
        // console.log(this.objRes.respuesta[0])
-      })
+      },
+      err=>{
+        alert(err.respuesta);
+      }
+      )
     }
     
   }

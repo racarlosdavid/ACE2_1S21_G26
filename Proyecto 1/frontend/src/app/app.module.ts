@@ -1,44 +1,62 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { HomeComponent } from './components/home/home.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { UserService } from './services/user-services/user.service';
-import { CouchService } from './services/couch-services/couch.service';
-import { LecturaService } from './services/lectura-services/lectura.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NavigationLoggedInComponent } from './components/navigation-logged-in/navigation-logged-in.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UsuarioService } from './services/usuarioServices/usuario.service';
+import { CouchService } from './services/couchServices/couch.service';
+import { LecturaService } from './services/lecturaServices/lectura.service';
+import { HomeComponent } from './components/home/home.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { NavigationLoggedInComponent } from './components/navigation-logged-in/navigation-logged-in.component';
 import { OxigenoComponent } from './components/oxigeno/oxigeno.component';
-import { RitmoComponent } from './components/ritmo/ritmo.component';
-import { TemperaturaComponent } from './components/temperatura/temperatura.component';
 import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component';
+import { TemperaturaComponent } from './components/temperatura/temperatura.component';
+import { RitmoComponent } from './components/ritmo/ritmo.component';
+import { VelocidadComponent } from './components/velocidad/velocidad.component';
+import { DistanciaActualComponent } from './components/distancia-actual/distancia-actual.component';
+import { DistanciaAcumuladaComponent } from './components/distancia-acumulada/distancia-acumulada.component';
+import { RepeticionComponent } from './components/repeticion/repeticion.component';
+import { RepeticionesFechaComponent } from './components/repeticiones-fecha/repeticiones-fecha.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { AtletaComponent } from './components/atleta/atleta.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
-import { AtletasComponent } from './components/atletas/atletas.component';
+import { VelocidadAlcanzadaComponent } from './components/velocidad-alcanzada/velocidad-alcanzada.component';
+import { DistanciaRepeticionComponent } from './components/distancia-repeticion/distancia-repeticion.component';
+import { ReporteFalladoComponent } from './components/reporte-fallado/reporte-fallado.component';
+import { ReporteRendidoComponent } from './components/reporte-rendido/reporte-rendido.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
     HomeComponent,
-    SignupComponent,
+    NavigationComponent,
     SigninComponent,
-    NavigationLoggedInComponent,
+    SignupComponent,
     ProfileComponent,
+    NavigationLoggedInComponent,
     OxigenoComponent,
-    RitmoComponent,
-    TemperaturaComponent,
     DashboardPrincipalComponent,
+    TemperaturaComponent,
+    RitmoComponent,
+    VelocidadComponent,
+    DistanciaActualComponent,
+    DistanciaAcumuladaComponent,
+    RepeticionComponent,
+    RepeticionesFechaComponent,
     HistorialComponent,
+    AtletaComponent,
     ReportesComponent,
-    AtletasComponent
+    VelocidadAlcanzadaComponent,
+    DistanciaRepeticionComponent,
+    ReporteFalladoComponent,
+    ReporteRendidoComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +66,7 @@ import { AtletasComponent } from './components/atletas/atletas.component';
     CommonModule
   ],
   providers: [
-    UserService,
+    UsuarioService,
     CouchService,
     LecturaService
   ],

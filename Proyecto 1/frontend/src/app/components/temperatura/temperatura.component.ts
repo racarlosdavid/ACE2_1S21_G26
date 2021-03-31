@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user-services/user.service';
-import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
+import { RegistroHistorial } from 'src/app/models/RegistroHistorial';
+import { Usuario } from 'src/app/models/Usuario';
 import { Chart } from 'chart.js';
-import { Atleta } from 'src/app/models/Atleta';
-import { Respuesta } from 'src/app/models/Respuesta';
-import { Lectura } from 'src/app/models/Lectura';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
+import { LecturaService } from 'src/app/services/lecturaServices/lectura.service';
+
 @Component({
   selector: 'app-temperatura',
   templateUrl: './temperatura.component.html',
@@ -14,6 +14,7 @@ import { Lectura } from 'src/app/models/Lectura';
 export class TemperaturaComponent implements OnInit {
 
   public fechaAnterior:string = '';
+  public dateDay;
   public nombreAtletaGrafica;
   /**
   * Interval to update the chart
@@ -25,13 +26,13 @@ export class TemperaturaComponent implements OnInit {
   * The ChartJS Object
   * @var {any} chart
   */
-  public chart: any = null;
+  public chartTemp: any = null;
 
-  public dateDay;
-  constructor(private router:Router, private userService:UserService, private lecturaService:LecturaService) {
+  
+  constructor(private router:Router, private userService:UsuarioService, private lecturaService:LecturaService) { 
     this.dateDay = new Date().toString().substring(16,25);
-    this.nombreAtletaGrafica=localStorage.getItem('nombreAtletaGrafica');
-   }
+    this.nombreAtletaGrafica = localStorage.getItem('nombreAtletaGrafica');
+  }
 
   /**
   * On component initialization
@@ -40,17 +41,17 @@ export class TemperaturaComponent implements OnInit {
   */
   ngOnInit(): void {
 
-    this.chart = new Chart('realtime', {
+    this.chartTemp = new Chart('realtimeTemp', {
       type: 'line',
       data: {
        labels: [],
        datasets: [
          {
-        label: 'Temperatura Corporal',
+        label: 'Temperatura corporal',
         fill: false,
         data: [],
-        backgroundColor: '#ECEF16',
-        borderColor: '#ECEF16'
+        backgroundColor: '#02F5E6',
+        borderColor: '#02F5E6'
          }
        ]
         },
@@ -106,8 +107,8 @@ export class TemperaturaComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
-    if(atleta.iduser == null){
+    let usuario:Usuario = <Usuario>JSON.parse(usuarioActivo);
+    if(usuario.iduser == null){
       return;
     }
     //--------
@@ -121,44 +122,32 @@ export class TemperaturaComponent implements OnInit {
       return;
     }
     //--------
-    //this.lecturaService.getLecturaNow(atleta.iduser,'T').subscribe(
-    
+    //this.lecturaService.getLecturaNow(atleta.iduser,'O').subscribe(
+      console.log(idAtletaGrafica);
     this.lecturaService.getLecturaNow(idAtletaGraficaN,'T').subscribe(
       res=>{
-        let objRes = <Respuesta> res;
-        let lecturaActual = <Lectura>objRes.respuesta[0];
+        let lecturaActual = <RegistroHistorial>res;
+        console.log(res);
 
-        if(lecturaActual == undefined){
+        if(lecturaActual == null ||  lecturaActual ==undefined) {
           console.log('No hay lecturas');
           return;
         }
 
-        if(this.chart.data.labels.length > 10) {
-          this.chart.data.labels.shift();
-          this.chart.data.datasets[0].data.shift();
+        if(this.chartTemp.data.labels.length > 10) {
+          this.chartTemp.data.labels.shift();
+          this.chartTemp.data.datasets[0].data.shift();
         }
         if(this.fechaAnterior != lecturaActual.fecha){
-          this.chart.data.labels.push(lecturaActual.fecha?.substring(0,10)+'\n'+this.dateDay);
-          //this.chart.data.labels.push(lecturaActual.fecha);
-				  this.chart.data.datasets[0].data.push(lecturaActual.dato);
-				  this.chart.update();
-          //this.fechaAnterior = lecturaActual.fecha!=undefined?lecturaActual.fecha:'';
+          this.chartTemp.data.labels.push(lecturaActual.fecha);
+				  //this.chart.data.labels.push(this.dateDay);
+          this.chartTemp.data.datasets[0].data.push(lecturaActual.dato);
+				  this.chartTemp.update();
         }
-        /*
-        //this.chart.data.labels = [];
-        //this.chart.data.data = [];
-        for(let lectura of lecturas){
-          this.chart.data.labels.push(lectura.fecha);
-          this.chart.data.data.push(lectura.dato);
 
-          //console.log(lectura.fecha)
-          //console.log(lectura.dato)
-        }
-        this.chart.update();
-        */
       },
       err=>{
-        console.log(err);
+        console.log(err.respuesta);
       }
     );
   }

@@ -1,0 +1,51 @@
+<app-navigation-logged-in></app-navigation-logged-in>
+<section id="crearCuenta" class="h-100 py-5">
+    <img class="fondo" src="assets/Imagenes/fondo1.jpg">
+    <div class="overlay py-5">
+        <h1 class="text-center mt-5">Velocidad por repeticion</h1>
+        <div class="container">
+            <div class="row">
+                <div class="list-menu col">
+                    <a class="list-new-item" >
+                        <h2>Entrenamiento</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.id_test}}</p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item">
+                        <h2>Repeticion</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.periodo}}</p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item">
+                        <h2>Vel. min</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.min}}</p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item">
+                        <h2>Vel. max.</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.max}}</p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item">
+                        <h2>Vel. Prom.</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.avg}}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

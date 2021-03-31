@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Atleta } from 'src/app/models/Atleta';
-import { Respuesta } from 'src/app/models/Respuesta';
-import { UserService } from 'src/app/services/user-services/user.service';
-import { CouchService } from 'src/app/services/couch-services/couch.service';
+import { Usuario } from 'src/app/models/Usuario';
+import { CouchService } from 'src/app/services/couchServices/couch.service';
+import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
+import 'bootstrap';
 
 @Component({
   selector: 'app-navigation-logged-in',
@@ -11,6 +11,7 @@ import { CouchService } from 'src/app/services/couch-services/couch.service';
   styleUrls: ['./navigation-logged-in.component.css']
 })
 export class NavigationLoggedInComponent implements OnInit {
+
   public dateDay;
 
   /**
@@ -19,19 +20,19 @@ export class NavigationLoggedInComponent implements OnInit {
   */
  private intervalUpdate: any = null;
  public isCouchVar:boolean=false;
- constructor(private router:Router, private userService:UserService, private couchServices:CouchService) { 
+ constructor(private router:Router, private userService:UsuarioService, private couchServices:CouchService) { 
   this.dateDay = new Date().toString().substring(16,25);
   let usuarioActivo = localStorage.getItem('usuarioActivo');
     if((usuarioActivo == null  ||  usuarioActivo==undefined)){
       this.router.navigate(['']);
       return;
     }
-    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
-    if(atleta.email == null){
+    let atleta:Usuario = <Usuario>JSON.parse(usuarioActivo);
+    if(atleta.correo == null){
       return;
     }
 
-    if(atleta.couch == 0){
+    if(atleta.estado_couch == 0){
       this.isCouchVar =false;
     }else{
       this.isCouchVar = true;
@@ -66,12 +67,12 @@ export class NavigationLoggedInComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
-    if(atleta.email == null){
+    let atleta:Usuario = <Usuario>JSON.parse(usuarioActivo);
+    if(atleta.correo == null){
       return;
     }
 
-    this.userService.cerrarSesion(atleta.email).subscribe(
+    this.userService.cerrarSesion(atleta.correo).subscribe(
       res=>{
         console.log('Cerrando sesion');
       },
@@ -93,4 +94,6 @@ export class NavigationLoggedInComponent implements OnInit {
  private ngOnDestroy(): void {
   clearInterval(this.intervalUpdate);
   }
+  
+  
 }

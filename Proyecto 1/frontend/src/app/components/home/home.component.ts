@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Atleta } from 'src/app/models/Atleta';
-import { UserService } from 'src/app/services/user-services/user.service';
-import { CouchService } from 'src/app/services/couch-services/couch.service';
-import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   };
   
-  constructor(private couchService:CouchService, private router:Router) { 
+  constructor(private router:Router) { 
     let usuarioActivo = localStorage.getItem('usuarioActivo');
      
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
@@ -30,5 +26,4 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

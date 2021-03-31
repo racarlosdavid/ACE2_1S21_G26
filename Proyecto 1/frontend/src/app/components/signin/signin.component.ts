@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Respuesta } from 'src/app/models/Respuesta';
-import { UserService } from 'src/app/services/user-services/user.service';
+import { RespuestaGeneral } from 'src/app/models/RespuestaGeneral';
+import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,10 +10,11 @@ import { UserService } from 'src/app/services/user-services/user.service';
 })
 export class SigninComponent implements OnInit {
 
-  public email:string='correo@gmail.com';
+
+  public email:string='bmoisesg@gmail.com';
   public password:string='admin';
 
-  constructor(private userService:UserService, private router:Router) { 
+  constructor(private userService:UsuarioService, private router:Router) { 
     let usuarioActivo = localStorage.getItem('usuarioActivo');
      
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
@@ -27,12 +28,12 @@ export class SigninComponent implements OnInit {
     if (this.comprobarCampos(this.email, this.password)) {
       this.userService.checkCredential(this.email, this.password).subscribe(
         res => {
-          let objRes = <Respuesta>res;
-          if(objRes.respuesta.length !=0){
+          //TODO la respuesta debe ser booleana no un string
+          if(res.respuesta == "true"){
             alert('Ingreso Exitoso');
-            localStorage.setItem('usuarioActivo', JSON.stringify(objRes.respuesta[0]));
-            localStorage.setItem('idAtletaGrafica', JSON.stringify(objRes.respuesta[0].iduser));
-            localStorage.setItem('nombreAtletaGrafica', JSON.stringify(objRes.respuesta[0].nombre+' '+objRes.respuesta[0].apellido));
+            localStorage.setItem('usuarioActivo', JSON.stringify(res.usuario));
+            localStorage.setItem('idAtletaGrafica', JSON.stringify(res.usuario.iduser));
+            localStorage.setItem('nombreAtletaGrafica', JSON.stringify(res.usuario.nombre+' '+res.usuario.apellido));
             this.router.navigate(['/user/profile']);
           }else{
             alert('Error al ingresar credenciales');
@@ -41,7 +42,7 @@ export class SigninComponent implements OnInit {
         },
         err => {
           //console.log(err);
-          console.log(err)
+          console.log(err.respuesta)
           return false;
         }
       );

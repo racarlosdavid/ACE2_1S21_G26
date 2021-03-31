@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UV_UDP_REUSEADDR } from 'constants';
-import { Atleta } from 'src/app/models/Atleta';
-import { Couch } from 'src/app/models/Couch';
-import { Respuesta } from 'src/app/models/Respuesta';
-import { UserService } from 'src/app/services/user-services/user.service';
-import { CouchService } from 'src/app/services/couch-services/couch.service';
+import { Usuario } from 'src/app/models/Usuario';
+import { CouchService } from 'src/app/services/couchServices/couch.service';
+import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,24 +10,30 @@ import { CouchService } from 'src/app/services/couch-services/couch.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  atleta:Atleta={
+
+  usuario:Usuario={
+    correo:'',
+    contrasena:'',
     nombre:'',
     apellido:'',
-    genero:'',
-    email:'',
-    contrasena:'',
-    edad:'',
-    peso_lb:'',
-    estatura_cm:'',
-    iduser_couch:null,
-    couch:''
-
+    edad:null,
+    genero:'',		//M o F
+    peso_lb:null,
+    estatura_cm:null,
+    estado_sesion:0,	//1 esta abierta sus sesion, 0 esta cerrada, al agregar dejarla como 0
+    estado_couch:0,	//1 couch  ;  0 atleta
+    iduser_couch:null,     ///cuando es couch, enviar un null, de lo contrario enviar el id del couch
+    veces_rendido:0,       //defecto
+    veces_fallado:0,
+    contadorTest:0
+    
   }
   lista:string[] = ['M', 'F'];
   listaCouch:string[] = ['Couch', 'Atleta'];
-  listaDeCouchs:Couch[] = [];
+  listaDeCouchs:Usuario[] = [];
+  rol ='';
 
-  constructor(private router:Router, private userService:UserService, private couchService:CouchService) {
+  constructor(private router:Router, private userService:UsuarioService, private couchService:CouchService) {
     this.listarCouchs();
     let usuarioActivo = localStorage.getItem('usuarioActivo');
     if((usuarioActivo==null  ||  usuarioActivo==undefined)){
@@ -38,12 +41,12 @@ export class ProfileComponent implements OnInit {
       console.log('lo intente');
       return;
     }
-    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
-    this.atleta = atleta;
-    if(this.atleta.couch == 1){
-      this.atleta.couch = 'Couch';
+    let usuario:Usuario = <Usuario>JSON.parse(usuarioActivo);
+    this.usuario = usuario;
+    if(this.usuario.estado_couch == 1){
+      this.rol = 'Couch';
     }else{
-      this.atleta.couch ='Atleta';
+      this.rol = 'Atleta';
     }
   }
 
@@ -51,39 +54,52 @@ export class ProfileComponent implements OnInit {
   }
 
   comprobarCampos():boolean{
-    if(this.atleta.apellido==''  ||   this.atleta.edad==''  ||  this.atleta.contrasena==''
-      ||this.atleta.email==''    ||   this.atleta.estatura_cm==''   ||   this.atleta.genero==''
-      ||this.atleta.nombre==''   ||   this.atleta.peso_lb==''){
+    if(this.usuario.apellido==''  ||   this.usuario.edad== 0  ||  this.usuario.contrasena==''
+      ||this.usuario.correo==''    ||   this.usuario.estatura_cm==0   ||   this.usuario.genero==''
+      ||this.usuario.nombre==''   ||   this.usuario.peso_lb==0){
       return false;
     }else{
       return true;
     }
   }
+  listarCouchs(){
+    this.couchService.getAllCouch().subscribe(
+      res=>{
+        this.listaDeCouchs = <Usuario[]>res;
+      },
+      err=>{
+        console.log('Error inesperado del servidor');
+      }
+    );
+  }
 
+
+//TODO hacer el actualizar datos y el actualizar el couch
   actualizar(){
-    
-    /*if(!this.comprobarCampos()){
+    /*
+    if(!this.comprobarCampos()){
       alert('Por favor llene todos los campos');
       return;
     }else {
-      if(this.atleta.iduser_couch == undefined){
-        this.atleta.iduser_couch =null;
+      if(this.usuario.iduser_couch == undefined){
+        this.usuario.iduser_couch =null;
       }
-      this.userService.updateAtleta(this.atleta).subscribe(
+      this.userService.updateAtleta(this.usuario).subscribe(
         res=>{
-          let objRes = <Respuesta>res;
-          alert(objRes.respuesta)
-          if(objRes.status == 'c:'){
+          if(res.affectedRows ==1){
+            alert('Usuario Modificado con exito');
+          }else{
             localStorage.removeItem('usuarioActivo');
             localStorage.setItem('usuarioActivo',JSON.stringify(this.atleta));
+            alert("No se pudo verificar el usuario");
           }
           //this.actualizarCouch();
         },err=>{
-          console.log('Error inesperado en la consulta con el servidor');
+          alert(err.respuesta);
         }
       ) 
-    }*/
-    
+    }
+    */
   }
 /*
   actualizarCouch(){
@@ -118,15 +134,4 @@ export class ProfileComponent implements OnInit {
     );
   }
 */
-  listarCouchs(){
-    this.couchService.listarCouchs().subscribe(
-      res=>{
-        let objRes:Respuesta = <Respuesta>res;
-        this.listaDeCouchs = objRes.respuesta;
-      },
-      err=>{
-        console.log('Error inesperado del servidor');
-      }
-    );
-  }
 }

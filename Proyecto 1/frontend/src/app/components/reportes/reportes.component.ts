@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
-import { Atleta } from 'src/app/models/Atleta';
-import { Respuesta } from 'src/app/models/Respuesta';
+import { Usuario } from 'src/app/models/Usuario';
+import { LecturaService } from 'src/app/services/lecturaServices/lectura.service';
 
 @Component({
   selector: 'app-reportes',
   templateUrl: './reportes.component.html',
   styleUrls: ['./reportes.component.css']
 })
+
+//TODO revisar que el tipo de dato de la respuesta sea dato y no t, d, r o cualquier otro valor... esa es una ruta que debe arreglar el moi... 
 export class ReportesComponent implements OnInit {
+
 
   objRes: any;
   tipoDato: string = ""
   dato: string = ""
-  atleta?:Atleta 
+  atleta?:Usuario 
   tipoReporte = document.querySelector<HTMLElement>('#tipoReporte')
   mostrarDato = document.querySelector<HTMLElement>('#dato')
   reporte: boolean = false;
@@ -29,7 +31,7 @@ export class ReportesComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-    this.atleta = <Atleta>JSON.parse(usuarioActivo);
+    this.atleta = <Usuario>JSON.parse(usuarioActivo);
     if(this.atleta.iduser == null){
       return;
     }
@@ -60,9 +62,9 @@ export class ReportesComponent implements OnInit {
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
         this.lecturaService.getHistorialMin(Number(this.idselected),this.tipoDato).subscribe((res) =>{
-          this.objRes = <Respuesta>res;
+          this.objRes = res;
           if(this.mostrarDato != undefined && this.mostrarDato != null){
-            this.mostrarDato.innerHTML = this.objRes.respuesta[0].min
+            this.mostrarDato.innerHTML = this.objRes.dato;
           }
           
         })
@@ -84,9 +86,9 @@ export class ReportesComponent implements OnInit {
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
         this.lecturaService.getHistorialMax(Number(this.idselected),this.tipoDato).subscribe((res) =>{
-          this.objRes = <Respuesta>res;
+          this.objRes = res;
           if(this.mostrarDato != undefined && this.mostrarDato != null){
-            this.mostrarDato.innerHTML = this.objRes.respuesta[0].max
+            this.mostrarDato.innerHTML = this.objRes.dato;
           }
           
         })
@@ -108,9 +110,9 @@ export class ReportesComponent implements OnInit {
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
         this.lecturaService.getHistorialProm(Number(this.idselected),this.tipoDato).subscribe((res) =>{
-          this.objRes = <Respuesta>res;
+          this.objRes = res;
           if(this.mostrarDato != undefined && this.mostrarDato != null){
-            this.mostrarDato.innerHTML = this.objRes.respuesta[0].avg
+            this.mostrarDato.innerHTML = this.objRes.dato;
           }
           
         })
@@ -121,5 +123,6 @@ export class ReportesComponent implements OnInit {
     }
 
   }
+
 
 }

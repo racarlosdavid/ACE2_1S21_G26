@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistorialComponent } from './historial.component';
 
@@ -6,12 +6,12 @@ describe('HistorialComponent', () => {
   let component: HistorialComponent;
   let fixture: ComponentFixture<HistorialComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
       declarations: [ HistorialComponent ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HistorialComponent);

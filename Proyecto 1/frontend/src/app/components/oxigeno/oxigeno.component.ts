@@ -1,13 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
-import { Observable } from 'rxjs';
-import { Atleta } from 'src/app/models/Atleta';
-import { Lectura } from 'src/app/models/Lectura';
-import { Respuesta } from 'src/app/models/Respuesta';
-import { UserService } from 'src/app/services/user-services/user.service';
-import { LecturaService } from 'src/app/services/lectura-services/lectura.service';
+import { RegistroHistorial } from 'src/app/models/RegistroHistorial';
+import { Usuario } from 'src/app/models/Usuario';
+import { LecturaService } from 'src/app/services/lecturaServices/lectura.service';
+import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
 
 @Component({
   selector: 'app-oxigeno',
@@ -29,10 +26,10 @@ export class OxigenoComponent implements OnInit {
   * The ChartJS Object
   * @var {any} chart
   */
-  public chart: any = null;
+  public chartOxigeno: any = null;
 
   
-  constructor(private router:Router, private userService:UserService, private lecturaService:LecturaService) { 
+  constructor(private router:Router, private userService:UsuarioService, private lecturaService:LecturaService) { 
     this.dateDay = new Date().toString().substring(16,25);
     this.nombreAtletaGrafica = localStorage.getItem('nombreAtletaGrafica');
   }
@@ -44,7 +41,7 @@ export class OxigenoComponent implements OnInit {
   */
   ngOnInit(): void {
 
-    this.chart = new Chart('realtime', {
+    this.chartOxigeno = new Chart('realtimeOxigeno', {
       type: 'line',
       data: {
        labels: [],
@@ -110,8 +107,8 @@ export class OxigenoComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-    let atleta:Atleta = <Atleta>JSON.parse(usuarioActivo);
-    if(atleta.iduser == null){
+    let usuario:Usuario = <Usuario>JSON.parse(usuarioActivo);
+    if(usuario.iduser == null){
       return;
     }
     //--------
@@ -126,44 +123,32 @@ export class OxigenoComponent implements OnInit {
     }
     //--------
     //this.lecturaService.getLecturaNow(atleta.iduser,'O').subscribe(
+      console.log(idAtletaGrafica);
     this.lecturaService.getLecturaNow(idAtletaGraficaN,'O').subscribe(
       res=>{
-        let objRes = <Respuesta> res;
-        let lecturaActual = <Lectura>objRes.respuesta[0];
+        let lecturaActual = <RegistroHistorial>res;
+        console.log(res);
 
-        if(lecturaActual == undefined){
+        if(lecturaActual == null ||  lecturaActual ==undefined) {
           console.log('No hay lecturas');
           return;
         }
 
-        if(this.chart.data.labels.length > 10) {
-          this.chart.data.labels.shift();
-          this.chart.data.datasets[0].data.shift();
+        if(this.chartOxigeno.data.labels.length > 10) {
+          this.chartOxigeno.data.labels.shift();
+          this.chartOxigeno.data.datasets[0].data.shift();
         }
         if(this.fechaAnterior != lecturaActual.fecha){
-          this.chart.data.labels.push(lecturaActual.fecha?.substring(0,10)+'\n'+this.dateDay);
+          this.chartOxigeno.data.labels.push(lecturaActual.fecha);
 				  //this.chart.data.labels.push(this.dateDay);
-          this.chart.data.datasets[0].data.push(lecturaActual.dato);
-				  this.chart.update();
-          //this.fechaAnterior = lecturaActual.fecha!=undefined?lecturaActual.fecha:'';
+          this.chartOxigeno.data.datasets[0].data.push(lecturaActual.dato);
+				  this.chartOxigeno.update();
         }
-        /*
-        //this.chart.data.labels = [];
-        //this.chart.data.data = [];
-        for(let lectura of lecturas){
-          this.chart.data.labels.push(lectura.fecha);
-          this.chart.data.data.push(lectura.dato);
 
-          //console.log(lectura.fecha)
-          //console.log(lectura.dato)
-        }
-        this.chart.update();
-        */
       },
       err=>{
-        console.log(err);
+        console.log(err.respuesta);
       }
     );
   }
-
 }

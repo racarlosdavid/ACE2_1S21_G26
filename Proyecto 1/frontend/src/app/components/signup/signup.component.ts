@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { createPublicKey } from 'crypto';
-import { $ } from 'protractor';
-import { Atleta } from 'src/app/models/Atleta';
-import { Respuesta } from 'src/app/models/Respuesta';
-import { UserService } from 'src/app/services/user-services/user.service';
+import { RespuestaInsertarActualizar } from 'src/app/models/RespuestaInsertarActualizar';
+import { Usuario } from 'src/app/models/Usuario';
+import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +11,9 @@ import { UserService } from 'src/app/services/user-services/user.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private userService:UserService, private router:Router) {
+  public rol='';
+
+  constructor(private userService:UsuarioService, private router:Router) {
     let usuarioActivo = localStorage.getItem('usuarioActivo');
      
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
@@ -21,18 +21,22 @@ export class SignupComponent implements OnInit {
     }
    }
 
-  atleta:Atleta={
+  usuario:Usuario={
+    correo:'',
+    contrasena:'',
     nombre:'',
     apellido:'',
-    genero:'',
-    email:'',
-    contrasena:'',
-    edad:'',
-    peso_lb:'',
-    estatura_cm:'',
-    iduser_couch:null,
-    couch:''
-
+    edad:null,
+    genero:'',		//M o F
+    peso_lb:null,
+    estatura_cm:null,
+    estado_sesion:0,	//1 esta abierta sus sesion, 0 esta cerrada, al agregar dejarla como 0
+    estado_couch:0,	//1 couch  ;  0 atleta
+    iduser_couch:null,     ///cuando es couch, enviar un null, de lo contrario enviar el id del couch
+    veces_rendido:0,       //defecto
+    veces_fallado:0,
+    contadorTest:0
+    
   }
   lista:string[] = ['M', 'F'];
   listaCouch:string[] = ['Couch', 'Atleta'];
@@ -60,9 +64,9 @@ export class SignupComponent implements OnInit {
   }
 
   comprobarCampos():boolean{
-    if(this.atleta.apellido==''  ||   this.atleta.edad==''  ||  this.atleta.contrasena==''
-      ||this.atleta.email==''    ||   this.atleta.estatura_cm==''   ||   this.atleta.genero==''
-      ||this.atleta.nombre==''   ||   this.atleta.peso_lb==''){
+    if(this.usuario.apellido==''  ||   this.usuario.edad==0  ||  this.usuario.contrasena==''
+      ||this.usuario.correo==''    ||   this.usuario.estatura_cm==0   ||   this.usuario.genero==''
+      ||this.usuario.nombre==''   ||   this.usuario.peso_lb==0){
       return false;
     }else{
       return true;
@@ -70,46 +74,48 @@ export class SignupComponent implements OnInit {
   }
 
   async verificarEmail():Promise<any>{
-    if(this.atleta.email == undefined){
+    if(this.usuario.correo == undefined){
       return false;
     }
-    await this.userService.checkEmail(this.atleta.email).subscribe(
+    await this.userService.checkEmail(this.usuario.correo).subscribe(
       res=>{
-        let objResCheck = <Respuesta>res
-        if(objResCheck.respuesta.length ==0){
-          return true;
-        }else{
+        if(res.respuesta == true){
           alert('El email ingresado ya esta asociado a una cuenta en el sistema.');
           return false;
+        }else{
+          return true;
         }
       },err=>{
-        console.log('Error inesperado en la consulta al servidor');
+        console.log(err.mensaje);
         return false;
       }
-      
     );
     return false;
   }
 
 
   registrarse(){
+    
     if(!this.comprobarCampos()){
       alert('Por favor llene todos los campos');
       return;
     }else if(this.verificarEmail()){
 
-      if(this.atleta.couch =='Atleta'){
-        this.atleta.couch = '0';
+      if(this.rol == 'Atleta'){
+        this.usuario.estado_couch = 0;
       }else{
-        this.atleta.couch = '1';
+        this.usuario.estado_couch = 1;
       }
-
-      this.userService.addUser(this.atleta).subscribe(
+      console.log(this.usuario);
+      this.userService.addUser(this.usuario).subscribe(
         res=>{
-          let objRes = <Respuesta>res;
-          alert(objRes.mensaje)
+          if((<RespuestaInsertarActualizar>res).affectedRows == 0){
+            alert('Hubo un problema al ingresar el usuario, intentelo nuevamente');
+          }else{
+            alert('Usuario ingresado correctamente');
+          }
         },err=>{
-          console.log('Error inesperado en la consulta con el servidor');
+          alert(err.respuesta);
         }
       ) 
     }else{

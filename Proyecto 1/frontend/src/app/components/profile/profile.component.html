@@ -4,39 +4,39 @@
     
     <div class="overlay py-5">
         <h1 class="text-center py-5" style="margin-bottom: 0px;">Perfil</h1>
-        <p style="color: white; text-align: center;">{{this.atleta.couch}}</p>
+        <p style="color: white; text-align: center;">{{this.rol}}</p>
     
         <div class="col-lg-7 col-md-10 col-11 mx-auto pb-5">
             <form class="formulario">
                 <div class="form-row row">
                     <!--Nombre-->
                     <div class="form-group col-md-6">
-                        <input [(ngModel)]='atleta.nombre' type="text" name="nombre" class="form-control" placeholder="Nombre">
+                        <input [(ngModel)]='usuario.nombre' type="text" name="nombre" class="form-control" placeholder="Nombre">
                     </div>
                     <!--Apellido-->
                     <div class="form-group col-md-6">
-                        <input [(ngModel)]='atleta.apellido' type="text" name="apellido" class="form-control" placeholder="Apellido">
+                        <input [(ngModel)]='usuario.apellido' type="text" name="apellido" class="form-control" placeholder="Apellido">
                     </div>
                 </div>
-
+                <div class="row" style="margin-bottom: 2%;"></div>
                 <div class="form-row row">
                     <!--Edad-->
                     <div class="form-group col-md-3">
-                        <input [(ngModel)]='atleta.edad' type="number" name="edad" class="form-control" placeholder="Edad">
+                        <input [(ngModel)]='usuario.edad' type="number" name="edad" class="form-control" placeholder="Edad">
                     </div>
                     <!--Genero-->
                     <div class="form-group col-md-3">
                         <div class="btn-group dropend">
                         <br/>
                             <label for="selectorGenero" style="color: white;">Genero:</label>
-                            <select name="selectorGenero" id="selectorGenero" [(ngModel)]="atleta.genero" >
-                                <option class="form-select form-select-lg mb-"  [disabled]="true" [value]="atleta.genero" *ngFor="let valor of lista">{{valor}}</option>
+                            <select name="selectorGenero" id="selectorGenero" [(ngModel)]="usuario.genero" >
+                                <option class="form-select form-select-lg mb-"  [disabled]="true" [value]="usuario.genero" *ngFor="let valor of lista">{{valor}}</option>
                             </select>
                         </div>
                         <div class="btn-group dropend">
                             <br/>
                                 <label for="selectorCouch" style="color: white;">Tipo:</label>
-                                <select name="selectorCouch" id="selectorCouch" [(ngModel)]="atleta.couch" >
+                                <select name="selectorCouch" id="selectorCouch" [(ngModel)]="rol" >
                                     <option class="form-select form-select-lg mb-"  [disabled]="true" [value]="valor" *ngFor="let valor of listaCouch">{{valor}}</option>
                                 </select>
                             </div>
@@ -44,30 +44,32 @@
                     
                     <!--Peso en libras-->
                     <div class="form-group col-md-3">
-                        <input [(ngModel)]='atleta.peso_lb' type="number" name="peso_lb" class="form-control" placeholder="Peso en libras">
+                        <input [(ngModel)]='usuario.peso_lb' type="number" name="peso_lb" class="form-control" placeholder="Peso en libras">
                     </div>
                     <!--Estaturea en cm-->
                     <div class="form-group col-md-3">
-                        <input [(ngModel)]='atleta.estatura_cm' type="number" name="estatura_cm" class="form-control" placeholder="Estatura en centimetros">
+                        <input [(ngModel)]='usuario.estatura_cm' type="number" name="estatura_cm" class="form-control" placeholder="Estatura en centimetros">
                     </div>
                 </div>
+                <div class="row" style="margin-bottom: 2%;"></div>
                 <div class="form-row row">
                     <!--Correo-->
                     <div class="form-group col-md-6">
-                        <input [(ngModel)]='atleta.email' type="email" name="email" class="form-control" placeholder="Email" [disabled]="true">
+                        <input [(ngModel)]='usuario.correo' type="email" name="email" class="form-control" placeholder="Email" [disabled]="true">
                     </div>
                     <!--Contraseña-->
                     <div class="form-group col-md-6">
-                        <input [(ngModel)]='atleta.contrasena' type="password" name="contrasena" class="form-control" placeholder="Contraseña">
+                        <input [(ngModel)]='usuario.contrasena' type="password" name="contrasena" class="form-control" placeholder="Contraseña">
                     </div>
                 </div>
+                <div class="row" style="margin-bottom: 2%;"></div>
                 <div class="form-row row">
                     <!--COUCH-->
                     <div class="form-group col-md-3">
                         <div class="btn-group dropend">
                         <br/>
                             <label style="margin-left: 5px;" for="selectorListaCouch" style="color: white;">Couch:</label>
-                            <select class="dropdown-menu show" name="selectorListaCouch" id="selectorListaCouch" [(ngModel)]="atleta.iduser_couch" >
+                            <select class="dropdown-menu show" name="selectorListaCouch" id="selectorListaCouch" [(ngModel)]="usuario.iduser_couch" >
                                 <option class="form-select form-select-lg mb-" [value]="null">Sin Entrenador</option>
                                 <option class="form-select form-select-lg mb-" [value]="valor.iduser" *ngFor="let valor of listaDeCouchs">{{valor.nombre}} {{valor.apellido}}</option>
                             </select>
@@ -75,7 +77,7 @@
                     </div>
                     <!--
                     <div class="form-group col-md-6">
-                        <input [(ngModel)]='atleta.iduser_couch' type="number" name="iduser_couch" class="form-control" placeholder="Id del couch">
+                        <input [(ngModel)]='usuario.iduser_couch' type="number" name="iduser_couch" class="form-control" placeholder="Id del couch">
                     </div>
                     -->
                 </div>
