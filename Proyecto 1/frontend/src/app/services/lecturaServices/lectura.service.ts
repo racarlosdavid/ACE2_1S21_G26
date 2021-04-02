@@ -51,15 +51,15 @@ export class LecturaService {
   }
 
   public getReportRepeticionesMax(iduser:number):Observable<RespuestaGeneral>{
-    return this.http.post(`${this.URL_API}/RepeticionesMax`,{iduser});
+    return this.http.post(`${this.URL_API}/reportRepeticionesMax`,{iduser});
   }
 
   public getReportRepeticionesMin(iduser:number):Observable<RespuestaGeneral>{
-    return this.http.post(`${this.URL_API}/RepeticionesMin`,{iduser});
+    return this.http.post(`${this.URL_API}/reportRepeticionesMin`,{iduser});
   }
 
   public getReportRepeticionesProm(iduser:number):Observable<RespuestaGeneral>{
-    return this.http.post(`${this.URL_API}/RepeticionesProm`,{iduser});
+    return this.http.post(`${this.URL_API}/reportRepeticionesProm`,{iduser});
   }
 
 }

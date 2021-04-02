@@ -27,7 +27,8 @@ export class DashboardPrincipalComponent implements OnInit {
   }
   historialDistanciaActual(){
     localStorage.setItem('tipoDato','D');
-    this.router.navigate(['historial']);
+    //this.router.navigate(['historial']);
+    this.router.navigate(['reportDistancia']);
   }
   reportesDistanciaAcumulada(){
     localStorage.setItem('tipoDato','DT');
@@ -36,7 +37,8 @@ export class DashboardPrincipalComponent implements OnInit {
 
   historialDistanciaAcumulada(){
     localStorage.setItem('tipoDato','DT');
-    this.router.navigate(['historial']);
+    //this.router.navigate(['historial']);
+    this.router.navigate(['reportDistancia']);
   }
   reportesTemperatura(){
     localStorage.setItem('tipoDato','T');
@@ -52,7 +54,8 @@ export class DashboardPrincipalComponent implements OnInit {
   }
   historialVelocidad(){
     localStorage.setItem('tipoDato','V');
-    this.router.navigate(['historial']);
+    //this.router.navigate(['historial']);
+    this.router.navigate(['reportVelocidad']);
   }
   reportesRepeticiones(){
     localStorage.setItem('tipoDato','RT');

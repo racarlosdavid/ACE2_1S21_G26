@@ -44,6 +44,9 @@ export class ReportesComponent implements OnInit {
     }else if(localStorage.getItem('tipoDato') == 'T'){
       this.tipoDato = 'T'
       this.dato = 'Temperatura'
+    }else if(localStorage.getItem('tipoDato') == 'RT'){
+      this.tipoDato = 'RT'
+      this.dato = 'Repeticiones'
     }else{
       return;
     }
@@ -61,13 +64,29 @@ export class ReportesComponent implements OnInit {
     if (this.tipoReporte != undefined && this.tipoReporte != null && this.idselected != undefined){
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
-        this.lecturaService.getHistorialMin(Number(this.idselected),this.tipoDato).subscribe((res) =>{
-          this.objRes = res;
-          if(this.mostrarDato != undefined && this.mostrarDato != null){
-            this.mostrarDato.innerHTML = this.objRes.dato;
-          }
-          
-        })
+
+        if(this.tipoDato == 'T' || this.tipoDato== 'R'){
+
+          this.lecturaService.getHistorialMin(Number(this.idselected),this.tipoDato).subscribe((res) =>{
+            this.objRes = res;
+            if(this.mostrarDato != undefined && this.mostrarDato != null){
+              if(this.tipoDato=='T'){
+                this.mostrarDato.innerHTML = this.objRes.t;
+              }else if (this.tipoDato=='R'){
+                this.mostrarDato.innerHTML = this.objRes.r;
+              }
+            }
+            
+          })
+        }else if(this.tipoDato == 'RT'){
+          this.lecturaService.getReportRepeticionesMin(Number(this.idselected)).subscribe(
+            res=>{
+              this.objRes = res;
+              this.mostrarDato.innerHTML = this.objRes.dato;
+            }
+          );
+        }
+
         if(this.dato == "Temperatura"){
           this.tipoReporte.innerHTML = this.dato + ' mínima'
         }else{
@@ -85,18 +104,35 @@ export class ReportesComponent implements OnInit {
     if (this.tipoReporte != undefined && this.tipoReporte != null && this.idselected != undefined){
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
-        this.lecturaService.getHistorialMax(Number(this.idselected),this.tipoDato).subscribe((res) =>{
-          this.objRes = res;
-          if(this.mostrarDato != undefined && this.mostrarDato != null){
-            this.mostrarDato.innerHTML = this.objRes.dato;
-          }
+
+        if(this.tipoDato == 'R'  || this.tipoDato == 'T'){
+          this.lecturaService.getHistorialMax(Number(this.idselected),this.tipoDato).subscribe((res) =>{
+            this.objRes = res;
+            if(this.mostrarDato != undefined && this.mostrarDato != null){
+              if(this.tipoDato=='T'){
+                this.mostrarDato.innerHTML = this.objRes.t;
+              }else if (this.tipoDato=='R'){
+                this.mostrarDato.innerHTML = this.objRes.r;
+              }
+              
+            }
+            
+          })
           
-        })
+        }else if(this.tipoDato == 'RT'){
+          this.lecturaService.getReportRepeticionesMax(Number(this.idselected)).subscribe(
+            res=>{
+              this.objRes = res;
+              this.mostrarDato.innerHTML = this.objRes.dato;
+            }
+          );
+        }
         if(this.dato == "Temperatura"){
           this.tipoReporte.innerHTML = this.dato + ' máxima'
         }else{
           this.tipoReporte.innerHTML = this.dato + ' máximo'
         }
+        
       }
       
       
@@ -109,13 +145,26 @@ export class ReportesComponent implements OnInit {
     if (this.tipoReporte != undefined && this.tipoReporte != null && this.idselected != undefined){
       //console.log(tipoReporte)
       if(localStorage.getItem('tipoDato') != null){
-        this.lecturaService.getHistorialProm(Number(this.idselected),this.tipoDato).subscribe((res) =>{
-          this.objRes = res;
-          if(this.mostrarDato != undefined && this.mostrarDato != null){
-            this.mostrarDato.innerHTML = this.objRes.dato;
-          }
-          
-        })
+
+        if(this.tipoDato == 'R' || this.tipoDato == 'T'){
+          this.lecturaService.getHistorialProm(Number(this.idselected),this.tipoDato).subscribe((res) =>{
+            this.objRes = res;
+            if(this.mostrarDato != undefined && this.mostrarDato != null){
+              this.mostrarDato.innerHTML = this.objRes.dato;
+            }
+            
+          })
+
+        }else if(this.tipoDato == 'RT'){
+          this.lecturaService.getReportRepeticionesProm(Number(this.idselected)).subscribe(
+            res=>{
+              this.objRes = res;
+              this.mostrarDato.innerHTML = this.objRes.dato;
+            }
+          );
+        }
+
+        
         this.tipoReporte.innerHTML = this.dato + ' Promedio'
       }
       
