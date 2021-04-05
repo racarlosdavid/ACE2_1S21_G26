@@ -6,6 +6,8 @@ import { RegistroReporteConteo } from 'src/app/models/RegistroReporteConteo';
 import { RegistroReporteDistancia } from 'src/app/models/RegistroReporteDistancia';
 import { RegistroReporteVelocidad } from 'src/app/models/RegistroReporteVelocidad';
 import { RespuestaGeneral } from 'src/app/models/RespuestaGeneral';
+import { ReporteFalloRendido} from '../../models/ReporteFalloRendido';
+import { CantFalloRendido} from '../../models/CantFalloRendido';
 import { URL } from '../URL';
 
 @Injectable({
@@ -62,4 +64,19 @@ export class LecturaService {
     return this.http.post(`${this.URL_API}/reportRepeticionesProm`,{iduser});
   }
 
+  public getReporteFallo(iduser:number):Observable<Object>{
+    return this.http.post(`${URL}/user/reporteFallo`,{iduser});
+  }
+
+  public getReporteRendido(iduser:number):Observable<Object>{
+    return this.http.post(`${URL}/user/reporteRindio`,{iduser});
+  }
+
+  public getReporteVecesFallo(iduser:number):Observable<Object>{
+    return this.http.post(`${URL}/user/vecesFallo`,{iduser});
+  }
+
+  public getReporteVecesRendido(iduser:number):Observable<Object>{
+    return this.http.post(`${URL}/user/vecesRendido`,{iduser});
+  }
 }

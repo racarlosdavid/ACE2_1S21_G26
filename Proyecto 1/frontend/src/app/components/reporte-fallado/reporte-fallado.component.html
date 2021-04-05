@@ -1,23 +1,20 @@
 <app-navigation-logged-in></app-navigation-logged-in>
-<!--
 <section id="crearCuenta" class="h-100 py-5">
     <img class="fondo" src="assets/Imagenes/fondo1.jpg">
     <div class="overlay py-5">
-        <h1 class="text-center mt-5">Reporte Fallos</h1>
+        <h1 class="text-center mt-5"></h1>
         <div class="container">
             <div class="row">
-
                 <div class="list-menu col">
-                    <a class="list-new-item">
-                        <h2>Contador</h2>
-                    </a>
-                    <a class="list-new-item" *ngFor='let list of contador'>
-                        <p>{{list}}</p>
+                    <a class="alineacion">
+                        <h2>veces que ha fallado: {{vecesFallo}}</h2>
                     </a>
                 </div>
+            </div>
+            <div class="row">
                 <div class="list-menu col">
-                    <a class="list-new-item" >
-                        <h2>Entrenamiento</h2>
+                    <a class="list-new-item">
+                        <h2>Id Test</h2>
                     </a>
                     <a class="list-new-item" *ngFor='let list of objRes'>
                         <p>{{list.idTest}}</p>
@@ -25,22 +22,13 @@
                 </div>
                 <div class="list-menu col">
                     <a class="list-new-item">
-                        <h2>Repeticiones</h2>
+                        <h2>#Repeticiones</h2>
                     </a>
                     <a class="list-new-item" *ngFor='let list of objRes'>
-                        <p>{{list.periodo}}</p>
-                    </a>
-                </div>
-                <div class="list-menu col">
-                    <a class="list-new-item">
-                        <h2>Estado</h2>
-                    </a>
-                    <a class="list-new-item" *ngFor='let list of estados'>
-                        <p>{{list}}</p>
+                        <p>{{list.repeticiones}}</p>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
--->

@@ -146,5 +146,19 @@ Boton
 }
 
 .list-menu .list-new-item:hover{
-    background: gray;
+    background: yellowgreen;
+}
+
+.alineacion {
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 15px;
+    border-radius: 5px;
+    width: 100%;
+    color:#fff;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+.alineacion:hover{
+    background: royalblue;
 }
