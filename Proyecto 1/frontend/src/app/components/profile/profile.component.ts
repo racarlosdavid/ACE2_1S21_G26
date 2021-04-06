@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RespuestaInsertarActualizar } from 'src/app/models/RespuestaInsertarActualizar';
 import { Usuario } from 'src/app/models/Usuario';
 import { CouchService } from 'src/app/services/couchServices/couch.service';
 import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
@@ -101,37 +102,18 @@ export class ProfileComponent implements OnInit {
     }
     */
   }
-/*
+
   actualizarCouch(){
+    console.log(this.usuario.iduser_couch);
     
-    if (this.atleta.email ==''  || this.atleta.email == undefined){
-      return;
-    }
-    if(this.atleta.iduser_couch == null || this.atleta.iduser_couch == undefined){
-      this.couchService.quitarCouch(this.atleta.email).subscribe(
-        res=>{
-          let objRes = <Respuesta>res;
-          alert(objRes.mensaje);
-          if(objRes.status == 'c:'){
-            localStorage.removeItem('usuarioActivo');
-            localStorage.setItem('usuarioActivo',JSON.stringify(this.atleta))
-          }
-        },
-        err=>{
-          console.log('Error inesperado en la consulta con el servidor al quitar el couch');
-        }
-      );
-      return;
-    }
-    this.couchService.asignarCouch(this.atleta.iduser_couch,this.atleta.email).subscribe(
+    this.couchService.asignarCouch(this.usuario.iduser_couch, this.usuario.iduser).subscribe(
       res=>{
-        let objRes = <Respuesta>res;
-        alert(objRes.mensaje);
+        alert("Cambio realizado exitosamente!")
       },
       err=>{
-        console.log('Error inesperado en la consulta con el servidor para añadir al couch');
+        alert("No se pudo cambiar el couch");
       }
     );
+    
   }
-*/
 }

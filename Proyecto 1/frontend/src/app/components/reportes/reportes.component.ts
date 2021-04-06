@@ -70,11 +70,12 @@ export class ReportesComponent implements OnInit {
           this.lecturaService.getHistorialMin(Number(this.idselected),this.tipoDato).subscribe((res) =>{
             this.objRes = res;
             if(this.mostrarDato != undefined && this.mostrarDato != null){
-              if(this.tipoDato=='T'){
+              /*if(this.tipoDato=='T'){
                 this.mostrarDato.innerHTML = this.objRes.t;
               }else if (this.tipoDato=='R'){
                 this.mostrarDato.innerHTML = this.objRes.r;
-              }
+              }*/
+              this.mostrarDato.innerHTML = this.objRes.dato;
             }
             
           })
@@ -109,11 +110,14 @@ export class ReportesComponent implements OnInit {
           this.lecturaService.getHistorialMax(Number(this.idselected),this.tipoDato).subscribe((res) =>{
             this.objRes = res;
             if(this.mostrarDato != undefined && this.mostrarDato != null){
+              /*
               if(this.tipoDato=='T'){
                 this.mostrarDato.innerHTML = this.objRes.t;
               }else if (this.tipoDato=='R'){
                 this.mostrarDato.innerHTML = this.objRes.r;
               }
+              */
+             this.mostrarDato.innerHTML = this.objRes.dato;
               
             }
             
