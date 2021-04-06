@@ -3,8 +3,62 @@
     <img class="fondo" src="assets/Imagenes/fondo1.jpg">
     <div class="overlay py-5">
         <h1 class="text-center mt-5">Conteo de repeticiones por fecha</h1>
-        <div id="" class="container">
-            
+        <div class="container">
+            <div class="row">
+                <div class="list-menu col">
+                    <a class="list-new-item" >
+                        <h2>Entrenamiento</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.idTest}}</p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item">
+                        <h2>Repeticiones</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p>{{list.periodo}}</p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item">
+                        <h2>Aprobado</h2>
+                    </a>
+                    <a class="list-new-item" *ngFor='let list of objRes'>
+                        <p *ngIf="list.periodo >= 21;else other_content">Sí</p>
+                        <ng-template #other_content>No</ng-template>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="list-menu col">
+                    <a class="list-new-item" >
+                        <h2>Promedio</h2>
+                    </a>
+                    <a class="list-new-item">
+                        <p id='promedio'></p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item" >
+                        <h2>Minimo Repeticiones</h2>
+                    </a>
+                    <a class="list-new-item">
+                        <p id='minimo'></p>
+                    </a>
+                </div>
+                <div class="list-menu col">
+                    <a class="list-new-item" >
+                        <h2>Máximo Repeticiones</h2>
+                    </a>
+                    <a class="list-new-item">
+                        <p id='maximo'></p>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
