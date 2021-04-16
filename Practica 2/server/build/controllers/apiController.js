@@ -44,28 +44,87 @@ var database_1 = __importDefault(require("../database"));
 var ApiController = /** @class */ (function () {
     function ApiController() {
     }
-    ApiController.prototype.index = function (req, res) {
+    ApiController.prototype.c_usuario_ingresar = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1;
+            var accion, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use mydb")];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("\n            INSERT into usuario (correo,contrasena,nombre,apellido,edad,genero,peso_lb,estatura_cm,estado_sesion,estado_couch,iduser_couch) VALUES   \n            (\"" + req.body.correo + "\", \n            \"" + req.body.contrasena + "\", \n            \"" + req.body.nombre + "\", \n            \"" + req.body.apellido + "\",\n            " + req.body.edad + ",\n            \"" + req.body.genero + "\",\n            " + req.body.peso_lb + ",\n            " + req.body.estatura_cm + ",\n            " + req.body.estado_sesion + ",\n            " + req.body.estado_couch + ",\n            " + req.body.iduser_couch + ")\n            ")];
                     case 1:
-                        accion1 = _a.sent();
-                        res.json({ text: 'Bienvenido!' });
-                        return [2 /*return*/];
+                        accion = _a.sent();
+                        res.send(accion);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        res.send({ respuesta: "error al ingresar usuario" });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    ApiController.prototype.consulta1 = function (req, res) {
+    ApiController.prototype.c_traer_todos = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion;
+            var accion, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("\n        select * cursos\n        ")];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("\n            select * from usuario\n            ")];
                     case 1:
                         accion = _a.sent();
+                        res.send(accion);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        res.send({ respuesta: "error al traer todos los usuarios" });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiController.prototype.c_login = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accion, accion1, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, database_1.default.query("\n            select * from usuario where correo=\"" + req.body.correo + "\" and contrasena=\"" + req.body.contrasena + "\"\n            ")];
+                    case 1:
+                        accion = _a.sent();
+                        if (!(accion.length != 0)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, database_1.default.query("update usuario set estado_sesion = '1' where correo=\"" + req.body.correo + "\" and contrasena=\"" + req.body.contrasena + "\" ")];
+                    case 2:
+                        accion1 = _a.sent();
+                        res.send({ respuesta: "true", usuario: accion[0] });
+                        return [2 /*return*/];
+                    case 3:
+                        res.send({ respuesta: "false" });
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_3 = _a.sent();
+                        res.send({ respuesta: "no se pudo verificar las credenciales" });
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiController.prototype.incrementar = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accion, accion2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, database_1.default.query("\n        update usuario set idtest = idtest +1  where iduser=" + req.body.iduser + "\n        ")];
+                    case 1:
+                        accion = _a.sent();
+                        return [4 /*yield*/, database_1.default.query("\n        insert into reporte (id_user,id_test,fecha,hora) values(\n            " + req.body.iduser + ",\n            (select idtest from usuario where iduser=" + req.body.iduser + "),\n            " + req.body.fecha + ",\n            " + req.body.hora + "\n        )\n        ")];
+                    case 2:
+                        accion2 = _a.sent();
                         res.json({ text: accion });
                         return [2 /*return*/];
                 }

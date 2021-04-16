@@ -7,18 +7,19 @@ class ApiRoutes_lectura {
     }
     config(): void {
         this.router.post('/', apiController_lectura.insertar)
-        this.router.post('/historial', apiController_lectura.historial)
-        this.router.post('/max', apiController_lectura.historialMaximo)
-        this.router.post('/min', apiController_lectura.historialMinimo)
-        this.router.post('/avg', apiController_lectura.historialPromedio)
         this.router.post('/now', apiController_lectura.now)
-        this.router.post('/reportVelocidad', apiController_lectura.reporteVelocidad)
-        this.router.post('/reportDistanci',apiController_lectura.distanciamedida_repeticion)
-        this.router.post('/reportConteo',apiController_lectura.reporteConteRepeticiones)
-        this.router.post('/reportRepeticionesMax',apiController_lectura.reporteMax)
-        this.router.post('/reportRepeticionesMin',apiController_lectura.reporteMin)
-        this.router.post('/reportRepeticionesProm', apiController_lectura.reporteProm)
-    
+        this.router.get('/delete', apiController_lectura.deleteAll)
+        this.router.post('/exhalamin', apiController_lectura.exhalamin)
+        this.router.post('/exhalamax', apiController_lectura.exhalamax)
+        this.router.post('/exhalaavg', apiController_lectura.exhalaavg)
+        this.router.post('/inhalamin', apiController_lectura.inhalamin)
+        this.router.post('/inhalamax', apiController_lectura.inhalamax)
+        this.router.post('/inhalaavg', apiController_lectura.inhalaavg)
+        this.router.post('/test', apiController_lectura.test)
+        this.router.post('/grafica', apiController_lectura.grafica)
+        
+        
+        
     }
 }
 const apiRoutes_lectura = new ApiRoutes_lectura();

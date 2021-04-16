@@ -6,10 +6,10 @@ class ApiRoutes_couch {
         this.config();
     }
     config(): void {
-        this.router.get('/',apiController_couch.getTodos);
+        this.router.get('/', apiController_couch.getTodos);
         this.router.post('/', apiController_couch.asignarCouch)
         this.router.post('/team', apiController_couch.team)
-    
+
     }
 }
 const apiRoutes_couch = new ApiRoutes_couch();

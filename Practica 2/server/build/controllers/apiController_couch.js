@@ -39,39 +39,75 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.apiController = void 0;
+exports.apiController_couch = void 0;
 var database_1 = __importDefault(require("../database"));
-var ApiController = /** @class */ (function () {
-    function ApiController() {
+var ApiController_couch = /** @class */ (function () {
+    function ApiController_couch() {
     }
-    ApiController.prototype.index = function (req, res) {
+    ApiController_couch.prototype.getTodos = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var accion1;
+            var accion, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("use mydb")];
-                    case 1:
-                        accion1 = _a.sent();
-                        res.json({ text: 'Bienvenido!' });
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ApiController.prototype.consulta1 = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var accion;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.query("\n        select * cursos\n        ")];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("\n            select * from usuario where estado_couch=1\n            ")];
                     case 1:
                         accion = _a.sent();
-                        res.json({ text: accion });
-                        return [2 /*return*/];
+                        res.send(accion);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        res.send({ respuesta: "error al traer todos los couch" });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    return ApiController;
+    ApiController_couch.prototype.asignarCouch = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accion, x, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("\n            update usuario set iduser_couch = '" + req.body.iduser_couch + "' where iduser=\"" + req.body.iduser + "\"\n            ")];
+                    case 1:
+                        accion = _a.sent();
+                        x = accion;
+                        res.send(x);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        res.send({ respuesta: "error al asignar un couch a un usuario" });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiController_couch.prototype.team = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accion, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, database_1.default.query("\n            select * from usuario where iduser_couch=\"" + req.body.iduser_couch + "\"\n            ")];
+                    case 1:
+                        accion = _a.sent();
+                        res.send(accion);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        res.send({ respuesta: "error al retornar el team de un entrenador" });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return ApiController_couch;
 }());
-exports.apiController = new ApiController();
+exports.apiController_couch = new ApiController_couch();
