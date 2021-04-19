@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             JSONObject paramObject = new JSONObject();
-            paramObject.put("correo", name);
-            paramObject.put("contrasena",password);
-            //paramObject.put("correo", "bmoisesg@gmail.com");
-            //paramObject.put("contrasena","admin");
+            //paramObject.put("correo", name);
+            //paramObject.put("contrasena",password);
+            paramObject.put("correo", "bmoisesg@gmail.com");
+            paramObject.put("contrasena","admin");
             System.out.println(">> Enviando JSON: "+paramObject.toString());
 
             Call<Respuesta> call= json.verificarCredenciales(paramObject.toString());
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 "Cuanta mayor cantidad de oxígeno logremos transportar a los músculos por minuto, " +
                 "mejor rendimiento tendremos. Por todo ello, el VO2 Max o Consumo Máximo de " +
                 "Oxígeno es un gran pronosticador del éxito de pruebas de resistencia.\n\n" +
-                "Debes ingresar a tu usuario para guardar tu informacion \n\n Ate: Grupo26 USAC ARQUI2 ");
+                "Debes ingresar a tu usuario para guardar tu informacion \nAntes empezar recordar que se debe actualizar el peso del atleta para tener un mejor reporte del VO2max\n\n Ate: Grupo26 USAC ARQUI2 ");
         builder.setPositiveButton("Aceptar", null);
         AlertDialog dialog = builder.create();
         dialog.show();

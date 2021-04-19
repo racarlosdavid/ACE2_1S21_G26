@@ -69,6 +69,12 @@ public class SegundoActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
 
+
+    //variable para calcular el vo2 max
+    int volMax=0;
+    int volMax_tmp=0;
+    boolean flag_vol=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -128,9 +134,63 @@ public class SegundoActivity extends AppCompatActivity {
         dialog.show();
         progressBar.setProgress(0);
     }
+    public void enviar_vo2(){
+
+        //consumir post para ingresar
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.ENDPOINT)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api json = retrofit.create(Api.class);
+
+        try {
+            //creando json
+            JSONObject paramObject = new JSONObject();
+            paramObject.put("iduser", txt_id.getText().toString());
+            paramObject.put("dato",volMax+volMax_tmp);
+
+            System.out.println(">> enviando: "+paramObject.toString());
+            Call<Object> call= json.setVo2(paramObject.toString());
+            call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+
+                    if (!response.isSuccessful()) {
+                        System.out.println("Error, codigo " + response.code());
+                        return;
+                    }
+
+                    System.out.println("RECIBI ALGOO -------------");
+                    System.out.println(response.toString());
+                    System.out.println("-------------------------");
+
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+                    System.out.println("ERROR -------------------------");
+                    System.out.println(t.getMessage());
+                    //mensaje.setText("ERROR, revisar estado conexion internet");
+                }
+
+            });
+
+        } catch (JSONException e) {
+
+        }
+
+
+    }
 
     public void btn_inciar(View view){
+        volMax=0;
+        volMax_tmp=0;
+        flag_vol= true;
+
         System.out.println("hola! ejecutare el setprogress");
+        enviar_data_start_test();
         label_porcentaje.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         boton_start.setVisibility(View.INVISIBLE);
@@ -159,6 +219,7 @@ public class SegundoActivity extends AppCompatActivity {
                                 label_porcentaje.setText("0%");
                                 sw_enviar.setChecked(false) ;
                                 boton_start.setVisibility(View.VISIBLE);
+                                enviar_vo2();
                             }
 
 
@@ -318,6 +379,24 @@ public class SegundoActivity extends AppCompatActivity {
 
         n2.setText(lista[1].replace(" ",""));
         n1.setText(lista[0].replace(" ",""));
+        //estas condiciones revisara los picos de cuando inahala para que las vaya sumando
+        int numero_inhala= Integer.valueOf(n1.getText().toString());
+        //int numero_exhala= Integer.valueOf(n2.getText().toString());
+
+
+        if (numero_inhala==0){
+            if (flag_vol){
+                flag_vol=false;
+                volMax+=volMax_tmp;
+                volMax_tmp=0;
+            }
+        }else{
+            flag_vol=true;
+            if (numero_inhala>volMax_tmp){
+                volMax_tmp= numero_inhala;
+            }
+        }
+
 
 
         if (sw_enviar.isChecked()){
@@ -326,8 +405,61 @@ public class SegundoActivity extends AppCompatActivity {
             String fecha= sdf.format(new Date());
             String hora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
             System.out.println("enviando dato...");
-            //enviarlectura(txt_id.getText().toString(),fecha,hora );
+            enviarlectura(txt_id.getText().toString(),fecha,hora );
         }
+
+    }
+    void enviar_data_start_test(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        String fecha= sdf.format(new Date());
+        String hora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.ENDPOINT)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api json = retrofit.create(Api.class);
+
+        try {
+            //creando json
+            JSONObject paramObject = new JSONObject();
+            paramObject.put("iduser", txt_id.getText().toString());
+            paramObject.put("fecha",fecha);
+            paramObject.put("hora",hora);
+
+            System.out.println(">> enviando: "+paramObject.toString());
+            Call<Object> call= json.setIniciarTest(paramObject.toString());
+            call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+
+                    if (!response.isSuccessful()) {
+                        System.out.println("Error, codigo " + response.code());
+                        return;
+                    }
+
+                    System.out.println("RECIBI ALGOO -------------");
+                    System.out.println(response.toString());
+                    System.out.println("-------------------------");
+
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+                    System.out.println("ERROR -------------------------");
+                    System.out.println(t.getMessage());
+                    //mensaje.setText("ERROR, revisar estado conexion internet");
+                }
+
+            });
+
+        } catch (JSONException e) {
+
+        }
+
+
 
     }
     void limpiaretiquetas(){
