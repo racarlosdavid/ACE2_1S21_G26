@@ -17,6 +17,8 @@ class ApiRoutes_lectura {
         this.router.post('/inhalaavg', apiController_lectura.inhalaavg)
         this.router.post('/test', apiController_lectura.test)
         this.router.post('/grafica', apiController_lectura.grafica)
+        this.router.post('/vo2/add', apiController_lectura.insertar_vo2);
+        this.router.post('/vo2', apiController_lectura.get_vo2);
         
         
         

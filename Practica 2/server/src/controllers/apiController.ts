@@ -64,8 +64,8 @@ class ApiController {
         insert into reporte (id_user,id_test,fecha,hora) values(
             ${req.body.iduser},
             (select idtest from usuario where iduser=${req.body.iduser}),
-            ${req.body.fecha},
-            ${req.body.hora}
+            "${req.body.fecha}",
+            "${req.body.hora}"
         )
         `);
         

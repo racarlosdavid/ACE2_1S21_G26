@@ -88,6 +88,23 @@ class ApiController_lectura {
         `)
         res.json(accion)
     }
+    public async insertar_vo2(req: Request, res: Response){
+        let accion = await pool.query(`
+        insert into vo2(iduser,idtest,dato) values(
+            ${req.body.iduser}
+            ,(select idtest from usuario where iduser= ${req.body.iduser} )
+            ,(( ${req.body.dato}*1000 ) / 5 ) / 
+            ((select peso_lb from usuario  where iduser= ${req.body.iduser}) * 0.453592) 
+            )
+        `)
+        res.json({respuesta : "dato insertado"})
+    }
+    public async get_vo2(req: Request, res: Response){
+        let accion = await pool.query(`
+        select idtest,dato from vo2 where iduser=${req.body.iduser}
+        `)
+        res.send(accion)
+    }
 
 }
 export const apiController_lectura = new ApiController_lectura();
