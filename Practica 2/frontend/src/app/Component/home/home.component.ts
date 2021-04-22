@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service'
 
 @Component({
@@ -8,14 +9,17 @@ import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private userService:UsuarioService) { }
+  constructor(private userService:UsuarioService, private router:Router) { 
+    let usuarioActivo = localStorage.getItem('usuarioActivo');
+     
+    if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
+      router.navigate(['/user/profile']);
+    }
+
+  }
 
   ngOnInit(): void {
   }
 
-  probar(){
-    this.userService.getUsers().subscribe((res) =>{
-      console.log(res)
-    })
-  }
+ 
 }

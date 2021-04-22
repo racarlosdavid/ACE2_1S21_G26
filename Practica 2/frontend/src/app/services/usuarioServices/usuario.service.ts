@@ -4,6 +4,7 @@ import { RespuestaGeneral } from 'src/app/models/respuesta-general'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { RespuestaInsertarActualizar } from 'src/app/models/respuesta-insertar-actualizar'
+import { URL_API } from '../URL';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { RespuestaInsertarActualizar } from 'src/app/models/respuesta-insertar-a
 })
 export class UsuarioService {
 
-  URL = 'http://35.209.151.29:4000/user';
+  URL = URL_API+'/user';
 
   constructor(private http:HttpClient) { }
 

@@ -7,18 +7,26 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './Component/home/home.component';
 import { NavigationComponent } from './Component/navigation/navigation.component';
+import { NavigationSesionComponent } from './Component/navigation-sesion/navigation-sesion.component';
+import { IniciarSesionComponent } from './Component/iniciar-sesion/iniciar-sesion.component';
+import { RegistrarseComponent } from './Component/registrarse/registrarse.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavigationComponent
+    NavigationComponent,
+    NavigationSesionComponent,
+    IniciarSesionComponent,
+    RegistrarseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule, 
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
