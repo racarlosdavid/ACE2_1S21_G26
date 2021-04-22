@@ -36,6 +36,9 @@ export class LecturaService {
   public getInhalaAvg(iduser:number):Observable<RegistroLectura[]|RespuestaGeneral>{
     return this.http.post(`${this.URL}/inhalaavg`,{iduser});
   }
+  public getVo2Max(iduser:number):Observable<RegistroLectura[]|RespuestaGeneral>{
+    return this.http.post(`${this.URL}/vo2`,{iduser});
+  }
   public getTest(iduser:number):Observable<RegistroTest[]|RespuestaGeneral>{
     return this.http.post(`${this.URL}/test`,{iduser});
   }
