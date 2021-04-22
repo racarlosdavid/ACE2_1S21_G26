@@ -11,6 +11,7 @@ import { NavigationSesionComponent } from './Component/navigation-sesion/navigat
 import { IniciarSesionComponent } from './Component/iniciar-sesion/iniciar-sesion.component';
 import { RegistrarseComponent } from './Component/registrarse/registrarse.component';
 import { FormsModule } from '@angular/forms';
+import { HistorialComponent } from './Component/historial/historial.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     NavigationComponent,
     NavigationSesionComponent,
     IniciarSesionComponent,
-    RegistrarseComponent
+    RegistrarseComponent,
+    HistorialComponent
   ],
   imports: [
     BrowserModule,

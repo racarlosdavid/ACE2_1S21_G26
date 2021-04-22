@@ -1,0 +1,62 @@
+<app-navigation-sesion></app-navigation-sesion>
+<section id="home">
+    <img src="assets/Imagenes/fondoHome.jpg">
+    
+    <div class="overlay py-5">
+        <div class="container">
+            <div class="home-text">
+                <h1>Historial de pruebas</h1>
+            </div>
+        
+        </div>
+        <div class="form-group" wfd-id="291">
+            <select class="custom-select" wfd-id="292" id='selectElementId'(change)='selectTest($event.target.value)'>
+            <option selected="">Seleccione</option>
+            </select>
+        </div>
+        <div class="text-center">
+            <h4 id='fechaTest'></h4>
+        </div>
+            
+        <div class='container'>
+            <table class="table table-striped table-dark">
+            <thead>
+                <tr class="table-dark">
+                <th scope="col">TIPO</th>
+                <th scope="col">DATO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">Volumen máximo exhalado</th>
+                <td id='vmaxE'></td>
+                </tr>
+                <tr>
+                <th scope="row">Volumen mínimo exhalado</th>
+                <td id='vminE'></td>
+                </tr>
+                <tr>
+                <th scope="row">Volumen máximo inhalado</th>
+                <td id='vmaxI'></td>
+                </tr>
+                <tr>
+                <th scope="row">Volumen mínimo inhalado</th>
+                <td id='vminI'></td>
+                </tr>
+                <tr>
+                <th scope="row">Promedio de volumen exhalado</th>
+                <td id='avgE'></td>
+                </tr>
+                <tr>
+                <th scope="row">Promedio de volumen inhalado</th>
+                <td id='avgI'></td>
+                </tr>
+                <tr>
+                <th scope="row">Medición final de vo2 max</th>
+                <td id='vo2max'></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+  </div> 
+</section>
