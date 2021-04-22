@@ -12,6 +12,7 @@ import { IniciarSesionComponent } from './Component/iniciar-sesion/iniciar-sesio
 import { RegistrarseComponent } from './Component/registrarse/registrarse.component';
 import { FormsModule } from '@angular/forms';
 import { HistorialComponent } from './Component/historial/historial.component';
+import { GraphestaticaComponent } from './Component/graphestatica/graphestatica.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HistorialComponent } from './Component/historial/historial.component';
     NavigationSesionComponent,
     IniciarSesionComponent,
     RegistrarseComponent,
-    HistorialComponent
+    HistorialComponent,
+    GraphestaticaComponent
   ],
   imports: [
     BrowserModule,
