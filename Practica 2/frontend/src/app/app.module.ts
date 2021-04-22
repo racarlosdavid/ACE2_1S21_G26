@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { RealTimeComponent } from './Component/real-time/real-time.component';
 import { PanelRealTimeComponent } from './Component/panel-real-time/panel-real-time.component';
 import { HistorialComponent } from './Component/historial/historial.component';
+import { GraphestaticaComponent } from './Component/graphestatica/graphestatica.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HistorialComponent } from './Component/historial/historial.component';
     RegistrarseComponent,
     RealTimeComponent,
     PanelRealTimeComponent,
-    HistorialComponent
+    HistorialComponent,
+    GraphestaticaComponent
   ],
   imports: [
     BrowserModule,

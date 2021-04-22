@@ -125,7 +125,7 @@ export class RealTimeComponent implements OnInit {
           this.chartRespiracion.data.datasets[0].data.shift();
         }
         if(this.horaAnterior != lecturaActual.hora){
-          //this.horaAnterior = lecturaActual.hora;
+          this.horaAnterior = lecturaActual.hora;
           this.chartRespiracion.data.labels.push(lecturaActual.hora);
           if(lecturaActual.inhala==0)
           {
