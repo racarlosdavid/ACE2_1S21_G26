@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import{ HttpClientModule } from '@angular/common/http'
+import{ HttpClientModule, HttpClient } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,8 @@ import { NavigationSesionComponent } from './Component/navigation-sesion/navigat
 import { IniciarSesionComponent } from './Component/iniciar-sesion/iniciar-sesion.component';
 import { RegistrarseComponent } from './Component/registrarse/registrarse.component';
 import { FormsModule } from '@angular/forms';
+import { RealTimeComponent } from './Component/real-time/real-time.component';
+import { PanelRealTimeComponent } from './Component/panel-real-time/panel-real-time.component';
 import { HistorialComponent } from './Component/historial/historial.component';
 
 @NgModule({
@@ -21,6 +23,8 @@ import { HistorialComponent } from './Component/historial/historial.component';
     NavigationSesionComponent,
     IniciarSesionComponent,
     RegistrarseComponent,
+    RealTimeComponent,
+    PanelRealTimeComponent,
     HistorialComponent
   ],
   imports: [

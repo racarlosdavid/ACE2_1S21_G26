@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './Component/home/home.component'
 import { IniciarSesionComponent } from './Component/iniciar-sesion/iniciar-sesion.component';
 import { HistorialComponent } from './Component/historial/historial.component'
+import { PanelRealTimeComponent } from './Component/panel-real-time/panel-real-time.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path:'iniciarSesion',
     component: IniciarSesionComponent
+  },
+  {
+    path:'realTime',
+    component: PanelRealTimeComponent
   },
   {
     path:'historial',

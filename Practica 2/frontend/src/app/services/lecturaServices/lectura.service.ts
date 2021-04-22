@@ -17,7 +17,7 @@ export class LecturaService {
   constructor(private http:HttpClient) { }
 
   public getLecturaNow(iduser:number):Observable<RegistroNow|RespuestaGeneral>{
-    return this.http.post(`${this.URL}/now`,{iduser});
+    return this.http.post(`${this.URL}/now`,{iduser:iduser});
   }
 
   public getExhalaMax(iduser:number):Observable<RegistroLectura[]|RespuestaGeneral>{
