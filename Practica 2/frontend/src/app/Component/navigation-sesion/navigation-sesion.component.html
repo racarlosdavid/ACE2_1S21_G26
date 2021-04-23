@@ -8,12 +8,17 @@
       <div class="collapse navbar-collapse" id="navbarColor02" wfd-id="450">
         <ul class="navbar-nav ml-auto" wfd-id="452">
           <li class="nav-item active" wfd-id="458">
-            <a class="nav-link" href="#">Historial
+            <a class="nav-link" routerLink='/historial'>Historial
+              <span class="sr-only" wfd-id="459">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active" wfd-id="458">
+            <a class="nav-link" routerLink='/realTime' >Real Time
               <span class="sr-only" wfd-id="459">(current)</span>
             </a>
           </li>
           <li class="nav-item" wfd-id="457">
-            <a class="nav-link" href="#">Cerrar Sesion</a>
+            <a class="nav-link" (click)='cerrarSesion()'>Cerrar Sesion</a>
           </li>
         </ul>
       </div>

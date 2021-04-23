@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RespuestaInsertarActualizar } from 'src/app/models/respuesta-insertar-actualizar';
-import { Usuario } from 'src/app/models/Usuario';
+import { Usuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
 
 
