@@ -30,4 +30,8 @@ export class UsuarioService {
   public checkCredential(correo:string, contrasena:string):Observable<RespuestaGeneral>{
     return this.http.post(`${this.URL}/checkCredential`,{correo,contrasena});
   }
+
+  public checkEmail():Promise<any>{
+    return  this.http.get(`${this.URL}`).toPromise();
+  }
 }
