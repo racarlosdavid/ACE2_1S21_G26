@@ -19,7 +19,7 @@ export class RegistrarseComponent implements OnInit {
     let usuarioActivo = localStorage.getItem('usuarioActivo');
      
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
-      router.navigate(['/user/profile']);
+      router.navigate(['/historial']);
     }
    }
 

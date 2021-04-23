@@ -12,8 +12,11 @@ import { ActivatedRoute, Params,Router } from '@angular/router';
 export class HistorialComponent implements OnInit {
 
   Res: any
+  iduser: number
 
-  constructor(private lectura:LecturaService, private router:Router,private activatedR: ActivatedRoute) { }
+  constructor(private lectura:LecturaService, private router:Router,private activatedR: ActivatedRoute) {
+    this.iduser = Number(localStorage.getItem('idAtletaGrafica'))
+   }
 
   ngOnInit(): void {
     this.cargarTests()
@@ -31,7 +34,7 @@ export class HistorialComponent implements OnInit {
   cargarTests(){
     let select = document.getElementById('selectElementId')
     if(select != undefined){
-      this.lectura.getTest(1).subscribe((res) =>{
+      this.lectura.getTest(this.iduser).subscribe((res) =>{
         this.Res = <RegistroTest[]>res
         console.log(res)
         for(let item of this.Res){
@@ -57,7 +60,7 @@ export class HistorialComponent implements OnInit {
   }
   showDatos(idtest:String){
     //carga fecha
-    this.lectura.getTest(1).subscribe((res) =>{
+    this.lectura.getTest(this.iduser).subscribe((res) =>{
       this.Res = <RegistroTest[]>res
       for(let item of this.Res){
         if(item.idtest == Number(idtest)){
@@ -67,7 +70,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga máximo exhalado
-    this.lectura.getExhalaMax(1).subscribe((res) =>{
+    this.lectura.getExhalaMax(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){
@@ -77,7 +80,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga mínimo exhalado
-    this.lectura.getExhalaMin(1).subscribe((res) =>{
+    this.lectura.getExhalaMin(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){
@@ -87,7 +90,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga máximo inhalado
-    this.lectura.getInhalaMax(1).subscribe((res) =>{
+    this.lectura.getInhalaMax(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){
@@ -97,7 +100,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga mínimo inhalado
-    this.lectura.getInhalaMin(1).subscribe((res) =>{
+    this.lectura.getInhalaMin(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){
@@ -107,7 +110,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga promedio exhalado
-    this.lectura.getExhalaAvg(1).subscribe((res) =>{
+    this.lectura.getExhalaAvg(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){
@@ -117,7 +120,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga promedio inhalado
-    this.lectura.getInhalaAvg(1).subscribe((res) =>{
+    this.lectura.getInhalaAvg(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){
@@ -127,7 +130,7 @@ export class HistorialComponent implements OnInit {
       }
     })
     //carga vo2 max
-    this.lectura.getVo2Max(1).subscribe((res) =>{
+    this.lectura.getVo2Max(this.iduser).subscribe((res) =>{
       let Res = <RegistroLectura[]>res
       for(let item of Res){
         if(item.idtest == Number(idtest)){

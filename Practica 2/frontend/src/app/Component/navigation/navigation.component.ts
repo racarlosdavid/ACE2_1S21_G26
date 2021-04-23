@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import 'bootstrap';
 
 @Component({
@@ -8,7 +9,14 @@ import 'bootstrap';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { 
+
+    let usuarioActivo = localStorage.getItem('usuarioActivo');
+      if(!(usuarioActivo == null  ||  usuarioActivo==undefined)){
+        this.router.navigate(['/historial']);
+        return;
+      }
+  }
 
   ngOnInit(): void {
   }

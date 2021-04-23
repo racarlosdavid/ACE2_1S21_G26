@@ -18,7 +18,7 @@ export class IniciarSesionComponent implements OnInit {
     let usuarioActivo = localStorage.getItem('usuarioActivo');
      
     if(!(usuarioActivo==null  ||  usuarioActivo==undefined)){
-      router.navigate(['/user/profile']);
+      router.navigate(['/historial']);
     }
     
   }
@@ -34,7 +34,7 @@ export class IniciarSesionComponent implements OnInit {
             localStorage.setItem('usuarioActivo', JSON.stringify(res.usuario));
             localStorage.setItem('idAtletaGrafica', JSON.stringify(res.usuario.iduser));
             localStorage.setItem('nombreAtletaGrafica', JSON.stringify(res.usuario.nombre+' '+res.usuario.apellido));
-            this.router.navigate(['/user/profile']);
+            this.router.navigate(['/historial']);
           }else{
             alert('Error al ingresar credenciales');
           }
