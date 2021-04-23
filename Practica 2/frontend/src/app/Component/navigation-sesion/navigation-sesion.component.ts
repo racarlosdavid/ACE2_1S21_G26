@@ -8,7 +8,13 @@ import { Router } from '@angular/router';
 })
 export class NavigationSesionComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router) {
+    let usuarioActivo = localStorage.getItem('usuarioActivo');
+    if((usuarioActivo == null  ||  usuarioActivo==undefined)){
+      this.router.navigate(['']);
+      return;
+    }
+   }
 
   ngOnInit(): void {
   }
