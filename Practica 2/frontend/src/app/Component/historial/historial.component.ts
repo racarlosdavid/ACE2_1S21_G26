@@ -13,9 +13,11 @@ export class HistorialComponent implements OnInit {
 
   Res: any
   iduser: number
+  username:String
 
   constructor(private lectura:LecturaService, private router:Router,private activatedR: ActivatedRoute) {
     this.iduser = Number(localStorage.getItem('idAtletaGrafica'))
+    this.username = localStorage.getItem('nombreAtletaGrafica')
    }
 
   ngOnInit(): void {
@@ -75,7 +77,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let vmaxE = document.getElementById('vmaxE')
-          vmaxE.innerHTML = String(item.dato)
+          vmaxE.innerHTML = String(item.dato + ' [L/s]')
         }
       }
     })
@@ -85,7 +87,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let vminE = document.getElementById('vminE')
-          vminE.innerHTML = String(item.dato)
+          vminE.innerHTML = String(item.dato + ' [L/s]')
         }
       }
     })
@@ -95,7 +97,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let vmaxI = document.getElementById('vmaxI')
-          vmaxI.innerHTML = String(item.dato)
+          vmaxI.innerHTML = String(item.dato + ' [L/s]')
         }
       }
     })
@@ -105,7 +107,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let vminI = document.getElementById('vminI')
-          vminI.innerHTML = String(item.dato)
+          vminI.innerHTML = String(item.dato + ' [L/s]')
         }
       }
     })
@@ -115,7 +117,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let avgE = document.getElementById('avgE')
-        avgE.innerHTML = String(item.dato)
+        avgE.innerHTML = String(item.dato + ' [L/s]')
         }
       }
     })
@@ -125,7 +127,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let avgI = document.getElementById('avgI')
-          avgI.innerHTML = String(item.dato)
+          avgI.innerHTML = String(item.dato + ' [L/s]')
         }
       }
     })
@@ -135,7 +137,7 @@ export class HistorialComponent implements OnInit {
       for(let item of Res){
         if(item.idtest == Number(idtest)){
           let vo2max = document.getElementById('vo2max')
-          vo2max.innerHTML = String(item.dato)
+          vo2max.innerHTML = String(item.dato + ' [ml/min/kg]')
         }
       }
     })

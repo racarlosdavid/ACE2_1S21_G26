@@ -11,13 +11,16 @@ import { LecturaService } from 'src/app/services/lecturaServices/lectura.service
 })
 export class GraphestaticaComponent implements OnInit {
 
+  iduser:number
    /**
    * The ChartJS Object
    * @var {any} chart
    */
    public chartEstatica: Chart;
 
-  constructor(private router:Router,private lectura:LecturaService,private activatedR: ActivatedRoute) {}
+  constructor(private router:Router,private lectura:LecturaService,private activatedR: ActivatedRoute) {
+    this.iduser = Number(localStorage.getItem('idAtletaGrafica'))
+  }
 
   ngOnInit(): void {
     this.crearGrafica()
@@ -77,7 +80,7 @@ export class GraphestaticaComponent implements OnInit {
 
   private showData(idtest:String): void{
     this.removeData()
-    this.lectura.getLecturaGrafica(1).subscribe((res) =>{
+    this.lectura.getLecturaGrafica(this.iduser).subscribe((res) =>{
       let Res = <RegistroNow[]>res
       //console.log(Res)
       for(let item of Res){
