@@ -36,7 +36,7 @@ export class RealTimeComponent implements OnInit {
   constructor(private router:Router, private userService:UsuarioService, private lecturaService:LecturaService) { 
     this.usuarioActivo = <Usuario>JSON.parse(localStorage.getItem('usuarioActivo'));
     if((this.usuarioActivo==null  ||  this.usuarioActivo==undefined)){
-      router.navigate(['home']);
+      router.navigate(['']);
       return;
     }
     this.nombreAtletaGrafica = this.usuarioActivo.nombre+' '+this.usuarioActivo.apellido;
