@@ -1,0 +1,30 @@
+<app-navigation></app-navigation>
+<section id="home" >
+    <img src="https://thenewmexicanpromotions.com/wp-content/uploads/2020/07/entrenamiento-boxeo.jpg">
+    
+    <div class="overlay py-5">
+        <h1 class="text-center py-5">Log In</h1>
+    
+        <div class="col-lg-7 col-md-10 col-11 mx-auto pb-5">
+            <form class="formulario">
+                <div class="form-row row">
+                    <!--Nombre-->
+                    <div class="col" style="margin-top: 5%;">
+                        <div class="form-group">
+                            <input [(ngModel)]="email" name="email" type="email" class="form-control" id="txtEmail" placeholder="Email" >
+                        </div>
+                    </div>
+                    <!--Apellido-->
+                    <div class="col" style="margin-top: 5%;">
+                        <div class="form-group ">
+                            <input [(ngModel)]="password" name="password" type="password" class="form-control"  id="txtPassword" placeholder="Contraseña" >
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <ul class="section-btn text-center">
+                <a (click)='iniciarSesion()'><span data-hover="Log In">Log In</span></a>
+            </ul>
+        </div>
+    </div>
+</section>
