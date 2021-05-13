@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             JSONObject paramObject = new JSONObject();
-            //paramObject.put("correo", name);
-            //paramObject.put("contrasena",password);
-            paramObject.put("correo", "bmoisesg@gmail.com");
-            paramObject.put("contrasena","admin");
+            paramObject.put("correo", name);
+            paramObject.put("contrasena",password);
+            //paramObject.put("correo", "bmoisesg@gmail.com");
+            //paramObject.put("contrasena","admin");
             System.out.println(">> Enviando JSON: "+paramObject.toString());
 
             Call<Respuesta> call= json.verificarCredenciales(paramObject.toString());

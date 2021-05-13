@@ -71,8 +71,8 @@ public class SegundoActivity extends AppCompatActivity {
 
 
     //variable para calcular el vo2 max
-    int volMax=0;
-    int volMax_tmp=0;
+    double volMax=0;
+    double volMax_tmp=0;
     boolean flag_vol=true;
 
     @Override
@@ -380,7 +380,7 @@ public class SegundoActivity extends AppCompatActivity {
         n2.setText(lista[1].replace(" ",""));
         n1.setText(lista[0].replace(" ",""));
         //estas condiciones revisara los picos de cuando inahala para que las vaya sumando
-        int numero_inhala= Integer.valueOf(n1.getText().toString());
+        double numero_inhala= Double.valueOf(n1.getText().toString());
         //int numero_exhala= Integer.valueOf(n2.getText().toString());
 
 
