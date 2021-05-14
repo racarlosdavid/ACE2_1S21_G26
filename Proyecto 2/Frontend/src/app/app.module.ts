@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { RegistrarseComponent } from './components/registrarse/registrarse.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { NavigationSesionComponent } from './components/navigation-sesion/navigation-sesion.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
     HomeComponent,
     NavigationComponent,
     RegistrarseComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    PerfilComponent,
+    NavigationSesionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RespuestaGeneral } from 'src/app/models/respuesta-general';
 import { RespuestaInsertarActualizar } from 'src/app/models/respuesta-insertar-actualizar';
 import { Usuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuarioServices/usuario.service';
@@ -22,7 +23,7 @@ export class RegistrarseComponent implements OnInit {
   }
 
   usuario:Usuario={
-    idtest:0,
+    id_test_contador:0,
     correo:'',
     contrasena:'',
     nombre:'',
@@ -96,7 +97,7 @@ export class RegistrarseComponent implements OnInit {
         //}
         this.userService.addUser(this.usuario).subscribe(
           res=>{
-            if((<RespuestaInsertarActualizar>res).affectedRows == 0){
+            if((<RespuestaGeneral>res).affectedRows == 0){
               alert('Hubo un problema al ingresar el usuario, intentelo nuevamente');
             }else{
               alert('Usuario ingresado correctamente');

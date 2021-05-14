@@ -11,5 +11,5 @@ export interface Usuario {
     estado_sesion:number|null;	//1 esta abierta sus sesion, 0 esta cerrada, al agregar dejarla como 0
     estado_couch:number|null;	//1 couch  ;  0 atleta
     iduser_couch:number|null; 
-    idtest:number|null;
+    id_test_contador:number|null;
 }
