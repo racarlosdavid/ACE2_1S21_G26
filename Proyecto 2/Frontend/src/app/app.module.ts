@@ -22,6 +22,7 @@ import { TemporizadorComponent } from './components/temporizador/temporizador.co
 import { ContadorGolpesComponent } from './components/contador-golpes/contador-golpes.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component';
+import { GraphestaticaComponent } from './components/graphestatica/graphestatica.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DashboardPrincipalComponent } from './components/dashboard-principal/da
     ContadorGolpesComponent,
     NavigationSesionComponent,
     ReportesComponent,
-    DashboardPrincipalComponent
+    DashboardPrincipalComponent,
+    GraphestaticaComponent
   ],
   imports: [
     BrowserModule,

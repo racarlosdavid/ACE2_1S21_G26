@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Lectura } from 'src/app/models/lectura';
 import { Test } from 'src/app/models/test';
+import { textChangeRangeIsUnchanged } from 'typescript';
 
 @Injectable({
   providedIn: 'root'
@@ -38,10 +39,13 @@ export class LecturaService {
   public getAvgAll(opcion:string, iduser:string):Observable<Lectura>{
     return this.http.post<Lectura>(`${this.URL}/avgAll`,{opcion:opcion,iduser:iduser});
   }
-  public getReporteTest(iduser:string):Observable<Test[]>{
+  public getReporteTest(iduser:number):Observable<Test[]>{
     return this.http.post<Test[]>(`${this.URL}/reporteTest`,{iduser:iduser})
   }
   public getGolpes(opcion:string, iduser:string):Observable<Lectura>{
     return this.http.post<Lectura>(`${this.URL}/golpes`,{opcion:opcion,iduser:iduser})
+  }
+  public getLecturaGrafica(iduser:number):Observable<LecturaNow[]>{
+    return this.http.post<LecturaNow[]>(`${this.URL}/grafica`,{iduser:iduser})
   }
 }

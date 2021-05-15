@@ -13,7 +13,8 @@ const routes: Routes = [
   { path:'registrarse', component: RegistrarseComponent },
   { path:'principal', component: DashboardPrincipalComponent},
   { path:'perfil', component: PerfilComponent},
-  { path:'reportes', component: ReportesComponent }
+  { path:'reportes', component: ReportesComponent },
+  { path:'reportes/:idtest', component: ReportesComponent }
 ];
 
 @NgModule({
