@@ -12,6 +12,14 @@ import { RegistrarseComponent } from './components/registrarse/registrarse.compo
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { NavigationSesionComponent } from './components/navigation-sesion/navigation-sesion.component';
+import { TemperaturaComponent } from './components/temperatura/temperatura.component';
+import { RitmoComponent } from './components/ritmo/ritmo.component';
+import { FuerzaComponent } from './components/fuerza/fuerza.component';
+import { UsuarioService } from './services/usuarioServices/usuario.service';
+import { LecturaService } from './services/lecturaServices/lectura.service';
+import { CoachService } from './services/coachServices/coach.service';
+import { TemporizadorComponent } from './components/temporizador/temporizador.component';
+import { ContadorGolpesComponent } from './components/contador-golpes/contador-golpes.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 
 @NgModule({
@@ -23,6 +31,12 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     IniciarSesionComponent,
     PerfilComponent,
     NavigationSesionComponent,
+    TemperaturaComponent,
+    RitmoComponent,
+    FuerzaComponent,
+    TemporizadorComponent,
+    ContadorGolpesComponent,
+    NavigationSesionComponent,
     ReportesComponent
   ],
   imports: [
@@ -32,7 +46,13 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    UsuarioService,
+    CoachService,
+    LecturaService
+
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
