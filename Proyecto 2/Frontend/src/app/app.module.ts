@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import{ HttpClientModule, HttpClient } from '@angular/common/http'
@@ -21,6 +21,7 @@ import { CoachService } from './services/coachServices/coach.service';
 import { TemporizadorComponent } from './components/temporizador/temporizador.component';
 import { ContadorGolpesComponent } from './components/contador-golpes/contador-golpes.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { DashboardPrincipalComponent } from './components/dashboard-principal/dashboard-principal.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     TemporizadorComponent,
     ContadorGolpesComponent,
     NavigationSesionComponent,
-    ReportesComponent
+    ReportesComponent,
+    DashboardPrincipalComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,6 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 
     
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
