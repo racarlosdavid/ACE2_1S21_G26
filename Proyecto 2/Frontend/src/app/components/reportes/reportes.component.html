@@ -1,0 +1,102 @@
+<app-navigation-sesion></app-navigation-sesion>
+<section id="home">
+    <img src="https://thenewmexicanpromotions.com/wp-content/uploads/2020/07/entrenamiento-boxeo.jpg">
+    <div class="overlay py-5">
+        <div class="container">
+            <div class="home-text">
+                <h1>Reporte de pruebas</h1>
+            </div>
+        </div>
+        <div class="dSelect form-group py-5">
+            <fieldset>
+                <label class="form-label mt-4 text-white" for="readOnlyInput" wfd-id="308">Seleccione una prueba</label>
+                <select class="custom-select" wfd-id="292" id='selectElementId'(change)='selectTest($event.target.value)'>
+                <option selected="">Seleccione</option>
+                </select>
+            </fieldset>
+        </div>
+        <div class="contenedor">
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTemperatura" aria-expanded="false" aria-controls="collapseExample">
+                  Temperatura
+                </button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRitmo" aria-expanded="false" aria-controls="collapseRitmo">
+                    Ritmo cardiaco
+                </button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFuerza" aria-expanded="false" aria-controls="collapseFuerza">
+                    Fuerza en golpe
+                </button>
+            </p>
+            <!--Temperatura-->
+            <div class="collapse" id="collapseTemperatura">
+                <div class="card card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Mínimo</th>
+                            <th scope="col">Máximo</th>
+                            <th scope="col">Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-active">
+                                <th scope="row">Temperatura</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Ritmo cardiaco-->
+            <div class="collapse" id="collapseRitmo">
+                <div class="card card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Mínimo</th>
+                            <th scope="col">Máximo</th>
+                            <th scope="col">Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-active">
+                                <th scope="row">Ritmo cardiaco</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Fuerza en golpe-->
+            <div class="collapse" id="collapseFuerza">
+                <div class="card card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Mínimo</th>
+                            <th scope="col">Máximo</th>
+                            <th scope="col">Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-active">
+                                <th scope="row">Fuerza en golpe</th>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                                <td>Column content</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>

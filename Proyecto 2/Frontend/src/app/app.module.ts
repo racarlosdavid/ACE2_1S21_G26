@@ -12,6 +12,7 @@ import { RegistrarseComponent } from './components/registrarse/registrarse.compo
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { NavigationSesionComponent } from './components/navigation-sesion/navigation-sesion.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavigationSesionComponent } from './components/navigation-sesion/naviga
     RegistrarseComponent,
     IniciarSesionComponent,
     PerfilComponent,
-    NavigationSesionComponent
+    NavigationSesionComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,
