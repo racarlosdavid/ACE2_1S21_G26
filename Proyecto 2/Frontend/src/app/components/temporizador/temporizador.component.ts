@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemporizadorComponent implements OnInit {
 
+  tiempo:string='05:00';
   constructor() { }
 
   ngOnInit(): void {

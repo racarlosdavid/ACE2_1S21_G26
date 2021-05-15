@@ -42,7 +42,7 @@ export class FuerzaComponent implements OnInit {
   */
   ngOnInit(): void {
 
-    this.chartTemp = new Chart('realtimeTemp', {
+    this.chartTemp = new Chart('realtimeFuerza', {
       type: 'line',
       data: {
        labels: [],
