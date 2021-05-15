@@ -19,7 +19,7 @@ export class UsuarioService {
   public getUsers():Observable<Usuario[]>{
     return this.http.get<Usuario[]>(`${this.URL}`);
   }
-  public updateUser(nuevo:ActualizarUser):Observable<RespuestaGeneral>{
+  public updateUser(nuevo:Usuario):Observable<RespuestaGeneral>{
     return this.http.post(`${this.URL}/actualizar`,{iduser:nuevo.iduser, contrasena:nuevo.contrasena, edad:nuevo.edad,
       peso_lb:nuevo.peso_lb, estatura_cm:nuevo.estatura_cm});
   }

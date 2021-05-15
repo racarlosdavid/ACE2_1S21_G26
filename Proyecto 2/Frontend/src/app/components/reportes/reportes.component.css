@@ -1,16 +1,24 @@
-  
-#crearCuenta{
+/*-----------------
+GENERAL
+------------------*/
+#info,footer{
+    background: #fff;
+}
+
+/*------------------
+HOME
+-------------------*/
+#home{
+    display: flex;
     align-items: center;
     height: 100vh;
-    width: 100vw;
     position: relative;
 
 }
 
-#crearCuenta .fondo{
-    margin-top: 150px;
-    position:fixed;
-    top: 20%;
+#home img{
+    position: fixed;
+    top: 50%;
     left: 50%;
     min-height: 100%;
     min-width: 100%;
@@ -25,54 +33,40 @@
     transition: 1s oposity;
 }
 
-#crearCuenta .overlay{
+#home .overlay{
     position:fixed;
-    top: 7%;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
     height: 100%;
+    background-size: cover;
+    object-fit: cover;
+    box-sizing: border-box;
     background-color: rgba(0,0,0,0.75);
     overflow-y: scroll;
-    overflow-x: hidden;
 }
-
-#crearCuenta h1{
-    padding-top: 100px;
+#crearCuenta h2,h4{
+    padding-top: 20px;
     color: #fff;
     text-transform: uppercase;
 }
-
-#carouselExampleControls{
-    justify-content: center;
-    align-items: center;
-}
-.carousel-item{
-
-    justify-content: center;
-    align-items: center;
+#home h1{
+    color: #fff;
+    font-size: 7vw;
+    line-height: 1.2em;
 }
 
-img{
-    display: block;
-    margin: 10px auto;
+
+#home p{
+    color: rgba(250,250,250, 0.7);
 }
 
-.temperatura{
-    height: 300px;
-    width:300px;
+#home .home-text{
+    z-index: 59;
 }
 
-.heart-rate{
-    height: 300px;
-    width:380px;
-}
-
-.oxygen{
-    height: 300px;
-    width:300px;
-}
 
 /*----------------
 Boton
@@ -97,7 +91,7 @@ Boton
     font-weight: normal;
     letter-spacing: 0.5px;
     padding: 2px 27px;
-    background: #626768;
+    background: #4dc47d;
     border-radius: 1px;
     transition: transform 0.3s;
     transform-origin: 50% 0;
@@ -128,25 +122,21 @@ Boton
     transform: rotateX(90deg) translateY(-22px);
 }
 
-.list-menu{
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-
+.alinear{
+    display: inline-block;
+    margin-left: 2px;
 }
-
-.list-menu .list-new-item{
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    border-radius: 5px;
-    width: 100%;
-    color:#fff;
-    margin-bottom: 5px;
-    text-decoration: none;
-
+#home .dSelect{
+    width: 300px;
+    margin-right: 150px;
+    float: right;
 }
-
-.list-menu .list-new-item:hover{
-    background: gray;
+#home .contenedor{
+    padding-left: 150px;
+    padding-top: 175px;
+    width: 90%;
+}
+#home .contenedor button{
+    background-color: #666270;
+    border-color: #2E1873;
 }

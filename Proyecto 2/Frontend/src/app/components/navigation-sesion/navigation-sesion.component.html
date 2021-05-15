@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top fixed-top bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">BOXING</a>
+      <a class="navbar-brand" [routerLink]="['/perfil']">BOXING</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" wfd-id="654">
         <span class="navbar-toggler-icon" wfd-id="460"></span>
       </button>
@@ -16,6 +16,13 @@
             <a class="nav-link" routerLink='' >Real Time
               <span class="sr-only" wfd-id="459">(current)</span>
             </a>
+          </li>
+          <li class="nav-item dropdown" wfd-id="452">
+            <a class="nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" [routerLink]="['/reportes']">Reportes por test</a>
+              <a class="dropdown-item" href="#">Reporte general</a>
+            </div>
           </li>
           <li class="nav-item" wfd-id="457">
             <a class="nav-link" (click)='cerrarSesion()'>Cerrar Sesion</a>
