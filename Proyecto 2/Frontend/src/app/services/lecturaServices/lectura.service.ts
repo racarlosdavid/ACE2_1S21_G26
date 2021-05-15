@@ -15,7 +15,7 @@ export class LecturaService {
 
   constructor(private http:HttpClient) { }
 
-  public getNow(iduser:string):Observable<LecturaNow>{
+  public getNow(iduser:number):Observable<LecturaNow>{
     return this.http.post<LecturaNow>(`${this.URL}/now`,{iduser:iduser});
   }
   //Reportes por test
